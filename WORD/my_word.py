@@ -1,6 +1,9 @@
+import os.path
+
 from docx import Document
 
-from config import dictory
+from Contact import Contact
+from config import TEMPLATES_DIR
 
 
 def replace_docx_text(document, old_text, new_text):
@@ -54,17 +57,17 @@ def docx_replace_regex(doc_obj, old_text: str, new_text: str):
                 docx_replace_regex(cell, old_text, new_text)
 
 
-def create_docx(contact):
-    document = Document(f"./input/{contact['docx_template']}")
+def create_docx(contact: Contact):
+    document = Document(docx=str(os.path.join(TEMPLATES_DIR, contact['docx_template'])))
     # Gender Пол
     gender_text = 'прошел'
-    if contact['Gender'].lower().lower() in ['ж', 'f']:
+    if contact.Gender.lower() in ('ж', 'f'):
         gender_text = 'прошла'
     replace_docx_text(document, old_text='Gender', new_text=gender_text)
 
-    replace_docx_text(document, old_text='Year', new_text=contact['Year'])
+    replace_docx_text(document, old_text='Year', new_text=contact.Year)
     # Замена всех полей
-    for k, v in dictory.items():
-        replace_docx_text(document, old_text=k, new_text=contact[k])
-    # print(k,v)
-    document.save(contact['file_out_docx'])
+    for k, v in vars(contact).items():
+        replace_docx_text(document, old_text=k, new_text=v)
+
+    document.save(contact.file_out_docx)

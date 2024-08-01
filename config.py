@@ -1,5 +1,13 @@
+import os
+
 from dotenv import dotenv_values
 
+OUT_DIR = 'output'
+
+os.makedirs(f'./{OUT_DIR}/pdf', exist_ok=True)
+os.makedirs(f'./{OUT_DIR}/docx', exist_ok=True)
+
+TEMPLATES_DIR = './templates'
 
 LOG_FILE = './log.txt'
 
