@@ -21,28 +21,26 @@ config = dotenv_values('.env')
 EMAIL_LOGIN = config['EMAIL_LOGIN']
 EMAIL_PASSWORD = config['EMAIL_PASSWORD']
 
-
 # ---------- EXCEL --------------
 # FILE_XLSX = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/Нумерация с 2015 года.xlsx'
 FILE_XLSX = './data/templates/Нумерация с 2015 года.xlsx'
 PAGE_NAME = '2015'
 
-
-class dictory:
-    def init(self):
-        self.Number: str = 'A'
-        self.CourseDateRus: str = 'B'
-        self.IssueDateRus: str = 'C'
-        self.CourseDateEng: str = 'D'
-        self.AbrCourse: str = 'E'
-        self.NameRus: str = 'H'
-        self.NameEng: str = 'I'
-        self.Email: str = 'J'
-        self.Gender: str = 'K'
-        self.CourseRus: str = 'AC'
-        self.CourseEng: str = 'AD'
-        self.HoursRus: str = 'AE'
-        self.HoursEng: str = 'AF'
+dictory = {
+    'Number': 'A',
+    'CourseDateRus': 'B',
+    'IssueDateRus': 'C',
+    'CourseDateEng': 'D',
+    'AbrCourse': 'E',
+    'NameRus': 'H',
+    'NameEng': 'I',
+    'Email': 'J',
+    'Gender': 'K',
+    'CourseRus': 'AC',
+    'CourseEng': 'AD',
+    'HoursRus': 'AE',
+    'HoursEng': 'AF',
+}
 
 # --------- TEMPLATES ----------
 # Файлы  Подтверждений

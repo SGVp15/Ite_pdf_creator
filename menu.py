@@ -29,7 +29,10 @@ class Menu:
     def __init__(self):
         self.need_send_email = False
 
-    def get_rows(self):
+    def get_rows(self, numbers):
+        if numbers:
+            self.numbers = numbers
+            return
         while True:
             print(f'Введите номера строк.\n'
                   f'(Пример: 10-20, 100)')
@@ -43,7 +46,10 @@ class Menu:
                     self.numbers = numbers
                     break
 
-    def get_templates(self):
+    def get_templates(self, templates):
+        if templates:
+            self.templates = templates
+            return
         while True:
             print(f'\nВыберите шаблон:\n'
                   f'(Пример: 1-2, 5)')

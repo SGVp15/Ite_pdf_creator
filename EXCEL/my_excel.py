@@ -8,9 +8,9 @@ from config import PAGE_NAME, FILE_XLSX, dictory, confirm_docx, print_docx, OUT_
 from utils.translit import replace_month_to_number
 
 
-def read_excel(excel, column, row, key):
+def read_excel(excel, column, row):
     sheet_ranges = excel[PAGE_NAME]
-    return {key: clean_str(str(sheet_ranges[f'{column}{row}'].value))}
+    return clean_str(str(sheet_ranges[f'{column}{row}'].value))
 
 
 def clean_str(s):
@@ -30,9 +30,28 @@ def get_contact_from_excel(rows_excel, templates_docx) -> [Contact]:
     for template in templates_docx:
 
         for i in rows_excel:
-            for k, v in vars(dictory).items():
-                excel = read_excel(file_excel, column=v, row=i, key=k)
-            contact = Contact(excel)
+            excel = {}
+            for k, v in dictory.items():
+                try:
+                    excel[k] = read_excel(file_excel, column=v, row=i)
+                except ValueError:
+                    pass
+            contact = Contact(
+                Number=excel['Number'],
+                CourseDateRus=excel['CourseDateRus'],
+                IssueDateRus=excel['IssueDateRus'],
+                CourseDateEng=excel['CourseDateEng'],
+                AbrCourse=excel['AbrCourse'],
+                NameRus=excel['NameRus'],
+                NameEng=excel['NameEng'],
+                Email=excel['Email'],
+                Gender=excel['Gender'],
+                CourseRus=excel['CourseRus'],
+                CourseEng=excel['CourseEng'],
+                HoursRus=excel['HoursRus'],
+                HoursEng=excel['HoursEng'],
+            )
+
             contact.docx_template = template
 
             for _path in ('pdf', 'docx'):
@@ -41,6 +60,12 @@ def get_contact_from_excel(rows_excel, templates_docx) -> [Contact]:
 
             # Создаем Объекты по курсам
             contact.Year = re.findall(r'\d{4}', contact.CourseDateRus)[-1]  # замена года выдачи
+
+            # папка по курсам и датам
+            dir_name = f"{contact.AbrCourse}_{contact.CourseDateRus[:-3]}"
+            dir_name = dir_name.replace('.', ' ')
+            dir_name = dir_name.replace(' ', '')
+            contact.dir_name = replace_month_to_number(dir_name)
 
             # Удост_MPT_15_октября_2021_Гейнце_Павел_32970_aaa@yandex.ru.pdf
             cert_docx = 'Удост'

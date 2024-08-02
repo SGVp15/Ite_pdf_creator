@@ -24,8 +24,8 @@ from utils.zip import create_zip
 
 def main():
     menu = Menu()
-    menu.get_rows()
-    menu.get_templates()
+    menu.get_rows([120,])
+    menu.get_templates([2,])
     # menu.is_need_send_email()
 
     print('Читаю .XLSX ...', end='')
@@ -61,7 +61,8 @@ def main():
 
 
 if __name__ == '__main__':
-    try:
-        main()
-    except Exception as e:
-        logging.error(e, exc_info=True)
+    # try:
+    main()
+    # except Exception as e:
+    #     print(e)
+        # logging..error(e, exc_info=True)
