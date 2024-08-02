@@ -36,7 +36,7 @@ def get_contact_from_excel(rows_excel, templates_docx) -> [Contact]:
             contact.docx_template = template
 
             for _path in ('pdf', 'docx'):
-                path_folder = os.path.join(OUT_DIR, _path, dir_name)
+                path_folder = os.path.join(OUT_DIR, _path, contact.dir_name)
                 os.makedirs(path_folder, exist_ok=True)
 
             # Создаем Объекты по курсам
