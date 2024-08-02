@@ -27,15 +27,15 @@ def get_contact_from_excel(rows_excel, templates_docx) -> [Contact]:
     filename = FILE_XLSX
     file_excel = load_workbook(filename=filename, read_only=True, data_only=True)
     contacts = []
-
-    excel = {}
+    from_excel = {}
     for i in rows_excel:
-        excel = {}
+        from_excel = {}
         for k, v in dictory.items():
-            excel[k] = read_excel(file_excel, column=v, row=i)
+            from_excel[k] = read_excel(file_excel, column=v, row=i)
+    file_excel.close()
 
     for template in templates_docx:
-        contact = Contact(excel)
+        contact = Contact(from_excel)
 
         contact.docx_template = template
 

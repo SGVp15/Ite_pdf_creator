@@ -5,19 +5,19 @@ from utils.translit import replace_month_to_number
 
 class Contact:
     def __init__(self, excel):
-        self.Number = excel['Number']
-        self.CourseDateRus = excel['CourseDateRus']
-        self.IssueDateRus = excel['IssueDateRus']
-        self.CourseDateEng = excel['CourseDateEng']
-        self.AbrCourse = excel['AbrCourse']
-        self.NameRus = excel['NameRus']
-        self.NameEng = excel['NameEng']
-        self.Email = excel['Email']
-        self.Gender = excel['Gender']
-        self.CourseRus = excel['CourseRus']
-        self.CourseEng = excel['CourseEng']
-        self.HoursRus = excel['HoursRus']
-        self.HoursEng = excel['HoursEng']
+        self.Number = excel.get('Number')
+        self.CourseDateRus = excel.get('CourseDateRus')
+        self.IssueDateRus = excel.get('IssueDateRus')
+        self.CourseDateEng = excel.get('CourseDateEng')
+        self.AbrCourse = excel.get('AbrCourse')
+        self.NameRus = excel.get('NameRus')
+        self.NameEng = excel.get('NameEng')
+        self.Email = excel.get('Email')
+        self.Gender = excel.get('Gender')
+        self.CourseRus = excel.get('CourseRus')
+        self.CourseEng = excel.get('CourseEng')
+        self.HoursRus = excel.get('HoursRus')
+        self.HoursEng = excel.get('HoursEng')
 
         # папка по курсам и датам
         dir_name = f"{self.AbrCourse}_{self.CourseDateRus[:-3]}"
