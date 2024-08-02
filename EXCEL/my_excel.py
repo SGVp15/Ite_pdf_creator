@@ -59,7 +59,7 @@ def get_contact_from_excel(rows_excel, templates_docx) -> [Contact]:
 
             path = os.path.join(OUT_DIR, 'docx')
             file_out_docx = f"{path}{dir_name}/{k_print}{cert_docx}_{dir_name}_" \
-                            f"{contact.NameRus}_{contact.number}_{contact.email}.docx"
+                            f"{contact.NameRus}_{contact.Number}_{contact.Email}.docx"
 
             file_out_docx = file_out_docx.replace(' ', '_')
             file_out_docx = replace_month_to_number(file_out_docx)
