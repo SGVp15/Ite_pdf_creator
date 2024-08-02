@@ -25,7 +25,7 @@ def clean_str(s):
 def get_contact_from_excel(rows_excel, templates_docx) -> [Contact]:
     # Прочитать excel file -> [Contacts]
     filename = FILE_XLSX
-    file_excel = load_workbook(filename=filename, data_only=True)
+    file_excel = load_workbook(filename=filename, read_only=True, data_only=True)
     contacts = []
     for i in rows_excel:
         excel = {}
