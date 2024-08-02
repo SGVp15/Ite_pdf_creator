@@ -8,16 +8,15 @@ from config import PAGE_NAME, FILE_XLSX, dictory, confirm_docx, print_docx, OUT_
 from utils.translit import replace_month_to_number
 
 
-def read_excel(excel, column, row):
+def read_excel(excel, column, row, key):
     sheet_ranges = excel[PAGE_NAME]
-    return str(sheet_ranges[f'{column}{row}'].value)
+    return {key: clean_str(str(sheet_ranges[f'{column}{row}'].value))}
 
 
-def clean_export_excel(s):
-    s = s.replace(',', ', ')
-    # Очистка текста от двойных пробелов
-    s = re.sub(r'\s{2,}', ' ', s)
+def clean_str(s):
     s = s.strip()
+    s = s.replace(',', ', ')
+    s = re.sub(r'\s{2,}', ' ', s)
     if s in ('None', '#N/A'):
         s = ''
     return s
@@ -30,10 +29,8 @@ def get_contact_from_excel(rows_excel, templates_docx) -> [Contact]:
     contacts = []
     for template in templates_docx:
         for i in rows_excel:
-            contact = Contact()
-
-            for k, v in dictory.items():
-                contact[k] = clean_export_excel(read_excel(file_excel, column=v, row=i))
+            for k, v in vars(dictory).items():
+                contact = Contact(read_excel(file_excel, column=v, row=i, key=k))
 
             # Создаем папки по курсам
             dir_name = f"{contact.AbrCourse}_{contact.CourseDateRus[:-3]}"

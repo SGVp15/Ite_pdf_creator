@@ -1,10 +1,12 @@
 import os
 import re
 
+from config import TEMPLATES_DIR
+
 
 def parser_numbers(s: str) -> list:
     s = re.sub(r'[^\d\-]', ' ', s)
-    s = re.sub(r'[,\s]*\-[,\s]*', '-', s)
+    s = re.sub(r'[,\s]*-[,\s]*', '-', s)
 
     s = s.strip()
     l = s.split()
@@ -45,7 +47,7 @@ class Menu:
         while True:
             print(f'\nВыберите шаблон:\n'
                   f'(Пример: 1-2, 5)')
-            docx_templates = [f for f in os.listdir('data/templates/') if f.endswith('.docx')]
+            docx_templates = [f for f in os.listdir(TEMPLATES_DIR) if f.endswith('.docx')]
             docx_templates = [f for f in docx_templates if '$' not in f]
             docx_templates.sort()
             for i, docx_template in enumerate(docx_templates):

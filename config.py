@@ -2,68 +2,49 @@ import os
 
 from dotenv import dotenv_values
 
-OUT_DIR = './data/output'
+DATA_DIR = './data'
 
-os.makedirs(os.path.join(OUT_DIR, 'pdf'), exist_ok=True)
-os.makedirs(os.path.join(OUT_DIR, 'docx'), exist_ok=True)
+OUT_DIR = str(os.path.join(DATA_DIR, 'output'))
 
-TEMPLATES_DIR = os.path.join(OUT_DIR, 'templates')
+PDF_DIR = str(os.path.join(OUT_DIR, 'pdf'))
+DOCX_DIR = str(os.path.join(OUT_DIR, 'docx'))
 
-os.makedirs(TEMPLATES_DIR)
+TEMPLATES_DIR = str(os.path.join(DATA_DIR, 'templates'))
+
+os.makedirs(PDF_DIR, exist_ok=True)
+os.makedirs(DOCX_DIR, exist_ok=True)
+os.makedirs(TEMPLATES_DIR, exist_ok=True)
 
 LOG_FILE = './log.txt'
-
-'''№ сертификата': 'A',
-              'Дата курса': 'B',
-              'Дата выдачи': 'C',
-              'Дата курса англ.': 'D',
-              'Курс': 'E',
-              'Тренер': 'F',
-              'Место проведения': 'G',
-              'ФИО слушателя на русском': 'H',
-              'ФИО слушателя на латинице': 'I',
-              'Пол': 'J',
-              'Пол по 1 ячейке': 'K',
-              'Пол по 2 Ж = 0; M = 1': 'L',
-              'ID': 'M',
-              'Тренер(рус)': 'N',
-              'Тренер(англ)': 'O',
-              'Должность(рус)': 'P',
-              'Должность(англ)': 'Q',
-              'Компания(рус)': 'R',
-              'Компания(англ)': 'S',
-              'краткое название': 'T',
-              'название курса на русском': 'U',
-              'название курса на англ.': 'V',
-              'часы на русском': 'W',
-              'часы на англ.': 'X',
-              'часы': 'Z'}
-'''
 
 config = dotenv_values('.env')
 EMAIL_LOGIN = config['EMAIL_LOGIN']
 EMAIL_PASSWORD = config['EMAIL_PASSWORD']
 
-FILE_XLSX = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/Нумерация с 2015 года.xlsx'
-# FILE_XLSX = './templates/Нумерация с 2015 года.xlsx'
+
+# ---------- EXCEL --------------
+# FILE_XLSX = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/Нумерация с 2015 года.xlsx'
+FILE_XLSX = './data/templates/Нумерация с 2015 года.xlsx'
 PAGE_NAME = '2015'
 
-dictory = {
-    'NameRus': 'H',
-    'NameEng': 'I',
-    'CourseRus': 'AC',
-    'CourseEng': 'AD',
-    'HoursRus': 'AE',
-    'HoursEng': 'AF',
-    'CourseDateRus': 'B',
-    'CourseDateEng': 'D',
-    'Email': 'J',
-    'Gender': 'K',
-    'IssueDateRus': 'C',
-    'Number': 'A',
-    'AbrCourse': 'E',
-}
 
+class dictory:
+    def init(self):
+        self.Number: str = 'A'
+        self.CourseDateRus: str = 'B'
+        self.IssueDateRus: str = 'C'
+        self.CourseDateEng: str = 'D'
+        self.AbrCourse: str = 'E'
+        self.NameRus: str = 'H'
+        self.NameEng: str = 'I'
+        self.Email: str = 'J'
+        self.Gender: str = 'K'
+        self.CourseRus: str = 'AC'
+        self.CourseEng: str = 'AD'
+        self.HoursRus: str = 'AE'
+        self.HoursEng: str = 'AF'
+
+# --------- TEMPLATES ----------
 # Файлы  Подтверждений
 confirm_docx = ('ITIL+PRINCE подтверждение.docx',)
 
@@ -72,6 +53,7 @@ print_docx = ('Удостоверение для печати.docx',
               'ITIL+PRINCE подтверждение.docx',
               'Сертификат для печати.docx',)
 
+# --------- EMAIL ----------
 # Куда отправлять Email:
 Emails_managers = (
     'p.moiseenko@itexpert.ru',

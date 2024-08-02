@@ -58,7 +58,7 @@ def docx_replace_regex(doc_obj, old_text: str, new_text: str):
 
 
 def create_docx(contact: Contact):
-    document = Document(docx=str(os.path.join(TEMPLATES_DIR, contact['docx_template'])))
+    document = Document(docx=str(os.path.join(TEMPLATES_DIR, contact.docx_template)))
     # Gender Пол
     gender_text = 'прошел'
     if contact.Gender.lower() in ('ж', 'f'):

@@ -39,7 +39,7 @@ def main():
 
     print('Создаю .PDF ... ', end='')
     for contact in contacts:
-        docx2pdf.convert(contact['file_out_docx'], contact['file_out_pdf'])
+        docx2pdf.convert(contact.file_out_docx, contact.file_out_pdf)
     print('OK')
 
     print('Создаю архив ... ', end='')
