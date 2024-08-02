@@ -45,7 +45,7 @@ class Menu:
         while True:
             print(f'\nВыберите шаблон:\n'
                   f'(Пример: 1-2, 5)')
-            docx_templates = [f for f in os.listdir('templates/') if f.endswith('.docx')]
+            docx_templates = [f for f in os.listdir('data/templates/') if f.endswith('.docx')]
             docx_templates = [f for f in docx_templates if '$' not in f]
             docx_templates.sort()
             for i, docx_template in enumerate(docx_templates):

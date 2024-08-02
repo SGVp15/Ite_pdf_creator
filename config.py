@@ -2,12 +2,14 @@ import os
 
 from dotenv import dotenv_values
 
-OUT_DIR = 'output'
+OUT_DIR = './data/output'
 
-os.makedirs(f'./{OUT_DIR}/pdf', exist_ok=True)
-os.makedirs(f'./{OUT_DIR}/docx', exist_ok=True)
+os.makedirs(os.path.join(OUT_DIR, 'pdf'), exist_ok=True)
+os.makedirs(os.path.join(OUT_DIR, 'docx'), exist_ok=True)
 
-TEMPLATES_DIR = './templates'
+TEMPLATES_DIR = os.path.join(OUT_DIR, 'templates')
+
+os.makedirs(TEMPLATES_DIR)
 
 LOG_FILE = './log.txt'
 

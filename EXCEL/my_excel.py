@@ -50,7 +50,7 @@ def get_contact_from_excel(rows_excel, templates_docx) -> [Contact]:
             # Создаем Объекты по курсам
             contact.docx_template = template
 
-            contact.Year = re.findall(r'\d{4}', contact['CourseDateRus'])[-1]  # замена года выдачи
+            contact.Year = re.findall(r'\d{4}', contact.CourseDateRus)[-1]  # замена года выдачи
 
             # Удост_MPT_15_октября_2021_Гейнце_Павел_32970_aaa@yandex.ru.pdf
             cert_docx = 'Удост'
@@ -62,13 +62,11 @@ def get_contact_from_excel(rows_excel, templates_docx) -> [Contact]:
 
             path = os.path.join(OUT_DIR, 'docx')
             file_out_docx = f"{path}{dir_name}/{k_print}{cert_docx}_{dir_name}_" \
-                            f"{contact.last_name_rus}_{contact.first_name_rus}_{contact.number}_{contact.email}.docx"
+                            f"{contact.NameRus}_{contact.number}_{contact.email}.docx"
 
-            # file_out_docx = f"{path}{dir_name}/{k_print}{cert_docx}_{dir_name}_" \
-            #                f"{contact['NameRus']}_{contact['Number']}_{template[:-5]}_{contact['Email']}.docx"
             file_out_docx = file_out_docx.replace(' ', '_')
             file_out_docx = replace_month_to_number(file_out_docx)
-            contact['file_out_docx'] = file_out_docx
+            contact.file_out_docx = file_out_docx
 
             file_out_pdf = file_out_docx.replace('.docx', '.pdf')
             contact.file_out_pdf = file_out_pdf.replace('/docx/', '/pdf/')
