@@ -1,24 +1,28 @@
-from dataclasses import dataclass
+import re
 
 from utils.translit import replace_month_to_number
 
 
-@dataclass
 class Contact:
-    Number: str
-    CourseDateRus: str
-    IssueDateRus: str
-    CourseDateEng: str
-    AbrCourse: str
-    NameRus: str
-    NameEng: str
-    Email: str
-    Gender: str
-    CourseRus: str
-    CourseEng: str
-    HoursRus: str
-    HoursEng: str
+    def __init__(self, excel):
+        self.Number = excel['Number']
+        self.CourseDateRus = excel['CourseDateRus']
+        self.IssueDateRus = excel['IssueDateRus']
+        self.CourseDateEng = excel['CourseDateEng']
+        self.AbrCourse = excel['AbrCourse']
+        self.NameRus = excel['NameRus']
+        self.NameEng = excel['NameEng']
+        self.Email = excel['Email']
+        self.Gender = excel['Gender']
+        self.CourseRus = excel['CourseRus']
+        self.CourseEng = excel['CourseEng']
+        self.HoursRus = excel['HoursRus']
+        self.HoursEng = excel['HoursEng']
 
-    dir_name: str
+        # папка по курсам и датам
+        dir_name = f"{self.AbrCourse}_{self.CourseDateRus[:-3]}"
+        dir_name = dir_name.replace('.', ' ')
+        dir_name = dir_name.replace(' ', '')
+        self.dir_name = replace_month_to_number(dir_name)
 
-    Year: str
+        self.Year = re.findall(r'\d{4}', self.CourseDateRus)[-1]  # замена года выдачиstr
