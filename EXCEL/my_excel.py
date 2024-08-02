@@ -27,6 +27,8 @@ def get_contact_from_excel(rows_excel, templates_docx) -> [Contact]:
     filename = FILE_XLSX
     file_excel = load_workbook(filename=filename, read_only=True, data_only=True)
     contacts = []
+
+    excel = {}
     for i in rows_excel:
         excel = {}
         for k, v in dictory.items():
