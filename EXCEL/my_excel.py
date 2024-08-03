@@ -24,7 +24,6 @@ def clean_str(s):
 
 
 def get_contact_from_excel(rows_excel, templates_docx) -> [Contact]:
-    # Прочитать excel file -> [Contacts]
     filename = FILE_XLSX_TEMP
     file_excel = load_workbook(filename=filename, read_only=True, data_only=True)
 
@@ -39,16 +38,15 @@ def get_contact_from_excel(rows_excel, templates_docx) -> [Contact]:
             pass
     file_excel.close()
 
-    contacts_return = []
-
+    contacts = []
     for contact_excel in contacts_excel:
         for template in templates_docx:
-            contact = copy.deepcopy(contact_excel)
+            contact: Contact = copy.deepcopy(contact_excel)
             contact.docx_template = template
             contact()
             for _path in ('pdf', 'docx'):
                 path_folder = os.path.join(OUT_DIR, _path, contact.dir_name)
                 os.makedirs(path_folder, exist_ok=True)
 
-            contacts_return.append(contact)
-    return contacts_return
+            contacts.append(contact)
+    return contacts
