@@ -1,11 +1,13 @@
+import os
 import re
+import shutil
 
 import docx2pdf
 
 from EXCEL.my_excel import get_contact_from_excel
 from Email import send_email_with_attachment
 from WORD.my_word import create_docx
-from config import Emails_managers
+from config import Emails_managers, FILE_XLSX_TEMP, FILE_XLSX
 from menu import Menu
 from utils import logging
 from utils.zip import create_zip
@@ -27,20 +29,23 @@ def main():
     menu.get_rows()
     menu.get_templates()
     # menu.is_need_send_email()
+    print(f'COPY EXCEL_FILE ... ', end='')
+    # shutil.copy2(FILE_XLSX, FILE_XLSX_TEMP)
+    print(f'{FILE_XLSX_TEMP} [ OK ]')
 
-    print('Читаю .XLSX ...', end='')
+    print('READ EXCEL_FILE ... ', end='')
     contacts = get_contact_from_excel(rows_excel=menu.numbers, templates_docx=menu.templates)
-    print('OK')
+    print('[ OK ]')
 
-    print('Создаю .DOCX ... ', end='')
+    print('CREATE .DOCX ... ', end='')
     for contact in contacts:
         create_docx(contact)
-    print('OK')
+    print('[ OK ]')
 
-    print('Создаю .PDF ... ', end='')
+    print('CREATE .PDF ... ', end='')
     for contact in contacts:
         docx2pdf.convert(contact.file_out_docx, contact.file_out_pdf)
-    print('OK')
+    print('[ OK ]')
 
     print('Создаю архив ... ', end='')
     zips = create_zip(contacts)
@@ -62,7 +67,7 @@ def main():
 
 if __name__ == '__main__':
     # try:
-    main()
+   main()
     # except Exception as e:
     #     print(e)
-        # logging..error(e, exc_info=True)
+    # logging..error(e, exc_info=True)

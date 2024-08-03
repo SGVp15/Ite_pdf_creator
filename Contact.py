@@ -19,10 +19,11 @@ class Contact:
         self.HoursRus = excel.get('HoursRus')
         self.HoursEng = excel.get('HoursEng')
 
-        # папка по курсам и датам
+        self.file_out_pdf = ''
+        self.file_out_docx = ''
+
         dir_name = f"{self.AbrCourse}_{self.CourseDateRus[:-3]}"
-        dir_name = dir_name.replace('.', ' ')
-        dir_name = dir_name.replace(' ', '')
+        dir_name = re.sub(r'[. ]', '', dir_name)
         self.dir_name = replace_month_to_number(dir_name)
 
         self.Year = re.findall(r'\d{4}', self.CourseDateRus)[-1]  # замена года выдачиstr

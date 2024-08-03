@@ -1,3 +1,4 @@
+from datetime import datetime
 import os
 
 from dotenv import dotenv_values
@@ -22,8 +23,18 @@ EMAIL_LOGIN = config['EMAIL_LOGIN']
 EMAIL_PASSWORD = config['EMAIL_PASSWORD']
 
 # ---------- EXCEL --------------
-# FILE_XLSX = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/Нумерация с 2015 года.xlsx'
-FILE_XLSX = './data/templates/Нумерация с 2015 года.xlsx'
+FILE_XLSX = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/Нумерация с 2015 года.xlsx'
+
+now = datetime.now()  # current date and time
+
+year = now.strftime("%Y")
+month = now.strftime("%m")
+day = now.strftime("%d")
+time = now.strftime("%H:%M:%S")
+date_time = now.strftime("%Y-%m-%d-%H-%M-%S")
+
+# FILE_XLSX_TEMP = f'./data/templates/{date_time}.xlsx'
+FILE_XLSX_TEMP = f'./data/templates/temp.xlsx'
 PAGE_NAME = '2015'
 
 dictory = {

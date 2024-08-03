@@ -65,8 +65,7 @@ class Menu:
                       f'Y/N')
                 answer = input()
                 if answer.lower().strip() == 'y':
-                    self.templates = [docx_templates[i] for i in num_templates if 0 < i <= len(docx_templates)]
-                    self.templates = [docx_templates[i] for i in num_templates]
+                    self.templates = [docx_templates[i] for i in num_templates if 0 <= i < len(docx_templates)]
                     break
 
     def is_need_send_email(self):
