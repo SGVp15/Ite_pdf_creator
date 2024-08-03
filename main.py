@@ -1,12 +1,10 @@
 import os
-import re
 
 import docx2pdf
 
 from EXCEL.my_excel import get_contact_from_excel
-from Email import send_email_with_attachment
 from WORD.my_word import create_docx
-from config import Emails_managers, FILE_XLSX
+from config import FILE_XLSX
 from menu import Menu
 from utils.zip import create_zip
 
@@ -54,18 +52,18 @@ def main():
     zips = create_zip(contacts)
     print('OK')
 
-    if menu.need_send_email:
-        print('Отправляю письмо ... ', end='')
-        for path_zip in zips:
-            # './output/pdf/Agile_28-29.05.2018.zip'
-            name = re.sub(r'.*/', '', path_zip)
-            name = name.replace('.zip', '')
-            send_email_with_attachment(send_to=Emails_managers,
-                                       subject=f"Certificates {name}",
-                                       text=name,
-                                       filename=path_zip)
-
-        print('OK')
+    # if menu.need_send_email:
+    #     print('Отправляю письмо ... ', end='')
+    #     for path_zip in zips:
+    #         # './output/pdf/Agile_28-29.05.2018.zip'
+    #         name = re.sub(r'.*/', '', path_zip)
+    #         name = name.replace('.zip', '')
+    #         send_email_with_attachment(send_to=Emails_managers,
+    #                                    subject=f"Certificates {name}",
+    #                                    text=name,
+    #                                    filename=path_zip)
+    #
+    #     print('OK')
 
 
 if __name__ == '__main__':
