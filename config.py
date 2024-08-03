@@ -1,4 +1,3 @@
-from datetime import datetime
 import os
 
 from dotenv import dotenv_values
@@ -15,8 +14,6 @@ TEMPLATES_DIR = str(os.path.join(DATA_DIR, 'templates'))
 os.makedirs(PDF_DIR, exist_ok=True)
 os.makedirs(DOCX_DIR, exist_ok=True)
 os.makedirs(TEMPLATES_DIR, exist_ok=True)
-
-LOG_FILE = './log.txt'
 
 config = dotenv_values('.env')
 EMAIL_LOGIN = config['EMAIL_LOGIN']
@@ -62,4 +59,4 @@ Emails_managers = (
     #  'g.savushkin@itexpert.ru',
 )
 
-SYSTEMLOG = './log.txt'
+log_file = './log.txt'
