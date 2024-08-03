@@ -1,28 +1,7 @@
 import os
-import re
 
 from config import TEMPLATES_DIR
-
-
-def parser_numbers(s: str) -> list:
-    s = re.sub(r'[^\d\-]', ' ', s)
-    s = re.sub(r'[,\s]*-[,\s]*', '-', s)
-
-    s = s.strip()
-    l = s.split()
-    clear_int = []
-    for x in l:
-        try:
-            clear_int.append(int(x))
-        except:
-            la = x.split('-')
-            if len(la) > 1:
-                la = [int(i) for i in la]
-                la.sort()
-                la = [i for i in range(la[0], la[-1] + 1)]
-                clear_int.extend(la)
-    clear_int.sort()
-    return clear_int
+from utils.translit import parser_numbers
 
 
 class Menu:

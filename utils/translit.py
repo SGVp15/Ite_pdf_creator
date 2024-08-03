@@ -1,3 +1,6 @@
+import re
+
+
 def transliterate(name: str):
     # Слоаврь с заменами
     abc = {'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo',
@@ -40,3 +43,24 @@ def replace_month_to_number(s: str):
     for key in abc:
         s = s.replace(key, abc[key])
     return s
+
+
+def parser_numbers(s: str) -> list:
+    s = re.sub(r'[^\d\-]', ' ', s)
+    s = re.sub(r'[,\s]*-[,\s]*', '-', s)
+
+    s = s.strip()
+    l = s.split()
+    clear_int = []
+    for x in l:
+        try:
+            clear_int.append(int(x))
+        except:
+            la = x.split('-')
+            if len(la) > 1:
+                la = [int(i) for i in la]
+                la.sort()
+                la = [i for i in range(la[0], la[-1] + 1)]
+                clear_int.extend(la)
+    clear_int.sort()
+    return clear_int
