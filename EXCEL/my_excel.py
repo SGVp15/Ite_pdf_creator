@@ -45,27 +45,10 @@ def get_contact_from_excel(rows_excel, templates_docx) -> [Contact]:
         for template in templates_docx:
             contact = copy.deepcopy(contact_excel)
             contact.docx_template = template
-
+            contact()
             for _path in ('pdf', 'docx'):
                 path_folder = os.path.join(OUT_DIR, _path, contact.dir_name)
                 os.makedirs(path_folder, exist_ok=True)
-
-            # Удост_MPT_15_октября_2021_Гейнце_Павел_32970_aaa@yandex.ru.pdf
-            cert_docx = 'Удост'
-            if template in confirm_docx:
-                cert_docx = 'Подтв'
-            k_print = ''
-            if template in print_docx:
-                k_print = 'p_'
-
-            file_out_docx = f"{DOCX_DIR}/{contact.dir_name}/{k_print}{cert_docx}_{contact.dir_name}_" \
-                            f"{contact.NameRus}_{contact.Number}_{contact.Email}.docx"
-
-            file_out_docx = file_out_docx.replace(' ', '_')
-            file_out_docx = replace_month_to_number(file_out_docx)
-            contact.file_out_docx = file_out_docx
-
-            contact.file_out_pdf = file_out_docx.replace(DOCX_DIR, PDF_DIR).replace('.docx', '.pdf')
 
             contacts_return.append(contact)
     return contacts_return
