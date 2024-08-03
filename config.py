@@ -70,3 +70,5 @@ Emails_managers = (
     'a.rybalkin@itexpert.ru',
     #  'g.savushkin@itexpert.ru',
 )
+
+SYSTEMLOG = './log.txt'

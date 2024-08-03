@@ -6,6 +6,7 @@ from EXCEL.my_excel import get_contact_from_excel
 from WORD.my_word import create_docx
 from config import FILE_XLSX
 from menu import Menu
+from utils.log import log
 from utils.zip import create_zip
 
 
@@ -67,8 +68,8 @@ def main():
 
 
 if __name__ == '__main__':
-    # try:
-    main()
-    # except Exception as e:
-    #     print(e)
-    # logging..error(e, exc_info=True)
+    log.info('start')
+    try:
+        main()
+    except Exception as e:
+        log.error(e)
