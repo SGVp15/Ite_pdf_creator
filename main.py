@@ -1,15 +1,13 @@
 import os
 import re
-import shutil
 
 import docx2pdf
 
 from EXCEL.my_excel import get_contact_from_excel
 from Email import send_email_with_attachment
 from WORD.my_word import create_docx
-from config import Emails_managers, FILE_XLSX_TEMP, FILE_XLSX
+from config import Emails_managers, FILE_XLSX
 from menu import Menu
-from utils import logging
 from utils.zip import create_zip
 
 
@@ -25,13 +23,18 @@ from utils.zip import create_zip
 
 
 def main():
+    if not os.path.exists(FILE_XLSX):
+        print(f'file not found [ {FILE_XLSX} ]')
+        return
+
     menu = Menu()
     menu.get_rows()
     menu.get_templates()
     # menu.is_need_send_email()
-    print(f'COPY EXCEL_FILE ... ', end='')
+
+    # print(f'COPY EXCEL_FILE ... ', end='')
     # shutil.copy2(FILE_XLSX, FILE_XLSX_TEMP)
-    print(f'{FILE_XLSX_TEMP} [ OK ]')
+    # print(f'{FILE_XLSX_TEMP} [ OK ]')
 
     print('READ EXCEL_FILE ... ', end='')
     contacts = get_contact_from_excel(rows_excel=menu.numbers, templates_docx=menu.templates)
@@ -67,7 +70,7 @@ def main():
 
 if __name__ == '__main__':
     # try:
-   main()
+    main()
     # except Exception as e:
     #     print(e)
     # logging..error(e, exc_info=True)

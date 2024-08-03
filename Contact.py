@@ -27,7 +27,7 @@ class Contact:
         dir_name = re.sub(r'[. ]', '', dir_name)
         self.dir_name = replace_month_to_number(dir_name)
 
-        self.Year = re.findall(r'\d{4}', self.CourseDateRus)[-1]  # замена года выдачиstr
+        self.Year = re.findall(r'\d{4}', self.CourseDateRus)[-1]  # замена года выдачи
         self.docx_template = ''
 
     def __call__(self, *args, **kwargs):
