@@ -5,8 +5,7 @@ import re
 from openpyxl import load_workbook
 
 from Contact import Contact
-from config import PAGE_NAME, map_excel, confirm_docx, print_docx, OUT_DIR, DOCX_DIR, PDF_DIR, FILE_XLSX_TEMP, FILE_XLSX
-from utils.translit import replace_month_to_number
+from config import PAGE_NAME, map_excel, OUT_DIR, FILE_XLSX
 
 
 def read_excel(excel, column, row) -> str:
