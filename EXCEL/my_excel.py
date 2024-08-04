@@ -5,7 +5,7 @@ import re
 from openpyxl import load_workbook
 
 from Contact import Contact
-from config import PAGE_NAME, dictory, confirm_docx, print_docx, OUT_DIR, DOCX_DIR, PDF_DIR, FILE_XLSX_TEMP
+from config import PAGE_NAME, map_excel, confirm_docx, print_docx, OUT_DIR, DOCX_DIR, PDF_DIR, FILE_XLSX_TEMP
 from utils.translit import replace_month_to_number
 
 
@@ -30,7 +30,7 @@ def get_contact_from_excel(rows_excel, templates_docx) -> [Contact]:
     contacts_excel = []
     for i in rows_excel:
         from_excel = {}
-        for k, v in dictory.items():
+        for k, v in map_excel.items():
             from_excel[k] = read_excel(file_excel, column=v, row=i)
         try:
             contacts_excel.append(Contact(from_excel))

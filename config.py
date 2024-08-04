@@ -1,7 +1,5 @@
 import os
 
-from dotenv import dotenv_values
-
 DATA_DIR = './data'
 
 OUT_DIR = str(os.path.join(DATA_DIR, 'output'))
@@ -15,17 +13,13 @@ os.makedirs(PDF_DIR, exist_ok=True)
 os.makedirs(DOCX_DIR, exist_ok=True)
 os.makedirs(TEMPLATES_DIR, exist_ok=True)
 
-config = dotenv_values('.env')
-EMAIL_LOGIN = config['EMAIL_LOGIN']
-EMAIL_PASSWORD = config['EMAIL_PASSWORD']
-
 # ---------- EXCEL --------------
 FILE_XLSX = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/Нумерация с 2015 года.xlsx'
 
 FILE_XLSX_TEMP = f'./data/templates/temp.xlsx'
 PAGE_NAME = '2015'
 
-dictory = {
+map_excel = {
     'Number': 'A',
     'CourseDateRus': 'B',
     'IssueDateRus': 'C',
@@ -49,14 +43,5 @@ confirm_docx = ('ITIL+PRINCE подтверждение.docx',)
 print_docx = ('Удостоверение для печати.docx',
               'ITIL+PRINCE подтверждение.docx',
               'Сертификат для печати.docx',)
-
-# --------- EMAIL ----------
-# Куда отправлять Email:
-Emails_managers = (
-    'p.moiseenko@itexpert.ru',
-    'a.katkov@itexpert.ru',
-    'a.rybalkin@itexpert.ru',
-    #  'g.savushkin@itexpert.ru',
-)
 
 log_file = './log.txt'
