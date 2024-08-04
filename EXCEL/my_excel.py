@@ -5,7 +5,7 @@ import re
 from openpyxl import load_workbook
 
 from Contact import Contact
-from config import PAGE_NAME, map_excel, confirm_docx, print_docx, OUT_DIR, DOCX_DIR, PDF_DIR, FILE_XLSX_TEMP
+from config import PAGE_NAME, map_excel, confirm_docx, print_docx, OUT_DIR, DOCX_DIR, PDF_DIR, FILE_XLSX_TEMP, FILE_XLSX
 from utils.translit import replace_month_to_number
 
 
@@ -24,7 +24,7 @@ def clean_str(s):
 
 
 def get_contact_from_excel(rows_excel, templates_docx) -> [Contact]:
-    filename = FILE_XLSX_TEMP
+    filename = FILE_XLSX
     file_excel = load_workbook(filename=filename, read_only=True, data_only=True)
 
     contacts_excel = []
