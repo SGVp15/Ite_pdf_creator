@@ -23,28 +23,6 @@ def transliterate(name: str):
     return name
 
 
-def replace_month_to_number(s: str):
-    # Слоаврь с заменами
-    abc = {
-        'января': '.01.',
-        'февраля': '.02.',
-        'марта': '.03.',
-        'апреля': '.04.',
-        'мая': '.05.',
-        'июня': '.06.',
-        'июля': '.07.',
-        'августа': '.08.',
-        'сентября': '.09.',
-        'октября': '.10.',
-        'ноября': '.11.',
-        'декабря': '.12.',
-    }
-
-    for key in abc:
-        s = s.replace(key, abc[key])
-    return s
-
-
 def parser_numbers(s: str) -> list:
     s = re.sub(r'[^\d\-]', ' ', s)
     s = re.sub(r'[,\s]*-[,\s]*', '-', s)
