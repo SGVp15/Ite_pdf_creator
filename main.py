@@ -1,5 +1,6 @@
 import os
 import pickle
+import time
 
 import docx2pdf
 
@@ -16,12 +17,12 @@ from UTILS.zip import create_zip
 def main():
     menu = Menu()
     if menu.is_auto == 1:
-        auto()
+        while True:
+            auto()
+            time.sleep(1 * 60)
     else:
-        # rows = menu.get_rows()
-        rows = (400,)
-        # templates = menu.get_templates()
-        templates_menu = ('Удостоверение c лого Prince2 пдф.docx',)
+        rows = menu.get_rows()
+        templates_menu = menu.get_templates()
 
         print('READ EXCEL_FILE ... ', end='')
         contacts = read_users_from_excel(rows_users=rows)
@@ -55,23 +56,20 @@ def create_(contacts):
 
 def auto():
     old_users = []
-    new_users = []
-
     new_users = read_users_from_excel()
 
     try:
-        user: Contact
         old_users = pickle.load(open(PICKLE_USERS, 'rb'))
     except FileNotFoundError as e:
         log.warning(e)
 
     new_users = [user for user in new_users if user not in old_users]
 
-    create_(new_users)
-
-    all_users = [*new_users, *old_users]
-    pickle.dump(all_users, open(PICKLE_USERS, 'wb'))
-    log.info('[Create PICKLE_USERS]')
+    if len(new_users) > 0:
+        create_(new_users)
+        all_users = [*new_users, *old_users]
+        pickle.dump(all_users, open(PICKLE_USERS, 'wb'))
+        log.info('[Create PICKLE_USERS]')
 
 
 def read_users_from_excel(file_excel=FILE_XLSX, header=False, rows_users=(-1,)) -> [Contact]:
