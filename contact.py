@@ -1,4 +1,5 @@
 import copy
+import os
 import re
 
 from config import OUT_DOCX_DIR, confirm_docx, print_docx, OUT_PDF_DIR, map_excel_user
@@ -57,6 +58,10 @@ class Contact:
 
         for file_name in self.docx_list_files_name_templates:
             self.files_out_docx[file_name], self.files_out_pdf[file_name] = self.create_path_doc_pdf(file_name)
+
+    def create_dirs(self):
+        os.makedirs(f'{OUT_DOCX_DIR}/{self.dir_name}', exist_ok=True)
+        os.makedirs(f'{OUT_PDF_DIR}/{self.dir_name}', exist_ok=True)
 
     def __str__(self):
         return f'{self.sert_number} {self.abr_course} {self.course_date_rus} {self.name_rus}'

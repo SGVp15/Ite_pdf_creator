@@ -69,9 +69,7 @@ def create_docx(contact: Contact):
         for k, v in replaces_dict.items():
             replace_docx_text(document, old_text=k, new_text=v)
 
-        #TODO переписать в отдельную функцию создания папок
         path = contact.files_out_docx.get(docx_template)
-        os.makedirs(f'{OUT_DOCX_DIR}/{contact.dir_name}', exist_ok=True)
-        os.makedirs(f'{OUT_PDF_DIR}/{contact.dir_name}', exist_ok=True)
+        contact.create_dirs()
 
         document.save(path)
