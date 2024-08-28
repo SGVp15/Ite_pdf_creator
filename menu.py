@@ -7,9 +7,6 @@ from UTILS.utils import parser_numbers
 class Menu:
     def __init__(self):
         self.need_send_email = False
-        self.is_auto = 0
-        return None
-
         while True:
             print(f'1 - Авто\n'
                   f'0 - Ручное')

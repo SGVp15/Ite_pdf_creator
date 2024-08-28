@@ -10,16 +10,6 @@ from UTILS.utils import parser_numbers, replace_month_to_number
 class Contact:
     def __init__(self, data, courses_list: [Course], templates_list: []):
         self.abr_course = data[map_excel_user.get('AbrCourse')]
-        self.course = None
-        for course in courses_list:
-            if course.abr == self.abr_course:
-                self.course = copy.copy(course)
-                self.course_name_rus = self.course.name_rus
-                self.course_name_eng = self.course.name_eng
-                self.hours_rus = self.course.hour_rus
-                self.hours_eng = self.course.hour_eng
-                break
-
         self.sert_number = data[map_excel_user.get('Number')]
         self.course_date_rus = data[map_excel_user.get('CourseDateRus')]
         self.issue_date_rus = data[map_excel_user.get('IssueDateRus')]
@@ -29,18 +19,37 @@ class Contact:
         self.email = data[map_excel_user.get('Email')]
         self.gender = data[map_excel_user.get('Gender')]
 
+        if self.abr_course is None or self.sert_number is None or self.gender is None:
+            return
+        self.course = None
+        for course in courses_list:
+            if course.abr == self.abr_course:
+                self.course = copy.copy(course)
+                self.course_name_rus = self.course.name_rus
+                self.course_name_eng = self.course.name_eng
+                self.hours_rus = self.course.hour_rus
+                self.hours_eng = self.course.hour_eng
+                break
+        if self.course is None:
+            return
+
+        if self.course_date_rus is None:
+            return
+
+        dir_name = ''
         try:
             dir_name = f"{self.abr_course}_{self.course_date_rus[:-3]}"
         except TypeError:
             pass
         dir_name = re.sub(r'[. ]', '', dir_name)
         self.dir_name = replace_month_to_number(dir_name)
-
-        self.year = re.findall(r'\d{4}', self.course_date_rus)[-1]  # замена года выдачи
-
+        try:
+            self.year = re.findall(r'\d{4}', self.course_date_rus)[-1]  # замена года выдачи
+        except IndexError:
+            return None
         self.docx_list_files_name_templates = []
         template_num = parser_numbers(data[map_excel_user.get('Template')])
-        if template_num is None:
+        if len(template_num) == 0:
             self.docx_list_files_name_templates = self.course.templates
         else:
             for i in template_num:
@@ -83,3 +92,19 @@ class Contact:
 
         files_out_pdf = file_out_docx.replace(OUT_DOCX_DIR, OUT_PDF_DIR).replace('.docx', '.pdf')
         return file_out_docx, files_out_pdf
+
+    def __eq__(self, other):
+        if (
+                self.sert_number == other.sert_number and
+                self.course_date_rus == other.course_date_rus and
+                self.issue_date_rus == other.issue_date_rus and
+                self.course_date_eng == other.course_date_eng and
+                self.name_rus == other.name_rus and
+                self.name_eng == other.name_eng and
+                self.email == other.email and
+                self.gender == other.gender and
+                self.course_date_rus == other.course_date_rus and
+                self.docx_list_files_name_templates == other.docx_list_files_name_templates
+        ):
+            return True
+        return False

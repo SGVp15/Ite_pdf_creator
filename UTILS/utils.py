@@ -24,6 +24,8 @@ def transliterate(name: str):
 
 
 def parser_numbers(s: str) -> list:
+    if s is None:
+        return []
     s = re.sub(r'[^\d\-]', ' ', s)
     s = re.sub(r'[,\s]*-[,\s]*', '-', s)
 

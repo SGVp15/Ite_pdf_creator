@@ -15,7 +15,7 @@ os.makedirs(TEMPLATES_DIR, exist_ok=True)
 
 # ---------- EXCEL --------------
 FILE_XLSX = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/Нумерация с 2015 года.xlsx'
-FILE_XLSX ='C:/Users/user/PycharmProjects/Ite_pdf_creator/Нумерация с 2015 года.xlsx'
+FILE_XLSX = 'C:/Users/user/PycharmProjects/Ite_pdf_creator/Нумерация с 2015 года.xlsx'
 TEMPLATES_DIR = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/ШАБЛОНЫ удостоверений'
 TEMPLATES_DIR = 'C:/Users/user/PycharmProjects/Ite_pdf_creator/data/templates'
 FILE_XLSX_TEMP = f'./data/templates/temp.xlsx'
@@ -56,5 +56,10 @@ print_docx = ('Удостоверение для печати.docx',
 
 log_file = './log.txt'
 
-pickle_users = './data/users.pk'
-pickle_file_modify = './data/update_file.pk'
+PICKLE_USERS = './data/users.pk'
+PICKLE_FILE_MODIFY = './data/update_file.pk'
+
+
+def check_config_file():
+    if not os.path.exists(FILE_XLSX):
+        raise '[Error] file not found [ {FILE_XLSX} ]'

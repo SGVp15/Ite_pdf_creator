@@ -21,7 +21,7 @@ class Course:
             self.name_fis = data[7]
 
             for i in [8, 9]:
-                if data[i] != '':
+                if data[i] is not None:
                     self.templates.append(data[i])
         except IndexError:
             pass

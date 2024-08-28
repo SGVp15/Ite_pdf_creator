@@ -2,12 +2,12 @@ import os
 import pickle
 
 from UTILS.log import log
-from config import pickle_file_modify, FILE_XLSX
+from config import PICKLE_FILE_MODIFY, FILE_XLSX
 
 
 def get_time_modify_file():
     try:
-        info = pickle.load(open(pickle_file_modify, 'rb'))
+        info = pickle.load(open(PICKLE_FILE_MODIFY, 'rb'))
     except (FileNotFoundError, IOError):
         return ''
     return info
