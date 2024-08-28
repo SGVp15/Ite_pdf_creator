@@ -79,4 +79,4 @@ def progress(text='', percent=0, width=20):
 
 def check_config_file():
     if not os.path.exists(FILE_XLSX):
-        raise '[Error] file not found [ {FILE_XLSX} ]'
+        raise FileNotFoundError
