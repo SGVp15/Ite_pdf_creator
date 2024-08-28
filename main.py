@@ -37,6 +37,7 @@ def main():
 def create_(contacts):
     print('CREATE .DOCX ... ', end='')
     for contact in contacts:
+        contact.create_dirs()
         create_docx(contact)
     print('[ OK ]')
 

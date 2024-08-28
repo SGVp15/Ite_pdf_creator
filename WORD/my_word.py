@@ -69,7 +69,4 @@ def create_docx(contact: Contact):
         for k, v in replaces_dict.items():
             replace_docx_text(document, old_text=k, new_text=v)
 
-        path = contact.files_out_docx.get(docx_template)
-        contact.create_dirs()
-
-        document.save(path)
+        document.save(contact.files_out_docx.get(docx_template))
