@@ -66,7 +66,7 @@ class Contact:
         self.files_out_docx = {}
 
         for file_name in self.docx_list_files_name_templates:
-            self.files_out_docx[file_name], self.files_out_pdf[file_name] = self.create_path_doc_pdf(file_name)
+            self.files_out_docx[file_name], self.files_out_pdf[file_name] = self.get_path_doc_pdf(file_name)
 
     def create_dirs(self):
         os.makedirs(f'{OUT_DOCX_DIR}/{self.dir_name}', exist_ok=True)
@@ -75,7 +75,7 @@ class Contact:
     def __str__(self):
         return f'{self.sert_number} {self.abr_course} {self.course_date_rus} {self.name_rus}'
 
-    def create_path_doc_pdf(self, file_name) -> (str, str):
+    def get_path_doc_pdf(self, file_name) -> (str, str):
         # Удост_MPT_15_октября_2021_Гейнце_Павел_32970_aaa@yandex.ru.pdf
         cert_docx = 'Удост'
         if file_name in confirm_docx:
@@ -84,7 +84,7 @@ class Contact:
         if file_name in print_docx:
             k_print = 'p_'
 
-        file_out_docx = f"{OUT_DOCX_DIR}/{self.dir_name}/{k_print}{cert_docx}_{self.dir_name}_" \
+        file_out_docx = f"{OUT_DOCX_DIR}/{self.dir_name}/{file_name[0]}{k_print}{cert_docx}_{self.dir_name}_" \
                         f"{self.name_rus}_{self.sert_number}_{self.email}.docx"
 
         file_out_docx = file_out_docx.replace(' ', '_')
