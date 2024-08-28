@@ -42,3 +42,31 @@ def parser_numbers(s: str) -> list:
                 clear_int.extend(la)
     clear_int.sort()
     return clear_int
+
+
+def replace_month_to_number(s: str):
+    # Слоаврь с заменами
+    abc = {
+        'января': '.01.',
+        'февраля': '.02.',
+        'марта': '.03.',
+        'апреля': '.04.',
+        'мая': '.05.',
+        'июня': '.06.',
+        'июля': '.07.',
+        'августа': '.08.',
+        'сентября': '.09.',
+        'октября': '.10.',
+        'ноября': '.11.',
+        'декабря': '.12.',
+    }
+
+    for key in abc:
+        s = s.replace(key, abc[key])
+    return s
+
+
+def progress(text='', percent=0, width=20):
+    left = width * percent // 100
+    right = width - left
+    print(f"\r{text}[{'#' * left}{' ' * right}] {percent:.0f}% ", end='', flush=True)

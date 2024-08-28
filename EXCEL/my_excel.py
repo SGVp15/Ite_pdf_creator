@@ -4,8 +4,21 @@ import re
 
 from openpyxl import load_workbook
 
-from Contact import Contact
-from config import PAGE_NAME, map_excel, OUT_DIR, FILE_XLSX
+from contact import Contact
+from config import PAGE_NAME, map_excel_user, OUT_DIR, FILE_XLSX
+
+
+def read_excel_file(filename=FILE_XLSX, sheet_names=('2015',)) -> dict:
+    workbook = load_workbook(filename=filename, read_only=True, data_only=True)
+    all_data = {}
+    for sheet_name in sheet_names:
+        sheet = workbook[sheet_name]
+        data = []
+        for row in sheet.iter_rows(values_only=True):
+            data.append(row)
+        all_data[sheet_name] = data
+    workbook.close()
+    return all_data
 
 
 def read_excel(excel, column, row) -> str:
@@ -29,7 +42,7 @@ def get_contact_from_excel(rows_excel, templates_docx) -> [Contact]:
     contacts_excel = []
     for i in rows_excel:
         from_excel = {}
-        for k, v in map_excel.items():
+        for k, v in map_excel_user.items():
             from_excel[k] = read_excel(file_excel, column=v, row=i)
         try:
             contacts_excel.append(Contact(from_excel))
@@ -41,7 +54,7 @@ def get_contact_from_excel(rows_excel, templates_docx) -> [Contact]:
     for contact_excel in contacts_excel:
         for template in templates_docx:
             contact: Contact = copy.deepcopy(contact_excel)
-            contact.docx_template = template
+            contact.docx_list_files_name_templates = template
             contact()
             for _path in ('pdf', 'docx'):
                 path_folder = os.path.join(OUT_DIR, _path, contact.dir_name)

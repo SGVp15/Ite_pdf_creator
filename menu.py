@@ -1,12 +1,21 @@
 import os
 
 from config import TEMPLATES_DIR
-from utils.translit import parser_numbers
+from UTILS.utils import parser_numbers
 
 
 class Menu:
     def __init__(self):
         self.need_send_email = False
+        self.is_auto = 0
+        return None
+
+        while True:
+            print(f'1 - Авто\n'
+                  f'0 - Ручное')
+            self.is_auto = int(input())
+            if self.is_auto in (0, 1):
+                break
 
     def get_rows(self):
         while True:
@@ -21,6 +30,7 @@ class Menu:
                 if answer.lower().strip() == 'y':
                     self.numbers = numbers
                     break
+        return self.numbers
 
     def get_templates(self):
         while True:
@@ -46,6 +56,7 @@ class Menu:
                 if answer.lower().strip() == 'y':
                     self.templates = [docx_templates[i] for i in num_templates if 0 <= i < len(docx_templates)]
                     break
+        return self.templates
 
     def is_need_send_email(self):
         self.need_send_email = False

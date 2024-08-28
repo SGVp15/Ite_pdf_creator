@@ -2,11 +2,13 @@ import os.path
 
 from docx import Document
 
-from Contact import Contact
-from config import TEMPLATES_DIR
+from contact import Contact
+from config import TEMPLATES_DIR, OUT_DOCX_DIR, OUT_PDF_DIR
 
 
-def replace_docx_text(document, old_text, new_text):
+def replace_docx_text(document, old_text: str, new_text: str):
+    old_text = str(old_text)
+    new_text = str(new_text)
     old_text = '{' + old_text + '}'
     section = document.sections[0]
     header = section.header
@@ -15,25 +17,9 @@ def replace_docx_text(document, old_text, new_text):
         docx_replace_regex(doc_obj, old_text, new_text)
 
 
-#
-#
-# def docx_replace_regex(doc_obj, old_text: str, new_text: str):
-#     # Замена в параграфах
-#     for paragraph in doc_obj.paragraphs:
-#         # print(f'[---------------]')
-#         for run in paragraph.runs:
-#             # print(f'[{run.text}]')
-#             if old_text in run.text:
-#                 run.text = run.text.replace(old_text, new_text)
-#
-#     # Замена в таблицах
-#     for table in doc_obj.tables:
-#         for row in table.rows:
-#             for cell in row.cells:
-#                 docx_replace_regex(cell, old_text, new_text)
-#
-
 def docx_replace_regex(doc_obj, old_text: str, new_text: str):
+    old_text = str(old_text)
+    new_text = str(new_text)
     # Замена в параграфах
     for paragraph in doc_obj.paragraphs:
         if old_text not in paragraph.text:
@@ -58,16 +44,34 @@ def docx_replace_regex(doc_obj, old_text: str, new_text: str):
 
 
 def create_docx(contact: Contact):
-    document = Document(docx=str(os.path.join(TEMPLATES_DIR, contact.docx_template)))
-    # Gender Пол
-    gender_text = 'прошел'
-    if contact.Gender.lower() in ('ж', 'f'):
-        gender_text = 'прошла'
-    replace_docx_text(document, old_text='Gender', new_text=gender_text)
+    for docx_template in contact.docx_list_files_name_templates:
+        document = Document(docx=str(os.path.join(TEMPLATES_DIR, docx_template)))
+        # Gender Пол
+        gender_text = 'прошел'
+        if contact.gender.lower() in ('ж', 'f'):
+            gender_text = 'прошла'
 
-    replace_docx_text(document, old_text='Year', new_text=contact.Year)
-    # Замена всех полей
-    for k, v in vars(contact).items():
-        replace_docx_text(document, old_text=k, new_text=v)
+        replaces_dict = {
+            'Gender': gender_text,
+            'NameRus': contact.name_rus,
+            'NameEng': contact.name_eng,
+            'Number': contact.sert_number,
+            'CourseRus': contact.course.name_rus,
+            'CourseEng': contact.course.name_eng,
+            'HoursRus': contact.course.hour_rus,
+            'HoursEng': contact.course.hour_eng,
+            'CourseDateRus': contact.course_date_rus,
+            'CourseDateEng': contact.course_date_eng,
+            'IssueDateRus': contact.issue_date_rus,
+            'Year': contact.year}
 
-    document.save(contact.file_out_docx)
+        # Замена всех полей
+        for k, v in replaces_dict.items():
+            replace_docx_text(document, old_text=k, new_text=v)
+
+        #TODO переписать в отдельную функцию создания папок
+        path = contact.files_out_docx.get(docx_template)
+        os.makedirs(f'{OUT_DOCX_DIR}/{contact.dir_name}', exist_ok=True)
+        os.makedirs(f'{OUT_PDF_DIR}/{contact.dir_name}', exist_ok=True)
+
+        document.save(path)
