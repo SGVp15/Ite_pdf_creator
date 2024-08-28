@@ -108,6 +108,5 @@ class Contact:
                 self.docx_list_files_name_templates == other.docx_list_files_name_templates and
                 self.course.name_rus == other.course.name_rus and
                 self.course.templates == other.course.templates
-
         ):
             return True
