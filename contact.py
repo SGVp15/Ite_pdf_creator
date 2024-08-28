@@ -22,14 +22,11 @@ class Contact:
         self.gender = data[map_excel_user.get('Gender')]
 
         if self.abr_course is None:
-            log.error(f'{self.sert_number} abr_course')
-            raise ValueError
+            raise ValueError(f'{self.sert_number} abr_course')
         if self.sert_number is None:
-            log.error('sert_number')
-            raise ValueError
+            raise ValueError('sert_number')
         if self.gender is None:
-            log.error(f'{self.sert_number} gender')
-            raise ValueError
+            raise ValueError(f'{self.sert_number} gender')
 
         self.course = None
         for course in courses_list:
@@ -41,20 +38,17 @@ class Contact:
                 self.hours_eng = self.course.hour_eng
                 break
         if self.course is None:
-            log.error('course')
-            raise ValueError
+            raise ValueError('course')
 
         if self.course_date_rus is None:
-            log.error('course_date_rus')
-            raise ValueError
+            raise ValueError('course_date_rus')
 
         try:
             self.year = re.findall(r'\d{4}', self.course_date_rus)[-1]  # замена года выдачи
             self.month = re.findall(r'\.(\d{2})', replace_month_to_number(self.course_date_rus))[0]
             self.day = re.findall(r'(\d{2})\.', replace_month_to_number(self.course_date_rus))[0]
         except IndexError:
-            log.error('date_error')
-            raise ValueError
+            raise ValueError('date_error')
 
         self.dir_name = f"{self.year}.{self.month}.{self.day}_{self.abr_course}"
 
