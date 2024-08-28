@@ -94,6 +94,7 @@ class Contact:
         return file_out_docx, files_out_pdf
 
     def __eq__(self, other):
+        return False
         if (
                 self.sert_number == other.sert_number and
                 self.course_date_rus == other.course_date_rus and
@@ -104,7 +105,9 @@ class Contact:
                 self.email == other.email and
                 self.gender == other.gender and
                 self.course_date_rus == other.course_date_rus and
-                self.docx_list_files_name_templates == other.docx_list_files_name_templates
+                self.docx_list_files_name_templates == other.docx_list_files_name_templates and
+                self.course.name_rus == other.course.name_rus and
+                self.course.templates == other.course.templates
+
         ):
             return True
-        return False
