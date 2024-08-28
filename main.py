@@ -9,6 +9,7 @@ from EXCEL.my_excel import get_contact_from_excel, read_excel_file
 from WORD.my_word import create_docx
 from config import FILE_XLSX, PICKLE_USERS, check_config_file
 from course import Course
+from files import check_update_file_excel
 from menu import Menu
 from UTILS.log import log
 from UTILS.zip import create_zip
@@ -18,7 +19,8 @@ def main():
     menu = Menu()
     if menu.is_auto == 1:
         while True:
-            auto()
+            if check_update_file_excel():
+                auto()
             time.sleep(1 * 60)
     else:
         rows = menu.get_rows()

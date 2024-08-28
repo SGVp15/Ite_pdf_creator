@@ -13,7 +13,7 @@ def get_time_modify_file():
     return info
 
 
-def check_update_file() -> bool:
+def check_update_file_excel() -> bool:
     time_file_modify = get_time_modify_file()
     time_file_modify_now = 0
     try:
@@ -25,8 +25,3 @@ def check_update_file() -> bool:
         return True
     else:
         return False
-    # for i in range(_sleep_time):
-    #     progress(text='sleep ', percent=int(i * 100 / _sleep_time))
-    #     time.sleep(1)
-    # pickle.dump(os.path.getmtime(FILE_XLSX), open(pickle_file_modify, 'wb'))
-
