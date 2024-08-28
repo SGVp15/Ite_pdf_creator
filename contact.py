@@ -1,9 +1,7 @@
 import copy
-import logging
 import os
 import re
 
-from UTILS.log import log
 from UTILS.utils import parser_numbers, replace_month_to_number
 from config import OUT_DOCX_DIR, confirm_docx, print_docx, OUT_PDF_DIR, map_excel_user
 from course import Course
