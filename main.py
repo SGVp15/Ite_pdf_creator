@@ -77,6 +77,7 @@ def auto():
 def read_users_from_excel(file_excel=FILE_XLSX, header=False, rows_users=(-1,)) -> [Contact]:
     data_excel = read_excel_file(file_excel, sheet_names=('2015', 'Курсы', 'Архив Курсов', 'Шаблоны'))
     users_data = data_excel.get('2015')
+    users_data = [u for u in users_data if u[1] is not None]
     if rows_users != (-1,):
         users_data = [users_data[i - 1] for i in rows_users]
     elif header is False:
@@ -90,7 +91,10 @@ def read_users_from_excel(file_excel=FILE_XLSX, header=False, rows_users=(-1,)) 
 
     courses = []
     for c in courses_data:
-        courses.append(Course(c))
+        try:
+            courses.append(Course(c))
+        except ValueError:
+            pass
 
     templates = []
     for t in templates_data:

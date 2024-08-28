@@ -25,3 +25,5 @@ class Course:
                     self.templates.append(data[i])
         except IndexError:
             pass
+        if self.abr is None or len(self.templates) == 0:
+            raise ValueError

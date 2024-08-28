@@ -69,4 +69,8 @@ def create_docx(contact: Contact):
         for k, v in replaces_dict.items():
             replace_docx_text(document, old_text=k, new_text=v)
 
-        document.save(contact.files_out_docx.get(docx_template))
+        try:
+            document.save(contact.files_out_docx.get(docx_template))
+        except FileNotFoundError:
+            pass
+

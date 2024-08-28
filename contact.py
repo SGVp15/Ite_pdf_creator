@@ -1,7 +1,9 @@
 import copy
+import logging
 import os
 import re
 
+from UTILS.log import log
 from UTILS.utils import parser_numbers, replace_month_to_number
 from config import OUT_DOCX_DIR, confirm_docx, print_docx, OUT_PDF_DIR, map_excel_user
 from course import Course
@@ -19,8 +21,16 @@ class Contact:
         self.email = data[map_excel_user.get('Email')]
         self.gender = data[map_excel_user.get('Gender')]
 
-        if self.abr_course is None or self.sert_number is None or self.gender is None:
+        if self.abr_course is None:
+            log.error(f'{self.sert_number} abr_course')
             raise ValueError
+        if self.sert_number is None:
+            log.error('sert_number')
+            raise ValueError
+        if self.gender is None:
+            log.error(f'{self.sert_number} gender')
+            raise ValueError
+
         self.course = None
         for course in courses_list:
             if course.abr == self.abr_course:
@@ -31,9 +41,11 @@ class Contact:
                 self.hours_eng = self.course.hour_eng
                 break
         if self.course is None:
+            log.error('course')
             raise ValueError
 
         if self.course_date_rus is None:
+            log.error('course_date_rus')
             raise ValueError
 
         try:
@@ -41,6 +53,7 @@ class Contact:
             self.month = re.findall(r'\.(\d{2})', replace_month_to_number(self.course_date_rus))[0]
             self.day = re.findall(r'(\d{2})\.', replace_month_to_number(self.course_date_rus))[0]
         except IndexError:
+            log.error('date_error')
             raise ValueError
 
         self.dir_name = f"{self.year}.{self.month}.{self.day}_{self.abr_course}"
@@ -54,9 +67,6 @@ class Contact:
                 self.docx_list_files_name_templates.append(templates_list[i])
 
         self.set_templates(self.docx_list_files_name_templates)
-
-        if self.abr_course is None or self.abr_course is None or self.course_date_rus is None:
-            raise ValueError
 
     def set_templates(self, templates_files: list):
         self.docx_list_files_name_templates = templates_files
@@ -82,8 +92,8 @@ class Contact:
         if file_name in print_docx:
             k_print = 'p_'
 
-        file_out_docx = f"{OUT_DOCX_DIR}/{self.dir_name}/{file_name[0]}{k_print}{cert_docx}_{self.dir_name}_" \
-                        f"{self.sert_number}_{self.email}.docx"
+        file_out_docx = (f"{OUT_DOCX_DIR}/{self.dir_name}"
+                         f"/{k_print}{cert_docx}_{self.dir_name}_{self.sert_number}_{self.email}.docx")
 
         # file_out_docx = f"{OUT_DOCX_DIR}/{self.dir_name}/{file_name[0]}{self.sert_number}.docx"
 
