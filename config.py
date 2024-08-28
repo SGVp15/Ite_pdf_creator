@@ -1,6 +1,7 @@
 import os
 
 DATA_DIR = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/'
+DATA_DIR = '//192.168.20.100/Administrative server'
 # DATA_DIR = './data'
 
 OUT_DIR = str(os.path.join(DATA_DIR, 'output'))

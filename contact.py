@@ -76,18 +76,19 @@ class Contact:
 
     def get_path_doc_pdf(self, file_name) -> (str, str):
         # Удост_MPT_15_октября_2021_Гейнце_Павел_32970_aaa@yandex.ru.pdf
-        cert_docx = 'Удост'
+        cert_docx = 'У'
         if file_name in confirm_docx:
-            cert_docx = 'Подтв'
+            cert_docx = 'П'
         k_print = ''
         if file_name in print_docx:
             k_print = 'p_'
 
         file_out_docx = f"{OUT_DOCX_DIR}/{self.dir_name}/{file_name[0]}{k_print}{cert_docx}_{self.dir_name}_" \
-                        f"{self.name_rus}_{self.sert_number}_{self.email}.docx"
+                        f"{self.sert_number}_{self.email}.docx"
+
+        # file_out_docx = f"{OUT_DOCX_DIR}/{self.dir_name}/{file_name[0]}{self.sert_number}.docx"
 
         file_out_docx = file_out_docx.replace(' ', '_')
-        file_out_docx = replace_month_to_number(file_out_docx)
 
         files_out_pdf = file_out_docx.replace(OUT_DOCX_DIR, OUT_PDF_DIR).replace('.docx', '.pdf')
         return file_out_docx, files_out_pdf
