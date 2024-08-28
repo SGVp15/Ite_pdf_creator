@@ -58,8 +58,3 @@ log_file = './log.txt'
 
 PICKLE_USERS = './data/users.pk'
 PICKLE_FILE_MODIFY = './data/update_file.pk'
-
-
-def check_config_file():
-    if not os.path.exists(FILE_XLSX):
-        raise '[Error] file not found [ {FILE_XLSX} ]'

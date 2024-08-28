@@ -1,13 +1,13 @@
-import os
 import pickle
 import time
 
 import docx2pdf
 
+from UTILS.utils import check_config_file
 from contact import Contact
-from EXCEL.my_excel import get_contact_from_excel, read_excel_file
+from EXCEL.my_excel import read_excel_file
 from WORD.my_word import create_docx
-from config import FILE_XLSX, PICKLE_USERS, check_config_file
+from config import FILE_XLSX, PICKLE_USERS
 from course import Course
 from files import check_update_file_excel
 from menu import Menu
@@ -105,8 +105,8 @@ def read_users_from_excel(file_excel=FILE_XLSX, header=False, rows_users=(-1,)) 
 
 if __name__ == '__main__':
     check_config_file()
-    # log.info('[ START ]')
-    # try:
-    main()
-    # except Exception as e:
-    #     log.error(e)
+    log.info('[ START ]')
+    try:
+        main()
+    except Exception as e:
+        log.error(e)

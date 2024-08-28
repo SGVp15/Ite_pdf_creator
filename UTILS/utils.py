@@ -1,4 +1,7 @@
+import os
 import re
+
+from config import FILE_XLSX
 
 
 def transliterate(name: str):
@@ -72,3 +75,8 @@ def progress(text='', percent=0, width=20):
     left = width * percent // 100
     right = width - left
     print(f"\r{text}[{'#' * left}{' ' * right}] {percent:.0f}% ", end='', flush=True)
+
+
+def check_config_file():
+    if not os.path.exists(FILE_XLSX):
+        raise '[Error] file not found [ {FILE_XLSX} ]'
