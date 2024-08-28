@@ -1,4 +1,5 @@
 import copy
+import datetime
 import os
 import re
 
@@ -11,8 +12,8 @@ class Contact:
     def __init__(self, data, courses_list: [Course], templates_list: []):
         self.abr_course = data[map_excel_user.get('AbrCourse')]
         self.sert_number = data[map_excel_user.get('Number')]
-        self.course_date_rus = data[map_excel_user.get('CourseDateRus')]
         self.issue_date_rus = data[map_excel_user.get('IssueDateRus')]
+        self.course_date_rus = data[map_excel_user.get('CourseDateRus')]
         self.course_date_eng = data[map_excel_user.get('CourseDateEng')]
         self.name_rus = data[map_excel_user.get('NameRus')]
         self.name_eng = data[map_excel_user.get('NameEng')]
@@ -36,17 +37,15 @@ class Contact:
         if self.course_date_rus is None:
             return
 
-        dir_name = ''
-        try:
-            dir_name = f"{self.abr_course}_{self.course_date_rus[:-3]}"
-        except TypeError:
-            pass
-        dir_name = re.sub(r'[. ]', '', dir_name)
-        self.dir_name = replace_month_to_number(dir_name)
         try:
             self.year = re.findall(r'\d{4}', self.course_date_rus)[-1]  # замена года выдачи
+            self.month = re.findall(r'\.(\d{2})', replace_month_to_number(self.course_date_rus))[0]
+            self.day = re.findall(r'(\d{2})\.', replace_month_to_number(self.course_date_rus))[0]
         except IndexError:
             return None
+
+        self.dir_name = f"{self.year}.{self.month}.{self.day}_{self.abr_course}"
+
         self.docx_list_files_name_templates = []
         template_num = parser_numbers(data[map_excel_user.get('Template')])
         if len(template_num) == 0:
