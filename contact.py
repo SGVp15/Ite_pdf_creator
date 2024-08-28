@@ -1,11 +1,10 @@
 import copy
-import datetime
 import os
 import re
 
+from UTILS.utils import parser_numbers, replace_month_to_number
 from config import OUT_DOCX_DIR, confirm_docx, print_docx, OUT_PDF_DIR, map_excel_user
 from course import Course
-from UTILS.utils import parser_numbers, replace_month_to_number
 
 
 class Contact:
@@ -21,7 +20,7 @@ class Contact:
         self.gender = data[map_excel_user.get('Gender')]
 
         if self.abr_course is None or self.sert_number is None or self.gender is None:
-            return
+            raise ValueError
         self.course = None
         for course in courses_list:
             if course.abr == self.abr_course:
@@ -32,17 +31,17 @@ class Contact:
                 self.hours_eng = self.course.hour_eng
                 break
         if self.course is None:
-            return
+            raise ValueError
 
         if self.course_date_rus is None:
-            return
+            raise ValueError
 
         try:
             self.year = re.findall(r'\d{4}', self.course_date_rus)[-1]  # замена года выдачи
             self.month = re.findall(r'\.(\d{2})', replace_month_to_number(self.course_date_rus))[0]
             self.day = re.findall(r'(\d{2})\.', replace_month_to_number(self.course_date_rus))[0]
         except IndexError:
-            return None
+            raise ValueError
 
         self.dir_name = f"{self.year}.{self.month}.{self.day}_{self.abr_course}"
 
@@ -57,7 +56,7 @@ class Contact:
         self.set_templates(self.docx_list_files_name_templates)
 
         if self.abr_course is None or self.abr_course is None or self.course_date_rus is None:
-            return
+            raise ValueError
 
     def set_templates(self, templates_files: list):
         self.docx_list_files_name_templates = templates_files
