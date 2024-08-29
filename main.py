@@ -111,9 +111,9 @@ def read_users_from_excel(file_excel=FILE_XLSX, header=False, rows_users=(-1,)) 
 
 
 if __name__ == '__main__':
-    # check_config_file()
-    # log.info('[ START ]')
-    # try:
-    main()
-    # except Exception as e:
-    #     log.error(e)
+    check_config_file()
+    log.info('[ START ]')
+    try:
+        main()
+    except Exception as e:
+        log.error(e)
