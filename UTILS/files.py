@@ -13,15 +13,16 @@ def get_time_modify_file():
     return info
 
 
-def check_update_file_excel() -> bool:
-    time_file_modify = get_time_modify_file()
-    time_file_modify_now = 0
-    try:
-        time_file_modify_now = os.path.getmtime(FILE_XLSX)
-    except (FileNotFoundError, IOError) as e:
-        log(e)
+def check_update_file_excel_decorator(func):
+    def wrapper():
+        time_file_modify = get_time_modify_file()
+        time_file_modify_now = 0
+        try:
+            time_file_modify_now = os.path.getmtime(FILE_XLSX)
+        except (FileNotFoundError, IOError) as e:
+            log(e)
 
-    if time_file_modify != time_file_modify_now:
-        return True
-    else:
-        return False
+        if time_file_modify != time_file_modify_now:
+            func()
+            pickle.dump(time_file_modify_now, open(PICKLE_FILE_MODIFY, 'wb'))
+    return wrapper

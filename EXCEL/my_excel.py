@@ -15,6 +15,7 @@ def read_excel_file(filename=FILE_XLSX, sheet_names=('2015',)) -> dict:
         sheet = workbook[sheet_name]
         data = []
         for row in sheet.iter_rows(values_only=True):
+            # data.append(list(map(clean_str, row)))
             data.append(row)
         all_data[sheet_name] = data
     workbook.close()
@@ -27,11 +28,12 @@ def read_excel(excel, column, row) -> str:
 
 
 def clean_str(s):
-    s = s.strip()
-    s = s.replace(',', ', ')
-    s = re.sub(r'\s{2,}', ' ', s)
-    if s in ('None', '#N/A'):
-        s = ''
+    if type(s) is str:
+        s = s.strip()
+        s = s.replace(',', ', ')
+        s = re.sub(r'\s{2,}', ' ', s)
+        if s in ('None', '#N/A'):
+            s = ''
     return s
 
 

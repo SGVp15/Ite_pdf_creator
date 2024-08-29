@@ -8,7 +8,7 @@ from course import Course
 
 
 class Contact:
-    def __init__(self, data, courses_list: [Course], templates_list: []):
+    def __init__(self, data: tuple, courses_list: [Course], templates_list: []):
         self.abr_course = data[map_excel_user.get('AbrCourse')]
         self.sert_number = data[map_excel_user.get('Number')]
         self.issue_date_rus = data[map_excel_user.get('IssueDateRus')]

@@ -9,7 +9,7 @@ from EXCEL.my_excel import read_excel_file
 from WORD.my_word import create_docx
 from config import FILE_XLSX, PICKLE_USERS
 from course import Course
-from UTILS.files import check_update_file_excel
+from UTILS.files import check_update_file_excel_decorator, check_update_file_excel_decorator
 from menu import Menu
 from UTILS.log import log
 from UTILS.zip import create_zip
@@ -19,8 +19,7 @@ def main():
     menu = Menu()
     if menu.is_auto == 1:
         while True:
-            if check_update_file_excel():
-                auto()
+            auto()
             time.sleep(1 * 60)
     else:
         rows = menu.get_rows()
@@ -56,6 +55,7 @@ def create_(contacts):
     print('OK')
 
 
+@check_update_file_excel_decorator
 def auto():
     old_users = []
     new_users = read_users_from_excel()
@@ -111,9 +111,9 @@ def read_users_from_excel(file_excel=FILE_XLSX, header=False, rows_users=(-1,)) 
 
 
 if __name__ == '__main__':
-    check_config_file()
-    log.info('[ START ]')
-    try:
-        main()
-    except Exception as e:
-        log.error(e)
+    # check_config_file()
+    # log.info('[ START ]')
+    # try:
+    main()
+    # except Exception as e:
+    #     log.error(e)

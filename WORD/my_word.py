@@ -2,6 +2,7 @@ import os.path
 
 from docx import Document
 
+from UTILS.log import log
 from contact import Contact
 from config import TEMPLATES_DIR, OUT_DOCX_PATH, OUT_PDF_PATH
 
@@ -70,7 +71,7 @@ def create_docx(contact: Contact):
             replace_docx_text(document, old_text=k, new_text=v)
 
         try:
-            document.save(contact.files_out_docx.get(docx_template))
+            path = contact.files_out_docx.get(docx_template)
+            document.save(path)
         except FileNotFoundError:
-            pass
-
+            log.error(f'FileNotFoundError {path}')

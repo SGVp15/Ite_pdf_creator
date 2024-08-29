@@ -16,10 +16,10 @@ os.makedirs(OUT_DOCX_PATH, exist_ok=True)
 os.makedirs(TEMPLATES_DIR, exist_ok=True)
 
 # ---------- EXCEL --------------
-FILE_XLSX = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/Нумерация с 2015 года.xlsx'
-# FILE_XLSX = 'C:/Users/user/PycharmProjects/Ite_pdf_creator/Нумерация с 2015 года.xlsx'
-TEMPLATES_DIR = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/ШАБЛОНЫ удостоверений'
-# TEMPLATES_DIR = 'C:/Users/user/PycharmProjects/Ite_pdf_creator/data/templates'
+# FILE_XLSX = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/Нумерация с 2015 года.xlsx'
+FILE_XLSX = 'C:/Users/user/PycharmProjects/Ite_pdf_creator/Нумерация с 2015 года.xlsx'
+# TEMPLATES_DIR = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/ШАБЛОНЫ удостоверений'
+TEMPLATES_DIR = 'C:/Users/user/PycharmProjects/Ite_pdf_creator/data/templates'
 # FILE_XLSX_TEMP = f'./data/templates/temp.xlsx'
 PAGE_NAME = '2015'
 
