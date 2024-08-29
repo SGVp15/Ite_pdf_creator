@@ -1,7 +1,7 @@
 import os
 
-DATA_DIR = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/'
-# DATA_DIR = '//192.168.20.100/Administrative server'
+# DATA_DIR = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/'
+DATA_DIR = '//192.168.20.100/Administrative server'
 DATA_DIR = './data'
 
 OUT_DIR = str(os.path.join(DATA_DIR, 'output'))
@@ -52,9 +52,10 @@ map_excel_user = {
 confirm_docx = ('ITIL+PRINCE подтверждение.docx',)
 
 # Файлы для Печати
-print_docx = ('Удостоверение для печати.docx',
-              'ITIL+PRINCE подтверждение.docx',
-              'Сертификат для печати.docx',)
+print_docx = (
+    '0_Удост. на печать.docx',
+    '3_Удост. лого Prince2 на печать.docx'
+)
 
 log_file = './log.txt'
 
