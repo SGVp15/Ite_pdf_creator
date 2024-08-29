@@ -1,18 +1,18 @@
 import os
 
 # DATA_DIR = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/'
-DATA_DIR = '//192.168.20.100/Administrative server'
 DATA_DIR = './data'
+NAME_OUT_DIR = 'output'
 
-OUT_DIR = str(os.path.join(DATA_DIR, 'output'))
+OUT_PATH = str(os.path.join(DATA_DIR, NAME_OUT_DIR))
 
-OUT_PDF_DIR = str(os.path.join(OUT_DIR, 'pdf'))
-OUT_DOCX_DIR = str(os.path.join(OUT_DIR, 'docx'))
+OUT_PDF_PATH = str(os.path.join(OUT_PATH, 'pdf'))
+OUT_DOCX_PATH = str(os.path.join(OUT_PATH, 'docx'))
 
 TEMPLATES_DIR = str(os.path.join(DATA_DIR, 'templates'))
 
-os.makedirs(OUT_PDF_DIR, exist_ok=True)
-os.makedirs(OUT_DOCX_DIR, exist_ok=True)
+os.makedirs(OUT_PDF_PATH, exist_ok=True)
+os.makedirs(OUT_DOCX_PATH, exist_ok=True)
 os.makedirs(TEMPLATES_DIR, exist_ok=True)
 
 # ---------- EXCEL --------------

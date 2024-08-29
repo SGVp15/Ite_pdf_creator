@@ -3,7 +3,7 @@ import os.path
 from docx import Document
 
 from contact import Contact
-from config import TEMPLATES_DIR, OUT_DOCX_DIR, OUT_PDF_DIR
+from config import TEMPLATES_DIR, OUT_DOCX_PATH, OUT_PDF_PATH
 
 
 def replace_docx_text(document, old_text: str, new_text: str):

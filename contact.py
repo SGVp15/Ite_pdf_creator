@@ -3,7 +3,7 @@ import os
 import re
 
 from UTILS.utils import parser_numbers, replace_month_to_number
-from config import OUT_DOCX_DIR, print_docx, OUT_PDF_DIR, map_excel_user
+from config import OUT_DOCX_PATH, print_docx, OUT_PDF_PATH, map_excel_user
 from course import Course
 
 
@@ -69,8 +69,8 @@ class Contact:
             self.files_out_docx[file_name], self.files_out_pdf[file_name] = self.get_path_doc_pdf(file_name)
 
     def create_dirs(self):
-        os.makedirs(f'{OUT_DOCX_DIR}/{self.dir_name}', exist_ok=True)
-        os.makedirs(f'{OUT_PDF_DIR}/{self.dir_name}', exist_ok=True)
+        os.makedirs(f'{OUT_DOCX_PATH}/{self.dir_name}', exist_ok=True)
+        os.makedirs(f'{OUT_PDF_PATH}/{self.dir_name}', exist_ok=True)
 
     def __str__(self):
         return f'{self.sert_number} {self.abr_course} {self.course_date_rus} {self.name_rus}'
@@ -81,7 +81,7 @@ class Contact:
         if file_name in print_docx:
             k_print = 'p_'
 
-        file_out_docx = (f"{OUT_DOCX_DIR}/"
+        file_out_docx = (f"{OUT_DOCX_PATH}/"
                          f"{self.dir_name}/"
                          f"{k_print}{file_name[0]} {self.dir_name} {self.sert_number}")
         if self.email:
@@ -90,7 +90,7 @@ class Contact:
 
         file_out_docx = file_out_docx.replace(' ', '_')
 
-        files_out_pdf = file_out_docx.replace(OUT_DOCX_DIR, OUT_PDF_DIR).replace('.docx', '.pdf')
+        files_out_pdf = file_out_docx.replace(OUT_DOCX_PATH, OUT_PDF_PATH).replace('.docx', '.pdf')
         return file_out_docx, files_out_pdf
 
     def __eq__(self, other):
