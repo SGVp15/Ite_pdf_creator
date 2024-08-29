@@ -105,7 +105,7 @@ class Contact:
                 self.course_date_rus == other.course_date_rus and
                 self.docx_list_files_name_templates == other.docx_list_files_name_templates and
                 self.course.name_rus == other.course.name_rus and
-                self.course.templates == other.course.templates
-        ):
+                self.course.templates == other.course.templates):
             return True
+
         return False
