@@ -3,7 +3,7 @@ import os
 import re
 
 from UTILS.utils import parser_numbers, replace_month_to_number
-from config import OUT_DOCX_DIR, confirm_docx, print_docx, OUT_PDF_DIR, map_excel_user
+from config import OUT_DOCX_DIR, print_docx, OUT_PDF_DIR, map_excel_user
 from course import Course
 
 
@@ -81,10 +81,12 @@ class Contact:
         if file_name in print_docx:
             k_print = 'p_'
 
-        file_out_docx = (f"{OUT_DOCX_DIR}/{self.dir_name}"
-                         f"/{k_print}_{self.dir_name}_{self.sert_number}_{self.email}.docx")
-
-        # file_out_docx = f"{OUT_DOCX_DIR}/{self.dir_name}/{file_name[0]}{self.sert_number}.docx"
+        file_out_docx = (f"{OUT_DOCX_DIR}/"
+                         f"{self.dir_name}/"
+                         f"{k_print}{file_name[0]} {self.dir_name} {self.sert_number}")
+        if self.email:
+            file_out_docx += f' {self.email}'
+        file_out_docx += '.docx'
 
         file_out_docx = file_out_docx.replace(' ', '_')
 
@@ -93,8 +95,7 @@ class Contact:
 
     def __eq__(self, other):
         return False
-        if (
-                self.sert_number == other.sert_number and
+        if (self.sert_number == other.sert_number and
                 self.course_date_rus == other.course_date_rus and
                 self.issue_date_rus == other.issue_date_rus and
                 self.course_date_eng == other.course_date_eng and
