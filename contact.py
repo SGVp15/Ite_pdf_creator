@@ -29,7 +29,7 @@ class Contact:
         self.course = None
         for course in courses_list:
             if course.abr == self.abr_course:
-                self.course = copy.copy(course)
+                self.course: Course = copy.copy(course)
                 self.course_name_rus = self.course.name_rus
                 self.course_name_eng = self.course.name_eng
                 self.hours_rus = self.course.hour_rus
@@ -38,13 +38,16 @@ class Contact:
         if self.course is None:
             raise ValueError('course')
 
+        if len(self.course.templates) == 0:
+            raise ValueError('templates is null')
+
         if self.course_date_rus is None:
             raise ValueError('course_date_rus')
 
         try:
             self.year = re.findall(r'\d{4}', self.course_date_rus)[-1]  # замена года выдачи
             self.month = re.findall(r'\.(\d{2})', replace_month_to_number(self.course_date_rus))[0]
-            self.day = re.findall(r'(\d{2})\.', replace_month_to_number(self.course_date_rus))[0]
+            self.day = re.findall(r'(\d+)\.', replace_month_to_number(self.course_date_rus))[0]
         except IndexError:
             raise ValueError('date_error')
 
