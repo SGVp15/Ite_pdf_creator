@@ -8,8 +8,8 @@ class Menu:
     def __init__(self):
         self.need_send_email = False
         while True:
-            print(f'1 - Авто\n'
-                  f'0 - Ручное')
+            print(f'1: Авто\n'
+                  f'0: Ручное')
             self.is_auto = int(input())
             if self.is_auto in (0, 1):
                 break

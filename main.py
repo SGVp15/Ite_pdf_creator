@@ -35,7 +35,7 @@ def main():
         create_docx_pdf(users)
 
 
-def create_docx_pdf(contacts:[Contact]):
+def create_docx_pdf(contacts: [Contact]):
     print('CREATE .DOCX ... ', end='')
     for contact in contacts:
         contact.create_dirs()
