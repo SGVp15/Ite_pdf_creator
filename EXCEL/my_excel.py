@@ -8,7 +8,7 @@ from contact import Contact
 from config import PAGE_NAME, map_excel_user, OUT_PATH, FILE_XLSX
 
 
-def read_excel_file(filename=FILE_XLSX, sheet_names=('2015',)) -> dict:
+def read_excel_file(filename=FILE_XLSX, sheet_names=('2015',)) -> {tuple}:
     workbook = load_workbook(filename=filename, read_only=True, data_only=True)
     all_data = {}
     for sheet_name in sheet_names:
