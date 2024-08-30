@@ -26,16 +26,16 @@ def main():
         templates_menu = menu.get_templates()
 
         print('READ EXCEL_FILE ... ', end='')
-        contacts = read_users_from_excel(rows_users=rows)
-        for contact in contacts:
+        users = read_users_from_excel(rows_users=rows)
+        for user in users:
             if templates_menu:
-                contact.set_templates(templates_menu)
+                user.set_templates(templates_menu)
         print('[ OK ]')
 
-        create_(contacts)
+        create_docx_pdf(users)
 
 
-def create_(contacts):
+def create_docx_pdf(contacts:[Contact]):
     print('CREATE .DOCX ... ', end='')
     for contact in contacts:
         contact.create_dirs()
@@ -68,7 +68,7 @@ def auto():
     new_users = [user for user in new_users if user not in old_users]
 
     if len(new_users) > 0:
-        create_(new_users)
+        create_docx_pdf(new_users)
         all_users = [*new_users, *old_users]
         pickle.dump(all_users, open(PICKLE_USERS, 'wb'))
         log.info('[Create PICKLE_USERS]')
