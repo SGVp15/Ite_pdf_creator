@@ -51,7 +51,7 @@ class Contact:
         except IndexError:
             raise ValueError('date_error')
 
-        self.dir_name = f"{self.year}.{self.month}.{self.day}_{self.abr_course}"
+        self.dir_name = os.path.join(self.year, self.month)
 
         self.docx_list_files_name_templates = []
         template_num = parser_numbers(data[map_excel_user.get('Template')])
@@ -78,7 +78,7 @@ class Contact:
             k_print = 'p_'
 
         file_out_docx = os.path.join(OUT_DOCX_PATH, self.dir_name,
-                                     f"{k_print}{file_name[0]} {self.dir_name} {self.sert_number} {self.name_rus}")
+                                     f"{k_print}{file_name[0]} {self.year}.{self.month}.{self.day} {self.abr_course} {self.sert_number} {self.name_rus}")
         if self.email:
             file_out_docx += f' {self.email}'
         file_out_docx += '.docx'
