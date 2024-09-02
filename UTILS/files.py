@@ -1,5 +1,6 @@
 import os
 import pickle
+import shutil
 
 from UTILS.log import log
 from config import PICKLE_FILE_MODIFY, FILE_XLSX
@@ -25,4 +26,22 @@ def check_update_file_excel_decorator(func):
         if time_file_modify != time_file_modify_now:
             func()
             pickle.dump(time_file_modify_now, open(PICKLE_FILE_MODIFY, 'wb'))
+
     return wrapper
+
+
+def delete_empty_folder(folder_path):
+    try:
+        # Проверяем, существует ли папка
+        if os.path.exists(folder_path):
+            # Проверяем, пуста ли папка
+            if os.listdir(folder_path) == []:
+                # Удаляем пустую папку
+                shutil.rmtree(folder_path)
+                log(f"Папка {folder_path} успешно удалена.")
+            else:
+                log(f"Папка {folder_path} не пустая.")
+        else:
+            log(f"Папка {folder_path} не найдена.")
+    except OSError as e:
+        log(f"Ошибка при удалении папки: {e}")

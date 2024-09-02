@@ -7,7 +7,7 @@ import time
 import docx2pdf
 
 from EXCEL.my_excel import read_excel_file
-from UTILS.files import check_update_file_excel_decorator
+from UTILS.files import check_update_file_excel_decorator, delete_empty_folder
 from UTILS.log import log
 from UTILS.utils import check_config_file
 from UTILS.zip import create_zip
@@ -57,7 +57,8 @@ def create_docx_pdf(contacts: [Contact]):
             docx2pdf.convert(contact.files_out_docx[file_name], contact.files_out_pdf[file_name])
             log.info(f'[CREATE_PDF] {contact.files_out_pdf}')
             if DELETE_DOCX_AFTER_PDF:
-                os.remove(path=contact.files_out_docx[file_name])
+                path_docx = contact.files_out_docx[file_name]
+                delete_empty_folder(path=os.path.dirname(path_docx))
     print('[ OK ]')
 
     print('Создаю архив ... ', end='')
