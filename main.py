@@ -1,3 +1,4 @@
+import os
 import pickle
 import pickle
 import sys
@@ -11,7 +12,7 @@ from UTILS.log import log
 from UTILS.utils import check_config_file
 from UTILS.zip import create_zip
 from WORD.my_word import create_docx
-from config import FILE_XLSX, PICKLE_USERS
+from config import FILE_XLSX, PICKLE_USERS, DELETE_DOCX_AFTER_PDF
 from contact import Contact
 from course import Course
 from menu import Menu
@@ -55,6 +56,8 @@ def create_docx_pdf(contacts: [Contact]):
         for file_name in contact.docx_list_files_name_templates:
             docx2pdf.convert(contact.files_out_docx[file_name], contact.files_out_pdf[file_name])
             log.info(f'[CREATE_PDF] {contact.files_out_pdf}')
+            if DELETE_DOCX_AFTER_PDF:
+                os.remove(path=contact.files_out_docx[file_name])
     print('[ OK ]')
 
     print('Создаю архив ... ', end='')
