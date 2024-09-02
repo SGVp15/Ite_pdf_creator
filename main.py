@@ -41,10 +41,10 @@ def main(autorun: bool = False):
                 user.set_templates(templates_menu)
         print('[ OK ]')
 
-        create_docx_pdf(users)
+        create_docx_and_pdf(users)
 
 
-def create_docx_pdf(contacts: [Contact]):
+def create_docx_and_pdf(contacts: [Contact]):
     print('CREATE .DOCX ... ', end='')
     for contact in contacts:
         contact.create_dirs()
@@ -81,7 +81,7 @@ def auto():
     new_users = [user for user in new_users if user not in old_users]
 
     if len(new_users) > 0:
-        create_docx_pdf(new_users)
+        create_docx_and_pdf(new_users)
         all_users = [*new_users, *old_users]
         pickle.dump(all_users, open(PICKLE_USERS, 'wb'))
         log.info('[Create PICKLE_USERS]')
