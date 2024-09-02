@@ -51,7 +51,7 @@ class Contact:
         except IndexError:
             raise ValueError('date_error')
 
-        self.dir_name = os.path.join(self.year, self.month,f'{self.year}.{self.month}.{self.day}_{self.abr_course}')
+        self.dir_name = os.path.join(self.year, self.month, f'{self.year}.{self.month}.{self.day}_{self.abr_course}')
 
         self.docx_list_files_name_templates = []
         template_num = parser_numbers(data[map_excel_user.get('Template')])
