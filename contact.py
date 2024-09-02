@@ -85,12 +85,10 @@ class Contact:
             k_print = 'p_'
 
         file_out_docx = os.path.join(OUT_DOCX_PATH, self.dir_name,
-                                     f"{k_print}{file_name[0]} {self.dir_name} {self.sert_number}")
+                                     f"{k_print}{file_name[0]}_{self.dir_name}_{self.sert_number}")
         if self.email:
             file_out_docx += f' {self.email}'
         file_out_docx += '.docx'
-
-        file_out_docx = file_out_docx.replace(' ', '_')
 
         files_out_pdf = file_out_docx.replace(OUT_DOCX_PATH, OUT_PDF_PATH).replace('.docx', '.pdf')
         return file_out_docx, files_out_pdf

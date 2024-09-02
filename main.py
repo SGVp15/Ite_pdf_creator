@@ -1,22 +1,29 @@
 import pickle
+import pickle
+import sys
 import time
 
 import docx2pdf
 
-from UTILS.utils import check_config_file
-from contact import Contact
 from EXCEL.my_excel import read_excel_file
+from UTILS.files import check_update_file_excel_decorator
+from UTILS.log import log
+from UTILS.utils import check_config_file
+from UTILS.zip import create_zip
 from WORD.my_word import create_docx
 from config import FILE_XLSX, PICKLE_USERS
+from contact import Contact
 from course import Course
-from UTILS.files import check_update_file_excel_decorator, check_update_file_excel_decorator
 from menu import Menu
-from UTILS.log import log
-from UTILS.zip import create_zip
 
 
-def main():
+def main(autorun: bool = False):
     menu = Menu()
+    if autorun:
+        menu.is_auto = 1
+    else:
+        menu.main()
+
     if menu.is_auto == 1:
         while True:
             auto()
@@ -112,9 +119,14 @@ def read_users_from_excel(file_excel=FILE_XLSX, header=False, rows_users=(-1,)) 
 
 
 if __name__ == '__main__':
+    arg = sys.argv
+    autorun = False
+    if len(arg) > 1:
+        if arg[1] in (1, '1'):
+            autorun = True
     check_config_file()
     log.info('[ START ]')
     try:
-        main()
+        main(autorun)
     except Exception as e:
         log.error(e)
