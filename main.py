@@ -47,14 +47,14 @@ def create_docx_pdf(contacts: [Contact]):
     for contact in contacts:
         contact.create_dirs()
         create_docx(contact)
-        log.info(f'[CREATE_DOCX] {contact.file_out_docx}')
+        log.info(f'[CREATE_DOCX] {contact.files_out_docx}')
     print('[ OK ]')
 
     print('CREATE .PDF ... ', end='')
     for contact in contacts:
         for file_name in contact.docx_list_files_name_templates:
             docx2pdf.convert(contact.files_out_docx[file_name], contact.files_out_pdf[file_name])
-            log.info(f'[CREATE_PDF] {contact.file_out_pdf}')
+            log.info(f'[CREATE_PDF] {contact.files_out_pdf}')
     print('[ OK ]')
 
     print('Создаю архив ... ', end='')
