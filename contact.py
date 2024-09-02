@@ -71,13 +71,6 @@ class Contact:
         for file_name in self.docx_list_files_name_templates:
             self.files_out_docx[file_name], self.files_out_pdf[file_name] = self.get_path_doc_pdf(file_name)
 
-    def create_dirs(self):
-        os.makedirs(f'{OUT_DOCX_PATH}/{self.dir_name}', exist_ok=True)
-        os.makedirs(f'{OUT_PDF_PATH}/{self.dir_name}', exist_ok=True)
-
-    def __str__(self):
-        return f'{self.sert_number} {self.abr_course} {self.course_date_rus} {self.name_rus}'
-
     def get_path_doc_pdf(self, file_name) -> (str, str):
         # Удост_MPT_15_октября_2021_Гейнце_Павел_32970_aaa@yandex.ru.pdf
         k_print = ''
@@ -93,7 +86,16 @@ class Contact:
         files_out_pdf = file_out_docx.replace(OUT_DOCX_PATH, OUT_PDF_PATH).replace('.docx', '.pdf')
         return file_out_docx, files_out_pdf
 
+    def create_dirs(self):
+        os.makedirs(f'{OUT_DOCX_PATH}/{self.dir_name}', exist_ok=True)
+        os.makedirs(f'{OUT_PDF_PATH}/{self.dir_name}', exist_ok=True)
+
+    def __str__(self):
+        return f'{self.sert_number} {self.abr_course} {self.course_date_rus} {self.name_rus}'
+
     def __eq__(self, other):
+        if self.files_out_docx != other.files_out_docx or other.files_out_docx is {}:
+            return False
         if (self.sert_number == other.sert_number and
                 self.course_date_rus == other.course_date_rus and
                 self.issue_date_rus == other.issue_date_rus and
