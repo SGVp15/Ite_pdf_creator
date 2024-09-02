@@ -56,8 +56,8 @@ def create_docx_pdf(contacts: [Contact]):
             docx2pdf.convert(contact.files_out_docx[file_name], contact.files_out_pdf[file_name])
             log.info(f'[CREATE_PDF] {contact.files_out_pdf}')
             if DELETE_DOCX_AFTER_PDF:
-                path_docx = contact.files_out_docx[file_name]
-                delete_empty_folder(path=os.path.dirname(path_docx))
+                path_docx = os.path.dirname(contact.files_out_docx[file_name])
+                delete_empty_folder(path_docx)
     print('[ OK ]')
 
     print('Создаю архив ... ', end='')
