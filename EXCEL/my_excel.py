@@ -4,8 +4,10 @@ import re
 
 from openpyxl import load_workbook
 
+from UTILS.log import log
 from contact import Contact
 from config import PAGE_NAME, map_excel_user, OUT_PATH, FILE_XLSX
+from course import Course
 
 
 def read_excel_file(filename=FILE_XLSX, sheet_names=('2015',)) -> {tuple}:
@@ -64,3 +66,39 @@ def get_contact_from_excel(rows_excel, templates_docx) -> [Contact]:
 
             contacts.append(contact)
     return contacts
+
+
+def read_users_from_excel(file_excel=FILE_XLSX, header=False, rows_users=(-1,)) -> [Contact]:
+    data_excel = read_excel_file(file_excel, sheet_names=('2015', 'Курсы', 'Архив Курсов', 'Шаблоны'))
+    users_data = data_excel.get('2015')
+    users_data = [u for u in users_data if u[1] is not None]
+    if rows_users != (-1,):
+        users_data = [users_data[i - 1] for i in rows_users]
+    elif header is False:
+        users_data = users_data[1:]
+
+    courses_data: list = []
+    courses_data.extend(data_excel.get('Курсы')[1:])
+    courses_data.extend(data_excel.get('Архив Курсов')[1:])
+
+    templates_data = data_excel.get('Шаблоны')[1:]
+
+    courses = []
+    for c in courses_data:
+        try:
+            courses.append(Course(c))
+        except ValueError:
+            pass
+
+    templates = []
+    for t in templates_data:
+        templates.append(t[1])
+
+    users = []
+    for data in users_data:
+        try:
+            users.append(Contact(data, courses, templates))
+        except ValueError:
+            log.error(f'[DataError] {data}')
+    users = [u for u in users if u.abr_course is not None and u.course is not None]
+    return users

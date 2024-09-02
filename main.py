@@ -5,15 +5,14 @@ import time
 
 import docx2pdf
 
-from EXCEL.my_excel import read_excel_file
+from EXCEL.my_excel import read_users_from_excel
 from UTILS.files import check_update_file_excel_decorator, delete_empty_folder
 from UTILS.log import log
 from UTILS.utils import check_config_file, progress
 from UTILS.zip import create_zip
 from WORD.my_word import create_docx
-from config import FILE_XLSX, PICKLE_USERS, DELETE_DOCX_AFTER_PDF, _SLEEP_TIME
+from config import PICKLE_USERS, DELETE_DOCX_AFTER_PDF, _SLEEP_TIME
 from contact import Contact
-from course import Course
 from menu import Menu
 
 
@@ -76,7 +75,6 @@ def auto():
     old_users = []
     print('Read Excel')
     new_users = read_users_from_excel()
-    new_users = new_users[len(new_users) - 100:len(new_users)]
 
     try:
         old_users = pickle.load(open(PICKLE_USERS, 'rb'))
@@ -90,42 +88,6 @@ def auto():
         all_users = [*new_users, *old_users]
         pickle.dump(all_users, open(PICKLE_USERS, 'wb'))
         log.info('[Create PICKLE_USERS]')
-
-
-def read_users_from_excel(file_excel=FILE_XLSX, header=False, rows_users=(-1,)) -> [Contact]:
-    data_excel = read_excel_file(file_excel, sheet_names=('2015', 'Курсы', 'Архив Курсов', 'Шаблоны'))
-    users_data = data_excel.get('2015')
-    users_data = [u for u in users_data if u[1] is not None]
-    if rows_users != (-1,):
-        users_data = [users_data[i - 1] for i in rows_users]
-    elif header is False:
-        users_data = users_data[1:]
-
-    courses_data: list = []
-    courses_data.extend(data_excel.get('Курсы')[1:])
-    courses_data.extend(data_excel.get('Архив Курсов')[1:])
-
-    templates_data = data_excel.get('Шаблоны')[1:]
-
-    courses = []
-    for c in courses_data:
-        try:
-            courses.append(Course(c))
-        except ValueError:
-            pass
-
-    templates = []
-    for t in templates_data:
-        templates.append(t[1])
-
-    users = []
-    for data in users_data:
-        try:
-            users.append(Contact(data, courses, templates))
-        except ValueError:
-            log.error(f'[DataError] {data}')
-    users = [u for u in users if u.abr_course is not None and u.course is not None]
-    return users
 
 
 if __name__ == '__main__':
