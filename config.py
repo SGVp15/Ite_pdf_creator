@@ -60,3 +60,6 @@ log_file = './log.txt'
 
 PICKLE_USERS = './data/users.pk'
 PICKLE_FILE_MODIFY = './data/update_file.pk'
+
+
+_SLEEP_TIME = 60

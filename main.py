@@ -8,10 +8,10 @@ import docx2pdf
 from EXCEL.my_excel import read_excel_file
 from UTILS.files import check_update_file_excel_decorator, delete_empty_folder
 from UTILS.log import log
-from UTILS.utils import check_config_file
+from UTILS.utils import check_config_file, progress
 from UTILS.zip import create_zip
 from WORD.my_word import create_docx
-from config import FILE_XLSX, PICKLE_USERS, DELETE_DOCX_AFTER_PDF
+from config import FILE_XLSX, PICKLE_USERS, DELETE_DOCX_AFTER_PDF, _SLEEP_TIME
 from contact import Contact
 from course import Course
 from menu import Menu
@@ -27,7 +27,9 @@ def main(autorun: bool = False):
     if menu.is_auto == 1:
         while True:
             auto()
-            time.sleep(1 * 60)
+            for i in range(_SLEEP_TIME):
+                progress(text='sleep ', percent=int(i * 100 / _SLEEP_TIME))
+                time.sleep(1)
     else:
         rows = menu.get_rows()
         templates_menu = menu.get_templates()
