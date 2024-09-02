@@ -47,7 +47,7 @@ def create_docx_pdf(contacts: [Contact]):
     for contact in contacts:
         contact.create_dirs()
         create_docx(contact)
-        log.info(f'[CREATE_DOCX] {contact.sert_number}')
+        log.info(f'[CREATE_DOCX] {contact.files_out_docx}')
     print('[ OK ]')
 
     print('CREATE .PDF ... ', end='')
