@@ -59,6 +59,7 @@ def create_docx_pdf(contacts: [Contact]):
 def auto():
     old_users = []
     new_users = read_users_from_excel()
+    new_users = new_users[len(new_users) - 100:len(new_users)]
 
     try:
         old_users = pickle.load(open(PICKLE_USERS, 'rb'))
