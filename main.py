@@ -74,6 +74,7 @@ def create_docx_and_pdf(contacts: [Contact]):
 @check_update_file_excel_decorator
 def auto():
     old_users = []
+    log.info('Read Excel')
     new_users = read_users_from_excel()
     new_users = new_users[len(new_users) - 100:len(new_users)]
 
