@@ -101,7 +101,5 @@ if __name__ == '__main__':
             autorun = True
     check_config_file()
     log.info('[ START ]')
-    try:
-        main(autorun)
-    except Exception as e:
-        log.error(e)
+
+    main(autorun)
