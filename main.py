@@ -11,7 +11,7 @@ from UTILS.log import log
 from UTILS.utils import check_config_file, progress
 from UTILS.zip import create_zip
 from WORD.my_word import create_docx
-from config import PICKLE_USERS, DELETE_DOCX_AFTER_PDF, _SLEEP_TIME
+from config import PICKLE_USERS, DELETE_DOCX_AFTER_PDF, _SLEEP_TIME, _LAST_USERS
 from contact import Contact
 from menu import Menu
 
@@ -75,7 +75,7 @@ def auto():
     old_users = []
     print('Read Excel')
     new_users = read_users_from_excel()
-    new_users = new_users[len(new_users) - 100:len(new_users)]
+    new_users = new_users[len(new_users) - _LAST_USERS:len(new_users)]
 
     try:
         old_users = pickle.load(open(PICKLE_USERS, 'rb'))
