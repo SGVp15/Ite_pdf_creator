@@ -62,7 +62,7 @@ PICKLE_USERS = './data/users.pk'
 PICKLE_FILE_MODIFY = './data/update_file.pk'
 
 _SLEEP_TIME = 60
-_LAST_USERS = 0
+_LAST_USERS = 100
 
 if os.path.exists(PICKLE_FILE_MODIFY):
     os.remove(PICKLE_FILE_MODIFY)
