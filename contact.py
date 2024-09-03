@@ -14,10 +14,10 @@ class Contact:
         self.issue_date_rus = data[map_excel_user.get('IssueDateRus')]
         self.course_date_rus = data[map_excel_user.get('CourseDateRus')]
         self.course_date_eng = data[map_excel_user.get('CourseDateEng')]
-        self.name_rus = re.sub(r'\s+', ' ', data[map_excel_user.get('NameRus')])
-        self.name_eng = re.sub(r'\s+', ' ', data[map_excel_user.get('NameEng')])
-        self.email = re.sub(r'\s+', ' ', data[map_excel_user.get('Email')])
-        self.gender = re.sub(r'\s+', ' ', data[map_excel_user.get('Gender')])
+        self.name_rus = re.sub(r'\s+', ' ', data[map_excel_user.get('NameRus')]).strip()
+        self.name_eng = re.sub(r'\s+', ' ', data[map_excel_user.get('NameEng')]).strip()
+        self.email = re.sub(r'\s+', ' ', data[map_excel_user.get('Email')]).strip()
+        self.gender = re.sub(r'\s+', ' ', data[map_excel_user.get('Gender')]).strip()
 
         if self.abr_course is None:
             raise ValueError(f'{self.sert_number} abr_course')
