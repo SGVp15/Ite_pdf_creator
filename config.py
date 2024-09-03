@@ -62,4 +62,4 @@ PICKLE_USERS = './data/users.pk'
 PICKLE_FILE_MODIFY = './data/update_file.pk'
 
 _SLEEP_TIME = 60
-_LAST_USERS = 20
+_LAST_USERS = 100
