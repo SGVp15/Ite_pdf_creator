@@ -76,7 +76,8 @@ def auto():
     old_users = []
     print('Read Excel')
     new_users = read_users_from_excel()
-    new_users = new_users[len(new_users) - _LAST_USERS:len(new_users)]
+    if _LAST_USERS > 0:
+        new_users = new_users[len(new_users) - _LAST_USERS:len(new_users)]
 
     try:
         old_users = pickle.load(open(PICKLE_USERS, 'rb'))
