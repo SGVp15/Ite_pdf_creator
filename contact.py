@@ -9,6 +9,8 @@ from course import Course
 
 class Contact:
     def __init__(self, data: tuple, courses_list: [Course], templates_list: []):
+        self.files_out_pdf = None
+        self.files_out_docx = None
         self.abr_course = self._clean_str(data[map_excel_user.get('AbrCourse')])
         self.sert_number = self._clean_str(data[map_excel_user.get('Number')])
         self.issue_date_rus = self._clean_str(data[map_excel_user.get('IssueDateRus')])
@@ -51,7 +53,8 @@ class Contact:
         except IndexError:
             raise ValueError('date_error')
 
-        self.dir_name = os.path.join(self.year, self.month, f'{self.year}.{self.month}.{self.day}_{self.abr_course}')
+        self.dir_name: str = str(os.path.join(self.year, self.month,
+                                              f'{self.year}.{self.month}.{self.day}_{self.abr_course}'))
 
         self.docx_list_files_name_templates = []
         template_num = parser_numbers(data[map_excel_user.get('Template')])
@@ -83,8 +86,11 @@ class Contact:
         if file_name in print_docx:
             k_print = 'p_'
 
-        file_out_docx = os.path.join(OUT_DOCX_PATH, self.dir_name,
-                                     f"{k_print}{file_name[0]} {self.year}.{self.month}.{self.day} {self.abr_course} {self.sert_number} {self.name_rus}")
+        file_out_docx = os.path.join(
+            OUT_DOCX_PATH, self.dir_name,
+            f"{k_print}{file_name[0]} {self.year}.{self.month}.{self.day} "
+            f"{self.abr_course} {self.sert_number} {self.name_rus}"
+        )
         if self.email:
             file_out_docx += f' {self.email}'
         file_out_docx += '.docx'
