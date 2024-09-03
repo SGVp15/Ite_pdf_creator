@@ -2,7 +2,7 @@ import copy
 import os
 import re
 
-from UTILS.utils import parser_numbers, replace_month_to_number
+from UTILS.utils import find_numbers_and_ranges, replace_month_to_number
 from config import OUT_DOCX_PATH, print_docx, OUT_PDF_PATH, map_excel_user
 from course import Course
 
@@ -57,7 +57,7 @@ class Contact:
                                               f'{self.year}.{self.month}.{self.day}_{self.abr_course}'))
 
         self.docx_list_files_name_templates = []
-        template_num = parser_numbers(data[map_excel_user.get('Template')])
+        template_num = find_numbers_and_ranges(data[map_excel_user.get('Template')])
         if len(template_num) == 0:
             self.docx_list_files_name_templates = self.course.templates
         else:

@@ -26,16 +26,26 @@ def transliterate(name: str):
     return name
 
 
-def parser_numbers(text: str) -> list:
+def find_numbers_and_ranges(text: str) -> list[int]:
     if type(text) is not str:
         return []
+    text = re.sub(r'[^\d\-]', ' ', text)
+    text = re.sub(r'[,\s]*-[,\s]*', '-', text)
+
+    text = text.strip()
+    list_string = text.split()
     numbers = []
-    for match in re.finditer(r'-?\d+', text):
-        start, end = map(int, match.group().split('-'))
-        if end > start:
-            numbers.extend(range(start, end + 1))
-        else:
-            numbers.append(start)
+    for x in list_string:
+        try:
+            numbers.append(int(x))
+        except ValueError:
+            num = x.split('-')
+            if len(num) > 1:
+                num = [int(i) for i in num]
+                num.sort()
+                num = [i for i in range(num[0], num[-1] + 1)]
+                numbers.extend(num)
+    numbers.sort()
     return numbers
 
 

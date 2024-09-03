@@ -1,7 +1,7 @@
 import os
 
 from config import TEMPLATES_DIR
-from UTILS.utils import parser_numbers
+from UTILS.utils import find_numbers_and_ranges
 
 
 class Menu:
@@ -24,7 +24,7 @@ class Menu:
             print(f'Введите номера строк.\n'
                   f'(Пример: 10-20, 100)')
             answer = input()
-            numbers = parser_numbers(answer)
+            numbers = find_numbers_and_ranges(answer)
             if len(numbers) > 0:
                 print(f'\nВзять эти строки из Excel файла? {answer}\n'
                       f'Y/N')
@@ -45,7 +45,7 @@ class Menu:
                 print(f'{i}: {docx_template}')
             answer = input()
             try:
-                num_templates = parser_numbers(answer)
+                num_templates = find_numbers_and_ranges(answer)
             except ValueError:
                 continue
 
