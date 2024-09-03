@@ -9,15 +9,15 @@ from course import Course
 
 class Contact:
     def __init__(self, data: tuple, courses_list: [Course], templates_list: []):
-        self.abr_course = data[map_excel_user.get('AbrCourse')]
-        self.sert_number = data[map_excel_user.get('Number')]
-        self.issue_date_rus = data[map_excel_user.get('IssueDateRus')]
-        self.course_date_rus = data[map_excel_user.get('CourseDateRus')]
-        self.course_date_eng = data[map_excel_user.get('CourseDateEng')]
-        self.name_rus = re.sub(r'\s+', ' ', data[map_excel_user.get('NameRus')]).strip()
-        self.name_eng = re.sub(r'\s+', ' ', data[map_excel_user.get('NameEng')]).strip()
-        self.email = re.sub(r'\s+', ' ', data[map_excel_user.get('Email')]).strip()
-        self.gender = re.sub(r'\s+', ' ', data[map_excel_user.get('Gender')]).strip()
+        self.abr_course = self._clean_str(data[map_excel_user.get('AbrCourse')])
+        self.sert_number = self._clean_str(data[map_excel_user.get('Number')])
+        self.issue_date_rus = self._clean_str(data[map_excel_user.get('IssueDateRus')])
+        self.course_date_rus = self._clean_str(data[map_excel_user.get('CourseDateRus')])
+        self.course_date_eng = self._clean_str(data[map_excel_user.get('CourseDateEng')])
+        self.name_rus = self._clean_str(data[map_excel_user.get('NameRus')])
+        self.name_eng = self._clean_str(data[map_excel_user.get('NameEng')])
+        self.email = self._clean_str(data[map_excel_user.get('Email')])
+        self.gender = self._clean_str(data[map_excel_user.get('Gender')])
 
         if self.abr_course is None:
             raise ValueError(f'{self.sert_number} abr_course')
@@ -62,6 +62,12 @@ class Contact:
                 self.docx_list_files_name_templates.append(templates_list[i])
 
         self.set_templates(self.docx_list_files_name_templates)
+
+    @staticmethod
+    def _clean_str(s):
+        if type(s) is str:
+            s = re.sub(r'\s+', ' ', s).strip()
+        return s
 
     def set_templates(self, templates_files: list):
         self.docx_list_files_name_templates = templates_files
