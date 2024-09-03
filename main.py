@@ -58,6 +58,7 @@ def create_docx_and_pdf(contacts: [Contact]):
                 docx2pdf.convert(contact.files_out_docx[file_name], contact.files_out_pdf[file_name])
                 log.info(f'[CREATE_PDF] {contact.sert_number} {contact.files_out_pdf}')
                 if DELETE_DOCX_AFTER_PDF:
+                    os.remove(contact.files_out_docx[file_name])
                     path_docx = os.path.dirname(contact.files_out_docx[file_name])
                     delete_empty_folder(path_docx)
             except Exception as e:
