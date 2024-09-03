@@ -70,8 +70,8 @@ def create_docx(contact: Contact):
         for k, v in replaces_dict.items():
             replace_docx_text(document, old_text=k, new_text=v)
 
+        path = contact.files_out_docx.get(docx_template)
         try:
-            path = contact.files_out_docx.get(docx_template)
             document.save(path)
         except FileNotFoundError:
             log.error(f'FileNotFoundError {path}')

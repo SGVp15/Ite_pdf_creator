@@ -27,18 +27,18 @@ def transliterate(name: str):
 
 
 def parser_numbers(s: str) -> list:
-    if s is None:
+    if type(s) is not str:
         return []
     s = re.sub(r'[^\d\-]', ' ', s)
     s = re.sub(r'[,\s]*-[,\s]*', '-', s)
 
     s = s.strip()
-    l = s.split()
+    list_s = s.split()
     clear_int = []
-    for x in l:
+    for x in list_s:
         try:
             clear_int.append(int(x))
-        except:
+        except ValueError:
             la = x.split('-')
             if len(la) > 1:
                 la = [int(i) for i in la]
