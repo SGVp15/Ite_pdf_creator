@@ -26,27 +26,17 @@ def transliterate(name: str):
     return name
 
 
-def parser_numbers(s: str) -> list:
-    if type(s) is not str:
+def parser_numbers(text: str) -> list:
+    if type(text) is not str:
         return []
-    s = re.sub(r'[^\d\-]', ' ', s)
-    s = re.sub(r'[,\s]*-[,\s]*', '-', s)
-
-    s = s.strip()
-    list_s = s.split()
-    clear_int = []
-    for x in list_s:
-        try:
-            clear_int.append(int(x))
-        except ValueError:
-            la = x.split('-')
-            if len(la) > 1:
-                la = [int(i) for i in la]
-                la.sort()
-                la = [i for i in range(la[0], la[-1] + 1)]
-                clear_int.extend(la)
-    clear_int.sort()
-    return clear_int
+    numbers = []
+    for match in re.finditer(r'-?\d+', text):
+        start, end = map(int, match.group().split('-'))
+        if end > start:
+            numbers.extend(range(start, end + 1))
+        else:
+            numbers.append(start)
+    return numbers
 
 
 def replace_month_to_number(s: str):
