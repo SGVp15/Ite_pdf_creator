@@ -1,11 +1,10 @@
 import os.path
-import time
 
 from docx import Document
 
 from UTILS.log import log
+from config import TEMPLATES_DIR
 from contact import Contact
-from config import TEMPLATES_DIR, OUT_DOCX_PATH, OUT_PDF_PATH
 
 
 def replace_docx_text(document, old_text: str, new_text: str):

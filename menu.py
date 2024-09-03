@@ -6,6 +6,9 @@ from UTILS.utils import parser_numbers
 
 class Menu:
     def __init__(self):
+        self.templates = None
+        self.numbers = None
+        self.is_auto = None
         self.need_send_email = False
 
     def main(self):

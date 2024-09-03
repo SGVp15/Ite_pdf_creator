@@ -67,7 +67,7 @@ def create_docx_and_pdf(contacts: [Contact]):
     print('[ OK ]')
 
     print('Создаю архив ... ', end='')
-    zips = create_zip(contacts)
+    create_zip(contacts)
     print('OK')
 
 
