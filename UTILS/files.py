@@ -37,7 +37,7 @@ def delete_empty_folder(folder_path):
             # Проверяем, пуста ли папка
             if os.listdir(folder_path) == []:
                 # Удаляем пустую папку
-                shutil.rmtree(folder_path)
+                os.removedirs(folder_path)
         else:
             log(f"Папка {folder_path} не найдена.")
     except OSError as e:
