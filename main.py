@@ -6,11 +6,11 @@ import time
 import docx2pdf
 
 from EXCEL.my_excel import read_users_from_excel
-from UTILS.files import check_update_file_excel_decorator, delete_empty_folder
+from UTILS.files import check_update_file_excel_decorator
 from UTILS.log import log
 from UTILS.utils import check_config_file, progress
 from UTILS.zip import create_zip
-from WORD.my_word import create_docx
+from UTILS.WORD.my_word import create_docx
 from config import PICKLE_USERS, DELETE_DOCX_AFTER_PDF, _SLEEP_TIME, _LAST_USERS
 from contact import Contact
 from menu import Menu
