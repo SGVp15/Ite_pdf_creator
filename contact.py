@@ -59,7 +59,7 @@ class Contact:
         self.month_stop: str = str(self.date_stop.month)
         self.day_stop: str = str(self.date_stop.day)
 
-        self.dir_name: str = str(os.path.join(self.year_start, self.date_start.month,
+        self.dir_name: str = str(os.path.join(self.year_start, self.month,
                                               f'{self.year_start}.{self.month_start}.{self.day_start}_{self.abr_course}'))
 
         self.docx_list_files_name_templates = []
