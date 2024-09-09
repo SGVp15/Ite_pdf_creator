@@ -52,6 +52,8 @@ class Contact:
             raise ValueError('course_date_rus')
 
         self.date_start, self.date_stop = get_date_start_stop_from_strings(self.course_date_rus)
+        if self.date_start is None or self.date_stop is None:
+            raise ValueError('date_start')
 
         self.year_start: str = str(self.date_start.year)
         self.month_start: str = str(self.date_start.month)
