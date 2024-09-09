@@ -73,7 +73,7 @@ class Contact:
         self.set_templates(self.docx_list_files_name_templates)
 
     def _mapping(self, excel):
-        self._clean_str(self.data[map_excel_user.get(excel)])
+        return self._clean_str(self.data[map_excel_user.get(excel)])
 
     @staticmethod
     def _clean_str(s):
