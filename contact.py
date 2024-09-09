@@ -1,7 +1,9 @@
 import copy
 import os
 import re
+from datetime import datetime
 
+from UTILS.get_date_start_stop_from_string import get_date_start_stop_from_strings
 from UTILS.utils import find_numbers_and_ranges, replace_month_to_number
 from config import OUT_DOCX_PATH, print_docx, OUT_PDF_PATH, map_excel_user
 from course import Course
@@ -9,17 +11,20 @@ from course import Course
 
 class Contact:
     def __init__(self, data: tuple, courses_list: [Course], templates_list: []):
+        self.data = data
         self.files_out_pdf = None
         self.files_out_docx = None
-        self.abr_course = self._clean_str(data[map_excel_user.get('AbrCourse')])
-        self.sert_number = self._clean_str(data[map_excel_user.get('Number')])
-        self.issue_date_rus = self._clean_str(data[map_excel_user.get('IssueDateRus')])
-        self.course_date_rus = self._clean_str(data[map_excel_user.get('CourseDateRus')])
-        self.course_date_eng = self._clean_str(data[map_excel_user.get('CourseDateEng')])
-        self.name_rus = self._clean_str(data[map_excel_user.get('NameRus')])
-        self.name_eng = self._clean_str(data[map_excel_user.get('NameEng')])
-        self.email = self._clean_str(data[map_excel_user.get('Email')])
-        self.gender = self._clean_str(data[map_excel_user.get('Gender')])
+        self.date_start: datetime.date = None
+        self.date_stop: datetime.date = None
+        self.abr_course = self._mapping('AbrCourse')
+        self.sert_number = self._mapping('Number')
+        self.issue_date_rus = self._mapping('IssueDateRus')
+        self.course_date_rus = self._mapping('CourseDateRus')
+        self.course_date_eng = self._mapping('CourseDateEng')
+        self.name_rus = self._mapping('NameRus')
+        self.name_eng = self._mapping('NameEng')
+        self.email = self._mapping('Email')
+        self.gender = self._mapping('Gender')
 
         if self.abr_course is None:
             raise ValueError(f'{self.sert_number} abr_course')
@@ -46,15 +51,16 @@ class Contact:
         if self.course_date_rus is None:
             raise ValueError('course_date_rus')
 
-        try:
-            self.year = re.findall(r'\d{4}', self.course_date_rus)[-1]  # замена года выдачи
-            self.month = re.findall(r'\.(\d{2})', replace_month_to_number(self.course_date_rus))[0]
-            self.day = re.findall(r'(\d+)\.', replace_month_to_number(self.course_date_rus))[0]
-        except IndexError:
-            raise ValueError('date_error')
+        self.date_start, self.date_stop = get_date_start_stop_from_strings(self.course_date_rus)
+        self.year_start: str = str(self.date_start.year)
+        self.month_start: str = str(self.date_start.month)
+        self.day_start: str = str(self.date_start.day)
+        self.year_stop: str = str(self.date_stop.year)
+        self.month_stop: str = str(self.date_stop.month)
+        self.day_stop: str = str(self.date_stop.day)
 
-        self.dir_name: str = str(os.path.join(self.year, self.month,
-                                              f'{self.year}.{self.month}.{self.day}_{self.abr_course}'))
+        self.dir_name: str = str(os.path.join(self.year_start, self.date_start.month,
+                                              f'{self.year_start}.{self.month_start}.{self.day_start}_{self.abr_course}'))
 
         self.docx_list_files_name_templates = []
         template_num = find_numbers_and_ranges(data[map_excel_user.get('Template')])
@@ -65,6 +71,9 @@ class Contact:
                 self.docx_list_files_name_templates.append(templates_list[i])
 
         self.set_templates(self.docx_list_files_name_templates)
+
+    def _mapping(self, excel):
+        self._clean_str(self.data[map_excel_user.get(excel)])
 
     @staticmethod
     def _clean_str(s):
@@ -88,7 +97,7 @@ class Contact:
 
         file_out_docx = os.path.join(
             OUT_DOCX_PATH, self.dir_name,
-            f"{k_print}{file_name[0]} {self.year}.{self.month}.{self.day} "
+            f"{k_print}{file_name[0]} {self.date_start.year_start}.{self.date_start.month_start}.{self.date_start.day_start} "
             f"{self.abr_course} {self.sert_number} {self.name_rus}"
         )
         if self.email:
@@ -116,6 +125,8 @@ class Contact:
                 self.name_eng == other.name_eng and
                 self.email == other.email and
                 self.gender == other.gender and
+                self.date_start == other.date_start and
+                self.date_stop == other.date_stop and
                 self.course_date_rus == other.course_date_rus and
                 self.docx_list_files_name_templates == other.docx_list_files_name_templates and
                 self.course.name_rus == other.course.name_rus and

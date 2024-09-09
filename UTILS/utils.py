@@ -64,6 +64,20 @@ def replace_month_to_number(s: str):
         r'\s*октябр[ья]\s*': '.10.',
         r'\s*ноябр[ья]\s*': '.11.',
         r'\s*декабр[ья]\s*': '.12.',
+
+        r's*january ': '.01.',
+        r's*february ': '.02.',
+        r's*march ': '.03.',
+        r's*april ': '.04.',
+        r's*may ': '.05.',
+        r's*june ': '.06.',
+        r's*july ': '.07.',
+        r's*august ': '.08.',
+        r's*september ': '.09.',
+        r's*october ': '.10.',
+        r's*november ': '.11.',
+        r's*december ': '.12.',
+
     }
 
     for key in abc:
