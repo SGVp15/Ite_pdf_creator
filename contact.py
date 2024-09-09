@@ -52,14 +52,16 @@ class Contact:
             raise ValueError('course_date_rus')
 
         self.date_start, self.date_stop = get_date_start_stop_from_strings(self.course_date_rus)
+
         self.year_start: str = str(self.date_start.year)
         self.month_start: str = str(self.date_start.month)
         self.day_start: str = str(self.date_start.day)
+
         self.year_stop: str = str(self.date_stop.year)
         self.month_stop: str = str(self.date_stop.month)
         self.day_stop: str = str(self.date_stop.day)
 
-        self.dir_name: str = str(os.path.join(self.year_start, self.month,
+        self.dir_name: str = str(os.path.join(self.year_start, self.month_start,
                                               f'{self.year_start}.{self.month_start}.{self.day_start}_{self.abr_course}'))
 
         self.docx_list_files_name_templates = []
