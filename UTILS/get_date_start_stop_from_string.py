@@ -30,5 +30,5 @@ def get_date_start_stop_from_strings(s: str) -> (datetime.date, datetime.date):
         date_start = datetime.date(int(year_start), int(month_start), int(day_start))
         date_stop = datetime.date(int(year_stop), int(month_stop), int(day_stop))
     except ValueError:
-        pass
+        return None, None
     return min(date_start, date_stop), max(date_start, date_stop)
