@@ -24,8 +24,6 @@ def get_date_start_stop_from_strings(s: str) -> (datetime.date, datetime.date):
     except IndexError:
         raise ValueError('date_error')
 
-    date_start = None
-    date_stop = None
     try:
         date_start = datetime.date(int(year_start), int(month_start), int(day_start))
         date_stop = datetime.date(int(year_stop), int(month_stop), int(day_stop))
