@@ -99,7 +99,7 @@ class Contact:
 
         file_out_docx = os.path.join(
             OUT_DOCX_PATH, self.dir_name,
-            f"{k_print}{file_name[0]} {self.date_start.year_start}.{self.date_start.month_start}.{self.date_start.day_start} "
+            f"{k_print}{file_name[0]} {self.year_start}.{self.month_start}.{self.day_start} "
             f"{self.abr_course} {self.sert_number} {self.name_rus}"
         )
         if self.email:
