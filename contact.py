@@ -60,7 +60,7 @@ class Contact:
         self.day_start: str = f'{self.date_start.day:02d}'
 
         self.year_stop: str = f'{self.date_stop.year:04d}'
-        self.month_stop: str = f'{self.date_stop.month:04d}'
+        self.month_stop: str = f'{self.date_stop.month:02d}'
         self.day_stop: str = f'{self.date_stop.day:02d}'
 
         self.dir_name: str = str(os.path.join(self.year_start, self.month_start,
