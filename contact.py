@@ -5,7 +5,7 @@ from datetime import datetime
 
 from UTILS.get_date_start_stop_from_string import get_date_start_stop_from_strings
 from UTILS.utils import find_numbers_and_ranges, replace_month_to_number
-from config import OUT_DOCX_PATH, print_docx, OUT_PDF_PATH, map_excel_user
+from config import OUT_DOCX_PATH, print_docx, OUT_PDF_PATH, map_excel_user, OUT_DIR_PDF_FOR_PRINT
 from course import Course
 
 
@@ -98,7 +98,7 @@ class Contact:
         temp_path_out_docx = os.path.join(OUT_DOCX_PATH, self.dir_name)
         if file_name in print_docx:
             k_print = 'p_'
-            temp_path_out_docx = os.path.join(temp_path_out_docx, 'на печать')
+            temp_path_out_docx = os.path.join(temp_path_out_docx, OUT_DIR_PDF_FOR_PRINT)
 
         file_out_docx = os.path.join(temp_path_out_docx,
                                      f"{k_print}{file_name[0]} {self.dir_name} {self.sert_number} {self.name_rus}"
@@ -109,7 +109,6 @@ class Contact:
 
         files_out_pdf = file_out_docx.replace(OUT_DOCX_PATH, OUT_PDF_PATH).replace('.docx', '.pdf')
         return file_out_docx, files_out_pdf
-
 
     def __str__(self):
         return f'{self.sert_number} {self.abr_course} {self.course_date_rus} {self.name_rus}'

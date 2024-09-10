@@ -57,6 +57,8 @@ print_docx = (
 )
 
 OUT_PDF_FOR_PRINT = 'на печать.pdf'
+OUT_DIR_PDF_FOR_PRINT = 'на печать'
+
 
 log_file = './log.txt'
 

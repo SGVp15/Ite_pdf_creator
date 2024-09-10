@@ -13,7 +13,8 @@ from UTILS.log import log
 from UTILS.utils import check_config_file, progress
 from UTILS.zip import create_zip
 from UTILS.WORD.my_word import create_docx
-from config import PICKLE_USERS, DELETE_DOCX_AFTER_PDF, _SLEEP_TIME, _LAST_USERS, OUT_PDF_FOR_PRINT
+from config import PICKLE_USERS, DELETE_DOCX_AFTER_PDF, _SLEEP_TIME, _LAST_USERS, OUT_PDF_FOR_PRINT, \
+    OUT_DIR_PDF_FOR_PRINT
 from contact import Contact
 from menu import Menu
 
@@ -71,7 +72,7 @@ def create_docx_and_pdf(contacts: [Contact]):
     dirs_pdfs = []
     for contact in contacts:
         _path = os.path.dirname(contact.files_out_pdf[file_name])
-        if re.findall('на печать', _path):
+        if re.findall(OUT_DIR_PDF_FOR_PRINT, _path):
             dirs_pdfs.append(_path)
     dirs_pdfs = list(set(dirs_pdfs))
 
