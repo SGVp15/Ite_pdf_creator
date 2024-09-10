@@ -56,9 +56,9 @@ def create_docx_and_pdf(contacts: [Contact]):
     merge_pdf_contact(contacts)
     print('[ OK ]')
 
-    print('CREATE ZIP ... ', end='')
-    create_zip(contacts)
-    print('OK')
+    # print('CREATE ZIP ... ', end='')
+    # create_zip(contacts)
+    # print('[ OK ]')
 
 
 @check_update_file_excel_decorator

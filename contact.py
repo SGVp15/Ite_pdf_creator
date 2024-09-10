@@ -4,7 +4,7 @@ import re
 from datetime import datetime
 
 from UTILS.get_date_start_stop_from_string import get_date_start_stop_from_strings
-from UTILS.utils import find_numbers_and_ranges, replace_month_to_number
+from UTILS.utils import find_numbers_and_ranges
 from config import OUT_DOCX_PATH, print_docx, OUT_PDF_PATH, map_excel_user, OUT_DIR_PDF_FOR_PRINT
 from course import Course
 
@@ -93,7 +93,7 @@ class Contact:
             self.files_out_docx[file_name], self.files_out_pdf[file_name] = self.get_path_doc_pdf(file_name)
 
     def get_path_doc_pdf(self, file_name) -> (str, str):
-        # Удост_MPT_15_октября_2021_Гейнце_Павел_32970_aaa@yandex.ru.pdf
+        # Удост_MPT_15_октября_2021_Ганц_Павел_32970_aaaa@yan.ru.pdf
         k_print = ''
         temp_path_out_docx = os.path.join(OUT_DOCX_PATH, self.year_start, self.month_start, self.dir_name)
         if file_name in print_docx:
