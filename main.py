@@ -55,6 +55,7 @@ def create_docx_and_pdf(contacts: [Contact]):
     for contact in contacts:
         for file_name in contact.docx_list_files_name_templates:
             try:
+                os.makedirs(os.path.dirname(contact.files_out_pdf[file_name]), exist_ok=True)
                 docx2pdf.convert(contact.files_out_docx[file_name], contact.files_out_pdf[file_name])
                 log.info(f'[CREATE_PDF] {contact.sert_number} {contact.files_out_pdf}')
                 if DELETE_DOCX_AFTER_PDF:
