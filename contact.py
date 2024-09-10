@@ -63,7 +63,7 @@ class Contact:
         self.day_start: str = f'{self.date_start.day:02d}'
         self.day_stop: str = f'{self.date_stop.day:02d}'
 
-        self._generate_create_dir_name()
+        self._generate_dir_name()
 
         self.docx_list_files_name_templates = []
         template_num = find_numbers_and_ranges(data[map_excel_user.get('Template')])
@@ -95,13 +95,14 @@ class Contact:
     def get_path_doc_pdf(self, file_name) -> (str, str):
         # Удост_MPT_15_октября_2021_Гейнце_Павел_32970_aaa@yandex.ru.pdf
         k_print = ''
+        temp_path_out_docx = os.path.join(OUT_DOCX_PATH, self.dir_name)
         if file_name in print_docx:
             k_print = 'p_'
+            temp_path_out_docx = os.path.join(temp_path_out_docx, 'на печать')
 
-        file_out_docx = os.path.join(
-            OUT_DOCX_PATH, self.dir_name,
-            f"{k_print}{file_name[0]} {self.dir_name} {self.sert_number} {self.name_rus}"
-        )
+        file_out_docx = os.path.join(temp_path_out_docx,
+                                     f"{k_print}{file_name[0]} {self.dir_name} {self.sert_number} {self.name_rus}"
+                                     )
         if self.email:
             file_out_docx += f' {self.email}'
         file_out_docx += '.docx'
@@ -109,9 +110,6 @@ class Contact:
         files_out_pdf = file_out_docx.replace(OUT_DOCX_PATH, OUT_PDF_PATH).replace('.docx', '.pdf')
         return file_out_docx, files_out_pdf
 
-    def create_dirs(self):
-        os.makedirs(f'{OUT_DOCX_PATH}/{self.dir_name}', exist_ok=True)
-        os.makedirs(f'{OUT_PDF_PATH}/{self.dir_name}', exist_ok=True)
 
     def __str__(self):
         return f'{self.sert_number} {self.abr_course} {self.course_date_rus} {self.name_rus}'
@@ -137,7 +135,7 @@ class Contact:
 
         return False
 
-    def _generate_create_dir_name(self):
+    def _generate_dir_name(self):
         if self.month_start == self.month_stop:
             date = f'{self.date_start}-{self.date_stop}.{self.month_stop}.{self.year_stop}'
         else:
