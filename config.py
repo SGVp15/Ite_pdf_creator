@@ -70,3 +70,4 @@ _LAST_USERS = 100
 
 if os.path.exists(PICKLE_FILE_MODIFY):
     os.remove(PICKLE_FILE_MODIFY)
+
