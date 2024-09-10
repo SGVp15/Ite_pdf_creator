@@ -63,8 +63,7 @@ class Contact:
         self.day_start: str = f'{self.date_start.day:02d}'
         self.day_stop: str = f'{self.date_stop.day:02d}'
 
-        self.dir_name: str = str(os.path.join(self.year_start, self.month_start,
-                                              f'{self.year_start}.{self.month_start}.{self.day_start}-{self.month_stop}.{self.day_stop}_{self.abr_course}'))
+        self._generate_create_dir_name()
 
         self.docx_list_files_name_templates = []
         template_num = find_numbers_and_ranges(data[map_excel_user.get('Template')])
@@ -101,8 +100,7 @@ class Contact:
 
         file_out_docx = os.path.join(
             OUT_DOCX_PATH, self.dir_name,
-            f"{k_print}{file_name[0]} {self.year_start}.{self.month_start}.{self.day_start}-{self.month_stop}.{self.day_stop} "
-            f"{self.abr_course} {self.sert_number} {self.name_rus}"
+            f"{k_print}{file_name[0]} {self.dir_name} {self.sert_number} {self.name_rus}"
         )
         if self.email:
             file_out_docx += f' {self.email}'
@@ -138,3 +136,10 @@ class Contact:
             return True
 
         return False
+
+    def _generate_create_dir_name(self):
+        if self.month_start == self.month_stop:
+            date = f'{self.date_start}-{self.date_stop}.{self.month_stop}.{self.year_stop}'
+        else:
+            date = f'{self.date_start}.{self.month_start}-{self.date_stop}.{self.month_stop}.{self.year_stop}'
+        self.dir_name: str = str(os.path.join(f'{self.abr_course}_{date}'))
