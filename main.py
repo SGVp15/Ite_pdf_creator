@@ -1,20 +1,15 @@
-import os
 import pickle
-import re
 import sys
 import time
 
-import docx2pdf
-
 from EXCEL.my_excel import read_users_from_excel
-from PDF.my_pdf import merge_pdfs, merge_pdf_contact, create_pdf_contacts
+from PDF.my_pdf import merge_pdf_contact, create_pdf_contacts
+from UTILS.WORD.my_word import create_docx
 from UTILS.files import check_update_file_excel_decorator
 from UTILS.log import log
 from UTILS.utils import check_config_file, progress
 from UTILS.zip import create_zip
-from UTILS.WORD.my_word import create_docx
-from config import PICKLE_USERS, DELETE_DOCX_AFTER_PDF, _SLEEP_TIME, _LAST_USERS, OUT_PDF_FOR_PRINT, \
-    OUT_DIR_PDF_FOR_PRINT
+from config import PICKLE_USERS, _SLEEP_TIME, _LAST_USERS
 from contact import Contact
 from menu import Menu
 
