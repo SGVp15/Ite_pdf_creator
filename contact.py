@@ -95,7 +95,7 @@ class Contact:
     def get_path_doc_pdf(self, file_name) -> (str, str):
         # Удост_MPT_15_октября_2021_Гейнце_Павел_32970_aaa@yandex.ru.pdf
         k_print = ''
-        temp_path_out_docx = os.path.join(OUT_DOCX_PATH, self.dir_name)
+        temp_path_out_docx = os.path.join(OUT_DOCX_PATH, self.year_start, self.month_start, self.dir_name)
         if file_name in print_docx:
             k_print = 'p_'
             temp_path_out_docx = os.path.join(temp_path_out_docx, OUT_DIR_PDF_FOR_PRINT)
