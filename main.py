@@ -54,7 +54,7 @@ def create_docx_and_pdf(contacts: [Contact]):
     print('[ OK ]')
 
     print('CREATE .PDF ... ', end='')
-    # create_pdf_contacts(contacts)
+    create_pdf_contacts(contacts)
     print('[ OK ]')
 
     print('MERGE PDF ... ', end='')
