@@ -17,7 +17,7 @@ def create_zip(contacts: [Contact]):
     dirs_pdfs = list(set(dirs_pdfs))
 
     for source_folder in dirs_pdfs:
-        dirname = Path(source_folder)
+        dirname = Path(source_folder).name
         archive_name = os.path.join(source_folder, f'{dirname}.zip')
         print(f'{archive_name=}')
 
