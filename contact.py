@@ -136,7 +136,7 @@ class Contact:
 
     def _generate_dir_name(self):
         if self.month_start == self.month_stop:
-            date = f'{self.date_start}-{self.date_stop}.{self.month_stop}.{self.year_stop}'
+            date = f'{self.day_start}-{self.day_stop}.{self.month_stop}.{self.year_stop}'
         else:
-            date = f'{self.date_start}.{self.month_start}-{self.date_stop}.{self.month_stop}.{self.year_stop}'
+            date = f'{self.day_start}.{self.month_start}-{self.day_stop}.{self.month_stop}.{self.year_stop}'
         self.dir_name: str = str(os.path.join(f'{self.abr_course}_{date}'))
