@@ -56,6 +56,8 @@ print_docx = (
     '3_Удост. лого Prince2 на печать.docx'
 )
 
+OUT_PDF_FOR_PRINT = 'на печать.pdf'
+
 log_file = './log.txt'
 
 PICKLE_USERS = './data/users.pk'

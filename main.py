@@ -6,12 +6,13 @@ import time
 import docx2pdf
 
 from EXCEL.my_excel import read_users_from_excel
+from PDF.my_pdf import merge_pdfs
 from UTILS.files import check_update_file_excel_decorator
 from UTILS.log import log
 from UTILS.utils import check_config_file, progress
 from UTILS.zip import create_zip
 from UTILS.WORD.my_word import create_docx
-from config import PICKLE_USERS, DELETE_DOCX_AFTER_PDF, _SLEEP_TIME, _LAST_USERS
+from config import PICKLE_USERS, DELETE_DOCX_AFTER_PDF, _SLEEP_TIME, _LAST_USERS, OUT_PDF_FOR_PRINT
 from contact import Contact
 from menu import Menu
 
@@ -63,6 +64,22 @@ def create_docx_and_pdf(contacts: [Contact]):
             except Exception as e:
                 log.error(f'[CREATE_PDF] {contact.sert_number} {e}')
 
+    print('[ OK ]')
+
+    print('Объединяю PDF ... ', end='')
+    dirs_pdfs = []
+    for contact in contacts:
+        dirs_pdfs.append(os.path.dirname(contact.files_out_pdf[file_name]))
+    dirs_pdfs = list(set(dirs_pdfs))
+
+    for dir_pdf in dirs_pdfs:
+        pdf_list = os.listdir(dir_pdf)
+        try:
+            pdf_list.remove(OUT_PDF_FOR_PRINT)
+        except ValueError:
+            pass
+        out_pdf = os.path.join(dir_pdf, OUT_PDF_FOR_PRINT)
+        merge_pdfs(pdf_list, out_pdf)
     print('[ OK ]')
 
     print('Создаю архив ... ', end='')
