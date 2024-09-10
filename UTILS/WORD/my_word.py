@@ -44,7 +44,6 @@ def docx_replace_regex(doc_obj, old_text: str, new_text: str):
                 docx_replace_regex(cell, old_text, new_text)
 
 
-
 def create_docx(contact: Contact):
     for docx_template in contact.docx_list_files_name_templates:
         document = Document(docx=str(os.path.join(TEMPLATES_DIR, docx_template)))
@@ -72,10 +71,8 @@ def create_docx(contact: Contact):
             replace_docx_text(document, old_text=k, new_text=v)
 
         path = contact.files_out_docx.get(docx_template)
-        os.makedirs(os.path.dirname(path))
+        os.makedirs(os.path.dirname(path), exist_ok=True)
         try:
             document.save(path)
         except FileNotFoundError:
             log.error(f'FileNotFoundError {path}')
-
-
