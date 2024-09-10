@@ -7,7 +7,7 @@ import time
 import docx2pdf
 
 from EXCEL.my_excel import read_users_from_excel
-from PDF.my_pdf import merge_pdfs
+from PDF.my_pdf import merge_pdfs, merge_pdf_contact, create_pdf_contacts
 from UTILS.files import check_update_file_excel_decorator
 from UTILS.log import log
 from UTILS.utils import check_config_file, progress
@@ -54,39 +54,14 @@ def create_docx_and_pdf(contacts: [Contact]):
     print('[ OK ]')
 
     print('CREATE .PDF ... ', end='')
-    for contact in contacts:
-        for file_name in contact.docx_list_files_name_templates:
-            try:
-                os.makedirs(os.path.dirname(contact.files_out_pdf[file_name]), exist_ok=True)
-                docx2pdf.convert(contact.files_out_docx[file_name], contact.files_out_pdf[file_name])
-                log.info(f'[CREATE_PDF] {contact.sert_number} {contact.files_out_pdf}')
-                if DELETE_DOCX_AFTER_PDF:
-                    os.remove(contact.files_out_docx[file_name])
-                    os.removedirs(os.path.dirname(contact.files_out_docx[file_name]))
-            except Exception as e:
-                log.error(f'[CREATE_PDF] {contact.sert_number} {e}')
-
+    # create_pdf_contacts(contacts)
     print('[ OK ]')
 
-    print('Объединяю PDF ... ', end='')
-    dirs_pdfs = []
-    for contact in contacts:
-        _path = os.path.dirname(contact.files_out_pdf[file_name])
-        if re.findall(OUT_DIR_PDF_FOR_PRINT, _path):
-            dirs_pdfs.append(_path)
-    dirs_pdfs = list(set(dirs_pdfs))
-
-    for dir_pdf in dirs_pdfs:
-        pdf_list = os.listdir(dir_pdf)
-        try:
-            pdf_list.remove(OUT_PDF_FOR_PRINT)
-        except ValueError:
-            pass
-        out_pdf = os.path.join(dir_pdf, OUT_PDF_FOR_PRINT)
-        merge_pdfs(pdf_list, out_pdf)
+    print('MERGE PDF ... ', end='')
+    merge_pdf_contact(contacts)
     print('[ OK ]')
 
-    print('Создаю архив ... ', end='')
+    print('CREATE ZIP ... ', end='')
     create_zip(contacts)
     print('OK')
 
