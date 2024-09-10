@@ -49,16 +49,25 @@ def create_docx_and_pdf(contacts: [Contact]):
     print('[ OK ]')
 
     print('CREATE .PDF ... ', end='')
-    create_pdf_contacts(contacts)
+    try:
+        create_pdf_contacts(contacts)
+    except Exception as e:
+        log.error(e)
     print('[ OK ]')
 
     print('MERGE PDF ... ', end='')
-    merge_pdf_contact(contacts)
+    try:
+        merge_pdf_contact(contacts)
+    except Exception as e:
+        log.error(e)
     print('[ OK ]')
 
-    # print('CREATE ZIP ... ', end='')
-    # create_zip(contacts)
-    # print('[ OK ]')
+    print('CREATE ZIP ... ', end='')
+    try:
+        create_zip(contacts)
+    except Exception as e:
+        log.error(e)
+    print('[ OK ]')
 
 
 @check_update_file_excel_decorator
