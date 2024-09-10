@@ -72,7 +72,7 @@ def create_docx(contact: Contact):
             replace_docx_text(document, old_text=k, new_text=v)
 
         path = contact.files_out_docx.get(docx_template)
-        os.makedirs(os.path.basename(path))
+        os.makedirs(os.path.dirname(path))
         try:
             document.save(path)
         except FileNotFoundError:
