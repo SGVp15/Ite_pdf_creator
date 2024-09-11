@@ -11,13 +11,11 @@ def get_date_start_stop_from_strings(s: str) -> (datetime.date, datetime.date):
     try:
         year_start = re.findall(r'\d{4}', s)[0]
         year_stop = re.findall(r'\d{4}', s)[-1]
-        s = s.replace(year_start, '')
-        s = s.replace(year_stop, '')
+        s = re.sub(r'\d{4}', '', s)
 
         month_start = re.findall(r'\.(\d{2})\.', s)[0]
         month_stop = re.findall(r'\.(\d{2})\.', s)[-1]
-        s = s.replace(month_start, '')
-        s = s.replace(month_stop, '')
+        s = re.sub(r'\.(\d{2})\.', '', s)
 
         day_start = re.findall(r'\d+', s)[0]
         day_stop = re.findall(r'\d+', s)[-1]
