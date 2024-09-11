@@ -5,6 +5,7 @@ from UTILS.get_date_start_stop_from_string import get_date_start_stop_from_strin
 
 class Test(TestCase):
     def test_get_date_start_stop_from_strings(self):
-        for s in ('09 - 12 сентября 2024 г.', '22-23 ноября 2018 г.','22-23.10.2018 г.'):
+        for s in ('09 - 12 сентября 2024 г.', '22-23 ноября 2018 г.', ' 22-23.10.2018 г.',
+                  '1,2,3,10,30 сентября - 12 ноября 2024 г.',):
             print(s, get_date_start_stop_from_strings(s))
         # self.fail()
