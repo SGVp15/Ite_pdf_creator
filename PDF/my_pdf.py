@@ -48,4 +48,8 @@ def merge_pdf_contact(contacts: [Contact]):
             pass
         pdf_list = [os.path.join(dir_pdf, p) for p in pdf_list]
         out_pdf = os.path.join(dir_pdf, OUT_PDF_FOR_PRINT)
+        try:
+            os.remove(out_pdf)
+        except NotImplementedError:
+            pass
         merge_pdfs(pdf_list, out_pdf)
