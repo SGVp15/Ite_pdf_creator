@@ -2,7 +2,6 @@ import os
 
 DELETE_DOCX_AFTER_PDF = True
 DATA_DIR = os.path.join('//192.168.20.100', 'Administrative server', 'РАБОТА АДМИНИСТРАТОРА', 'ОРГАНИЗАЦИЯ КУРСОВ')
-# DATA_DIR = './data'
 NAME_OUT_DIR = 'Удостоверения по курсам'
 
 OUT_PATH = str(os.path.join(DATA_DIR, NAME_OUT_DIR))
@@ -18,10 +17,7 @@ os.makedirs(TEMPLATES_DIR, exist_ok=True)
 
 # ---------- EXCEL --------------
 FILE_XLSX = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/Нумерация с 2015 года.xlsx'
-# FILE_XLSX = './Нумерация с 2015 года.xlsx'
 TEMPLATES_DIR = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/ШАБЛОНЫ удостоверений'
-# TEMPLATES_DIR = './data/templates'
-# FILE_XLSX_TEMP = f'./data/templates/temp.xlsx'
 PAGE_NAME = '2015'
 
 map_excel_user = {
