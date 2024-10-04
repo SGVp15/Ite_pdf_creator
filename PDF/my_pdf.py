@@ -50,6 +50,6 @@ def merge_pdf_contact(contacts: [Contact]):
         out_pdf = os.path.join(dir_pdf, OUT_PDF_FOR_PRINT)
         try:
             os.remove(out_pdf)
-        except NotImplementedError:
+        except FileNotFoundError:
             pass
         merge_pdfs(pdf_list, out_pdf)
