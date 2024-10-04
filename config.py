@@ -1,6 +1,6 @@
 import os
 
-DELETE_DOCX_AFTER_PDF = False
+DELETE_DOCX_AFTER_PDF = True
 DATA_DIR = os.path.join('//192.168.20.100', 'Administrative server', 'РАБОТА АДМИНИСТРАТОРА', 'ОРГАНИЗАЦИЯ КУРСОВ')
 # DATA_DIR = './data'
 NAME_OUT_DIR = 'Удостоверения по курсам'
@@ -59,7 +59,6 @@ print_docx = (
 OUT_PDF_FOR_PRINT = 'на печать.pdf'
 OUT_DIR_PDF_FOR_PRINT = 'на печать'
 
-
 log_file = './log.txt'
 
 PICKLE_USERS = './data/users.pk'
@@ -70,4 +69,3 @@ _LAST_USERS = 100
 
 if os.path.exists(PICKLE_FILE_MODIFY):
     os.remove(PICKLE_FILE_MODIFY)
-
