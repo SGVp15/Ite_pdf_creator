@@ -49,7 +49,7 @@ def get_contact_from_excel(rows_excel, templates_docx) -> [Contact]:
         for k, v in map_excel_user.items():
             from_excel[k] = read_excel(file_excel, column=v, row=i)
         try:
-            contacts_excel.append(Contact(from_excel))
+            contacts_excel.append(Contact(data=from_excel))
         except TypeError:
             pass
     file_excel.close()
