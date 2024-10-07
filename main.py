@@ -14,9 +14,9 @@ from contact import Contact
 from menu import Menu
 
 
-def main(autorun: bool = False):
+def main(is_autorun: bool = False):
     menu = Menu()
-    if autorun:
+    if is_autorun:
         menu.is_auto = 1
     else:
         menu.main()
@@ -88,7 +88,8 @@ def auto():
     if len(new_users) > 0:
         create_docx_and_pdf(new_users)
         all_users = [*new_users, *old_users]
-        pickle.dump(all_users, open(PICKLE_USERS, 'wb'))
+        with open('PICKLE_USERS', 'wb') as fb:
+            pickle.dump(all_users, fb)
         log.info('[Create PICKLE_USERS]')
 
 

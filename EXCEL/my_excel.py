@@ -59,7 +59,6 @@ def get_contact_from_excel(rows_excel, templates_docx) -> [Contact]:
         for template in templates_docx:
             contact: Contact = copy.deepcopy(contact_excel)
             contact.docx_list_files_name_templates = template
-            contact()
             for _path in ('pdf', 'docx'):
                 path_folder = os.path.join(OUT_PATH, _path, contact.dir_name)
                 os.makedirs(path_folder, exist_ok=True)
@@ -68,8 +67,9 @@ def get_contact_from_excel(rows_excel, templates_docx) -> [Contact]:
     return contacts
 
 
-def read_users_from_excel(file_excel=FILE_XLSX, header=False, rows_users=(-1,)) -> [Contact]:
-    data_excel = read_excel_file(file_excel, sheet_names=('2015', 'Курсы', 'Архив Курсов', 'Шаблоны'))
+def read_users_from_excel(file_excel=FILE_XLSX, header=False, rows_users=(-1,),
+                          sheet_names=('2015', 'Курсы', 'Архив Курсов', 'Шаблоны')) -> [Contact]:
+    data_excel = read_excel_file(file_excel, sheet_names=sheet_names)
     users_data = data_excel.get('2015')
     if rows_users != (-1,):
         users_data = [users_data[i - 1] for i in rows_users]
