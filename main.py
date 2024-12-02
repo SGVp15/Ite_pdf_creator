@@ -1,7 +1,7 @@
-import pickle
 import sys
 import time
 
+import serialization.Serialization
 from EXCEL.my_excel import read_users_from_excel
 from PDF.my_pdf import merge_pdf_contact, create_pdf_contacts
 from UTILS.WORD.my_word import create_docx
@@ -9,7 +9,7 @@ from UTILS.files import check_update_file_excel_decorator
 from UTILS.log import log
 from UTILS.utils import check_config_file, progress
 from UTILS.zip import create_zip
-from config import PICKLE_USERS, _SLEEP_TIME, _LAST_USERS
+from config import _SLEEP_TIME, _LAST_USERS
 from contact import Contact
 from menu import Menu
 
@@ -72,25 +72,18 @@ def create_docx_and_pdf(contacts: [Contact]):
 
 @check_update_file_excel_decorator
 def auto():
-    old_users = []
     print('Read Excel')
-    new_users = read_users_from_excel()
-    if _LAST_USERS > 0:
-        new_users = new_users[len(new_users) - _LAST_USERS:len(new_users)]
+    all_users_from_file = read_users_from_excel()
+    if _LAST_USERS:
+        all_users_from_file = all_users_from_file[len(all_users_from_file) - _LAST_USERS:len(all_users_from_file)]
 
-    try:
-        old_users = pickle.load(open(PICKLE_USERS, 'rb'))
-    except FileNotFoundError as e:
-        log.warning(e)
+    old_users = serialization.load_users()
 
-    new_users = [user for user in new_users if user not in old_users]
+    new_users = [user for user in all_users_from_file if user not in old_users]
 
-    if len(new_users) > 0:
+    if new_users:
         create_docx_and_pdf(new_users)
-        all_users = [*new_users, *old_users]
-        with open('PICKLE_USERS', 'wb') as fb:
-            pickle.dump(all_users, fb)
-        log.info('[Create PICKLE_USERS]')
+        serialization.serialization_users([*new_users, *old_users])
 
 
 if __name__ == '__main__':

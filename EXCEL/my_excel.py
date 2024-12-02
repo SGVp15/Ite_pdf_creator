@@ -10,7 +10,7 @@ from config import PAGE_NAME, map_excel_user, OUT_PATH, FILE_XLSX
 from course import Course
 
 
-def read_excel_file(filename=FILE_XLSX, sheet_names=('2015',)) -> {tuple}:
+def read_excel_file(filename=FILE_XLSX, sheet_names=('2015',)) -> dict:
     workbook = load_workbook(filename=filename, read_only=True, data_only=True)
     all_data = {}
     for sheet_name in sheet_names:
@@ -67,11 +67,11 @@ def get_contact_from_excel(rows_excel, templates_docx) -> [Contact]:
     return contacts
 
 
-def read_users_from_excel(file_excel=FILE_XLSX, header=False, rows_users=(-1,),
+def read_users_from_excel(file_excel=FILE_XLSX, header=False, rows_users=(),
                           sheet_names=('2015', 'Курсы', 'Архив Курсов', 'Шаблоны')) -> [Contact]:
     data_excel = read_excel_file(file_excel, sheet_names=sheet_names)
     users_data = data_excel.get('2015')
-    if rows_users != (-1,):
+    if rows_users:
         users_data = [users_data[i - 1] for i in rows_users]
     elif header is False:
         users_data = users_data[1:]

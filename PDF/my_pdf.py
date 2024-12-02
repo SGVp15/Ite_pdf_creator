@@ -1,5 +1,6 @@
 import os
 import re
+import time
 
 import docx2pdf
 from PyPDF2 import PdfMerger
@@ -23,12 +24,16 @@ def create_pdf_contacts(contacts: [Contact]):
             try:
                 os.makedirs(os.path.dirname(contact.files_out_pdf[file_name]), exist_ok=True)
                 docx2pdf.convert(contact.files_out_docx[file_name], contact.files_out_pdf[file_name])
+                time.sleep(1)
                 log.info(f'[CREATE_PDF] {contact.sert_number} {contact.files_out_pdf}')
-                if DELETE_DOCX_AFTER_PDF:
-                    os.remove(contact.files_out_docx[file_name])
-                    os.removedirs(os.path.dirname(contact.files_out_docx[file_name]))
             except Exception as e:
                 log.error(f'[CREATE_PDF] {contact.sert_number} {e}')
+            if DELETE_DOCX_AFTER_PDF:
+                try:
+                    os.remove(contact.files_out_docx[file_name])
+                    os.removedirs(os.path.dirname(contact.files_out_docx[file_name]))
+                except FileNotFoundError:
+                    pass
 
 
 def merge_pdf_contact(contacts: [Contact]):
