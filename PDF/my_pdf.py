@@ -22,17 +22,19 @@ def create_pdf_contacts(contacts: [Contact]):
     for contact in contacts:
         for file_name in contact.docx_list_files_name_templates:
             try:
-                if not os.path.exists(contact.files_out_pdf[file_name]):
-                    docx2pdf.convert(contact.files_out_docx[file_name], contact.files_out_pdf[file_name])
-                    time.sleep(1)
-                    log.info(f'[CREATE_PDF] {contact.sert_number} {contact.files_out_pdf}')
+                if os.path.exists(contact.files_out_pdf[file_name]):
+                    continue
+                docx2pdf.convert(contact.files_out_docx[file_name], contact.files_out_pdf[file_name])
+                time.sleep(1)
+                log.info(f'[CREATE_PDF] {contact.sert_number} {contact.files_out_pdf}')
             except Exception as e:
                 log.error(f'[CREATE_PDF] {contact.sert_number} {e}')
+
             if DELETE_DOCX_AFTER_PDF:
                 try:
                     os.remove(contact.files_out_docx[file_name])
                     os.removedirs(os.path.dirname(contact.files_out_docx[file_name]))
-                except FileNotFoundError:
+                except (NotImplementedError, FileNotFoundError):
                     pass
 
 

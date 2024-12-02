@@ -4,7 +4,7 @@ from UTILS.log import log
 from config import PICKLE_USERS
 
 
-def serialization_users(users):
+def save_users(users):
     with open(PICKLE_USERS, 'wb') as f:
         pickle.dump(users, f)
     log.info('[Create PICKLE_USERS]')

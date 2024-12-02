@@ -3,7 +3,7 @@ import time
 
 from EXCEL.my_excel import read_users_from_excel
 from PDF.my_pdf import merge_pdf_contact, create_pdf_contacts
-from UTILS.Serialization import load_users, serialization_users
+from UTILS.Serialization import load_users, save_users
 from UTILS.WORD.my_word import create_docx
 from UTILS.files import check_update_file_excel_decorator
 from UTILS.log import log
@@ -83,7 +83,7 @@ def auto():
 
     if new_users:
         create_docx_and_pdf(new_users)
-        serialization_users([*new_users, *old_users])
+        save_users([*new_users, *old_users])
 
 
 if __name__ == '__main__':
