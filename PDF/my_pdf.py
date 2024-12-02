@@ -6,7 +6,7 @@ import docx2pdf
 from PyPDF2 import PdfMerger
 
 from UTILS.log import log
-from config import OUT_DIR_PDF_FOR_PRINT, OUT_PDF_FOR_PRINT, DELETE_DOCX_AFTER_PDF
+from config import OUT_DIR_PDF_FOR_PRINT, OUT_PDF_FOR_PRINT, IS_DELETE_DOCX_AFTER_CONVERT_PDF
 from contact import Contact
 
 
@@ -22,15 +22,14 @@ def create_pdf_contacts(contacts: [Contact]):
     for contact in contacts:
         for file_name in contact.docx_list_files_name_templates:
             try:
-                if os.path.exists(contact.files_out_pdf[file_name]):
-                    continue
-                docx2pdf.convert(contact.files_out_docx[file_name], contact.files_out_pdf[file_name])
-                time.sleep(1)
-                log.info(f'[CREATE_PDF] {contact.sert_number} {contact.files_out_pdf}')
+                if not os.path.exists(contact.files_out_pdf[file_name]):
+                    docx2pdf.convert(contact.files_out_docx[file_name], contact.files_out_pdf[file_name])
+                    time.sleep(1)
+                    log.info(f'[CREATE_PDF] {contact.sert_number} {contact.files_out_pdf}')
             except Exception as e:
                 log.error(f'[CREATE_PDF] {contact.sert_number} {e}')
 
-            if DELETE_DOCX_AFTER_PDF:
+            if IS_DELETE_DOCX_AFTER_CONVERT_PDF:
                 try:
                     os.remove(contact.files_out_docx[file_name])
                     os.removedirs(os.path.dirname(contact.files_out_docx[file_name]))

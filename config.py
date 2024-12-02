@@ -1,6 +1,6 @@
 import os
 
-DELETE_DOCX_AFTER_PDF = True
+IS_DELETE_DOCX_AFTER_CONVERT_PDF = True
 DATA_DIR = os.path.join('//192.168.20.100', 'Administrative server', 'РАБОТА АДМИНИСТРАТОРА', 'ОРГАНИЗАЦИЯ КУРСОВ')
 NAME_OUT_DIR = 'Удостоверения по курсам'
 
