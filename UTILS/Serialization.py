@@ -1,6 +1,7 @@
 import pickle
 
 from UTILS.log import log
+from config import PICKLE_USERS
 
 
 def serialization_users(users):

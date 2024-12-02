@@ -1,9 +1,9 @@
 import sys
 import time
 
-import serialization.Serialization
 from EXCEL.my_excel import read_users_from_excel
 from PDF.my_pdf import merge_pdf_contact, create_pdf_contacts
+from UTILS.Serialization import load_users, serialization_users
 from UTILS.WORD.my_word import create_docx
 from UTILS.files import check_update_file_excel_decorator
 from UTILS.log import log
@@ -77,13 +77,13 @@ def auto():
     if _LAST_USERS:
         all_users_from_file = all_users_from_file[len(all_users_from_file) - _LAST_USERS:len(all_users_from_file)]
 
-    old_users = serialization.load_users()
+    old_users = load_users()
 
     new_users = [user for user in all_users_from_file if user not in old_users]
 
     if new_users:
         create_docx_and_pdf(new_users)
-        serialization.serialization_users([*new_users, *old_users])
+        serialization_users([*new_users, *old_users])
 
 
 if __name__ == '__main__':
