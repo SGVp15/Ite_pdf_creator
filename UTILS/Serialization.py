@@ -16,4 +16,4 @@ def load_users():
         return users
     except FileNotFoundError as e:
         log.warning(e)
-        return None
+        return []
