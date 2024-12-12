@@ -10,7 +10,7 @@ def save_users(users):
     log.info('[Create PICKLE_USERS]')
 
 
-def load_users():
+def load_users() -> []:
     try:
         users = pickle.load(open(PICKLE_USERS, 'rb'))
         return users
