@@ -139,4 +139,5 @@ class Contact:
             date = f'{self.day_start}-{self.day_stop}.{self.month_stop}.{self.year_stop}'
         else:
             date = f'{self.day_start}.{self.month_start}-{self.day_stop}.{self.month_stop}.{self.year_stop}'
+
         self.dir_name: str = str(os.path.join(f'{self.abr_course}_{date}'))
