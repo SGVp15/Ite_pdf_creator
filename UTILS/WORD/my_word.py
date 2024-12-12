@@ -74,5 +74,5 @@ def create_docx(contact: Contact):
         os.makedirs(os.path.dirname(path), exist_ok=True)
         try:
             document.save(path)
-        except FileNotFoundError:
-            log.error(f'FileNotFoundError {path}')
+        except (FileNotFoundError, PermissionError):
+            log.error(f'DOC_SAVE ERROR {path}')
