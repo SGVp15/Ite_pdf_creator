@@ -1,4 +1,5 @@
 import os
+import shutil
 
 IS_DELETE_DOCX_AFTER_CONVERT_PDF = True
 DATA_DIR = os.path.join('//192.168.20.100', 'Administrative server', 'РАБОТА АДМИНИСТРАТОРА', 'ОРГАНИЗАЦИЯ КУРСОВ')
@@ -17,7 +18,11 @@ os.makedirs(TEMPLATES_DIR, exist_ok=True)
 
 # ---------- EXCEL --------------
 FILE_XLSX = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/Нумерация с 2015 года.xlsx'
-TEMPLATES_DIR = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/ШАБЛОНЫ удостоверений'
+TEMPLATES_DIR_SOURCE = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/ШАБЛОНЫ удостоверений'
+TEMPLATES_DIR = './data/templates'
+for f in os.listdir(TEMPLATES_DIR_SOURCE):
+    shutil.copy(os.path.join(TEMPLATES_DIR_SOURCE, f), os.path.join(TEMPLATES_DIR, f))
+
 PAGE_NAME = '2015'
 
 map_excel_user = {
