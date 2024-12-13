@@ -13,8 +13,8 @@ def copy_files():
 
 IS_DELETE_DOCX_AFTER_CONVERT_PDF = False
 DATA_DIR = os.path.join('//192.168.20.100', 'Administrative server', 'РАБОТА АДМИНИСТРАТОРА', 'ОРГАНИЗАЦИЯ КУРСОВ')
-NAME_OUT_DIR = 'Удостоверения по курсам'
-DATA_DIR = './data'
+NAME_OUT_DIR = 'Удостоверения'
+# DATA_DIR = './data'
 OUT_PATH = str(os.path.join(DATA_DIR, NAME_OUT_DIR))
 
 OUT_PDF_PATH = str(os.path.join(OUT_PATH, 'pdf'))
@@ -77,7 +77,7 @@ PICKLE_USERS = './data/users.pk'
 PICKLE_FILE_MODIFY = './data/update_file.pk'
 
 _SLEEP_TIME = 60
-_LAST_USERS = 20
+_LAST_USERS = 100
 
 if os.path.exists(PICKLE_FILE_MODIFY):
     os.remove(PICKLE_FILE_MODIFY)
