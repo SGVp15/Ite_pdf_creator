@@ -48,6 +48,7 @@ def create_pdf_contacts(contacts: [Contact]):
                     ok_status.append(True)
             except Exception as e:
                 log.error(f'[CREATE_PDF] {contact.sert_number} {e}')
+                ok_status.append(False)
         if all(ok_status):
             contact.status = True
 
