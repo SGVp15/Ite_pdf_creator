@@ -42,7 +42,8 @@ def create_pdf_contacts(contacts: [Contact]):
                     time.sleep(1)
                     os.remove(temp_doc)
                     if os.path.isfile(temp_pdf):
-                        shutil.move(temp_pdf, dist_pdf)
+                        shutil.copy(temp_pdf, dist_pdf)
+                        os.remove(temp_pdf)
 
                     log.info(f'[CREATE_PDF] {contact.sert_number} {contact.files_out_pdf}')
                     ok_status.append(True)
