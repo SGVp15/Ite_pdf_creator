@@ -44,7 +44,7 @@ def main(is_autorun: bool = False):
 def create_docx_and_pdf(contacts: [Contact]):
     print('CREATE .DOCX ... ', end='')
     for contact in contacts:
-        create_docx(contact)
+        # create_docx(contact)
         log.info(f'[CREATE_DOCX] {contact.files_out_docx}')
     print('[ OK ]')
 

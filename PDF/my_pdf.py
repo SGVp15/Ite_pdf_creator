@@ -1,5 +1,6 @@
 import os
 import re
+import shutil
 import time
 
 import docx2pdf
@@ -23,18 +24,28 @@ def create_pdf_contacts(contacts: [Contact]):
         for file_name in contact.docx_list_files_name_templates:
             try:
                 if not os.path.exists(contact.files_out_pdf[file_name]):
-                    docx2pdf.convert(contact.files_out_docx[file_name], contact.files_out_pdf[file_name])
+                    source_doc = contact.files_out_docx[file_name]
+                    dist_doc = './data/temp.docx'
+                    source_pdf = './data/temp.pdf'
+                    dist_pdf = contact.files_out_pdf[file_name]
+                    if os.path.isfile(source_doc):
+                        shutil.copy(source_doc, dist_doc)
+
+                    docx2pdf.convert(dist_doc, source_pdf)
                     time.sleep(1)
+                    if os.path.isfile(source_pdf):
+                        shutil.copy(source_pdf, dist_pdf)
+
                     log.info(f'[CREATE_PDF] {contact.sert_number} {contact.files_out_pdf}')
             except Exception as e:
                 log.error(f'[CREATE_PDF] {contact.sert_number} {e}')
 
-            if IS_DELETE_DOCX_AFTER_CONVERT_PDF:
-                try:
-                    os.remove(contact.files_out_docx[file_name])
-                    os.removedirs(os.path.dirname(contact.files_out_docx[file_name]))
-                except (NotImplementedError, FileNotFoundError):
-                    pass
+    if IS_DELETE_DOCX_AFTER_CONVERT_PDF:
+        try:
+            os.remove(contact.files_out_docx[file_name])
+            os.removedirs(os.path.dirname(contact.files_out_docx[file_name]))
+        except (NotImplementedError, FileNotFoundError):
+            pass
 
 
 def merge_pdf_contact(contacts: [Contact]):
