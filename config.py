@@ -32,7 +32,7 @@ FILE_XLSX = './data/Нумерация с 2015 года.xlsx'
 TEMPLATES_DIR_SOURCE = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/ШАБЛОНЫ удостоверений'
 TEMPLATES_DIR = './data/templates'
 
-copy_files()
+# copy_files()
 
 PAGE_NAME = '2015'
 
@@ -77,7 +77,7 @@ PICKLE_USERS = './data/users.pk'
 PICKLE_FILE_MODIFY = './data/update_file.pk'
 
 _SLEEP_TIME = 60
-_LAST_USERS = 100
+_LAST_USERS = 20
 
 if os.path.exists(PICKLE_FILE_MODIFY):
     os.remove(PICKLE_FILE_MODIFY)

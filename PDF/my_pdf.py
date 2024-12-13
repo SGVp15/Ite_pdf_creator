@@ -33,7 +33,7 @@ def create_pdf_contacts(contacts: [Contact]):
                     temp_pdf = f'./data/{n}.pdf'
                     dist_pdf = contact.files_out_pdf[file_name]
 
-                    os.makedirs(dist_pdf, exist_ok=True)
+                    os.makedirs(os.path.dirname(dist_pdf), exist_ok=True)
 
                     if os.path.isfile(source_doc):
                         shutil.copy(source_doc, temp_doc)
@@ -42,7 +42,7 @@ def create_pdf_contacts(contacts: [Contact]):
                     time.sleep(1)
                     os.remove(temp_doc)
                     if os.path.isfile(temp_pdf):
-                        shutil.copy(temp_pdf, dist_pdf)
+                        shutil.copy2(temp_pdf, dist_pdf)
                         os.remove(temp_pdf)
 
                     log.info(f'[CREATE_PDF] {contact.sert_number} {contact.files_out_pdf}')

@@ -26,8 +26,11 @@ class Contact:
         self.name_rus = self._mapping('NameRus')
         self.name_eng = self._mapping('NameEng')
         self.email = self._mapping('Email')
+        if type(self.email) == str:
+            self.email = self.email.lower()
         self.gender = self._mapping('Gender')
 
+        del self.data
         if self.abr_course is None:
             raise ValueError(f'{self.sert_number} abr_course')
         if self.sert_number is None:
