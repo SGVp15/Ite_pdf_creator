@@ -11,6 +11,8 @@ from course import Course
 
 class Contact:
     def __init__(self, data: tuple, courses_list: [Course], templates_list: []):
+        self.status = False
+
         self.data = data
         self.files_out_pdf = None
         self.files_out_docx = None

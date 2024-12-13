@@ -22,6 +22,7 @@ def merge_pdfs(pdf_list, output_file_path):
 
 def create_pdf_contacts(contacts: [Contact]):
     for contact in contacts:
+        ok_status = []
         for file_name in contact.docx_list_files_name_templates:
             try:
                 if not os.path.exists(contact.files_out_pdf[file_name]):
@@ -44,8 +45,11 @@ def create_pdf_contacts(contacts: [Contact]):
                         shutil.move(temp_pdf, dist_pdf)
 
                     log.info(f'[CREATE_PDF] {contact.sert_number} {contact.files_out_pdf}')
+                    ok_status.append(True)
             except Exception as e:
                 log.error(f'[CREATE_PDF] {contact.sert_number} {e}')
+        if all(ok_status):
+            contact.status = True
 
     if IS_DELETE_DOCX_AFTER_CONVERT_PDF:
         try:
