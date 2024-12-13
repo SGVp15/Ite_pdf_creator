@@ -4,7 +4,7 @@ import shutil
 IS_DELETE_DOCX_AFTER_CONVERT_PDF = True
 DATA_DIR = os.path.join('//192.168.20.100', 'Administrative server', 'РАБОТА АДМИНИСТРАТОРА', 'ОРГАНИЗАЦИЯ КУРСОВ')
 NAME_OUT_DIR = 'Удостоверения по курсам'
-
+DATA_DIR = './data'
 OUT_PATH = str(os.path.join(DATA_DIR, NAME_OUT_DIR))
 
 OUT_PDF_PATH = str(os.path.join(OUT_PATH, 'pdf'))
@@ -17,14 +17,17 @@ os.makedirs(OUT_DOCX_PATH, exist_ok=True)
 os.makedirs(TEMPLATES_DIR, exist_ok=True)
 
 # ---------- EXCEL --------------
-FILE_XLSX = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/Нумерация с 2015 года.xlsx'
+FILE_XLSX_SOURCE = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/Нумерация с 2015 года.xlsx'
+FILE_XLSX = './data/Нумерация с 2015 года.xlsx'
 TEMPLATES_DIR_SOURCE = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/ШАБЛОНЫ удостоверений'
 TEMPLATES_DIR = './data/templates'
+
 for f in os.listdir(TEMPLATES_DIR_SOURCE):
     source = os.path.join(TEMPLATES_DIR_SOURCE, f)
     dist = os.path.join(TEMPLATES_DIR, f)
     if os.path.isfile(source):
         shutil.copy(source, dist)
+shutil.copy(FILE_XLSX_SOURCE, FILE_XLSX)
 
 PAGE_NAME = '2015'
 
