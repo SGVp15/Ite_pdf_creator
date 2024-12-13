@@ -11,7 +11,7 @@ def copy_files():
     shutil.copy(FILE_XLSX_SOURCE, FILE_XLSX)
 
 
-IS_DELETE_DOCX_AFTER_CONVERT_PDF = True
+IS_DELETE_DOCX_AFTER_CONVERT_PDF = False
 DATA_DIR = os.path.join('//192.168.20.100', 'Administrative server', 'РАБОТА АДМИНИСТРАТОРА', 'ОРГАНИЗАЦИЯ КУРСОВ')
 NAME_OUT_DIR = 'Удостоверения по курсам'
 DATA_DIR = './data'
