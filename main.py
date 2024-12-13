@@ -75,8 +75,7 @@ def auto():
     print('Read Excel')
     all_users_from_file = read_users_from_excel()
     if _LAST_USERS:
-        # all_users_from_file = all_users_from_file[len(all_users_from_file) - _LAST_USERS:len(all_users_from_file)]
-        all_users_from_file = all_users_from_file[-_LAST_USERS:]
+        all_users_from_file = all_users_from_file[-min(_LAST_USERS, len(all_users_from_file)):]
 
     old_users = load_users()
 
