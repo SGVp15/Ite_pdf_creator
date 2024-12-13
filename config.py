@@ -21,7 +21,10 @@ FILE_XLSX = '//192.168.20.100/Administrative server/РАБОТА АДМИНИС�
 TEMPLATES_DIR_SOURCE = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/ШАБЛОНЫ удостоверений'
 TEMPLATES_DIR = './data/templates'
 for f in os.listdir(TEMPLATES_DIR_SOURCE):
-    shutil.copy(os.path.join(TEMPLATES_DIR_SOURCE, f), os.path.join(TEMPLATES_DIR, f))
+    source = os.path.join(TEMPLATES_DIR_SOURCE, f)
+    dist = os.path.join(TEMPLATES_DIR, f)
+    if os.path.isfile(source):
+        shutil.copy(source, dist)
 
 PAGE_NAME = '2015'
 
