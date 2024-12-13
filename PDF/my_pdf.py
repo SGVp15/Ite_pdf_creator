@@ -24,9 +24,8 @@ def create_pdf_contacts(contacts: [Contact]):
     for contact in contacts:
         for file_name in contact.docx_list_files_name_templates:
             try:
-                # if not os.path.exists(contact.files_out_pdf[file_name]):
-                if True:  # os.path.exists(contact.files_out_pdf[file_name]):
-
+                if not os.path.exists(contact.files_out_pdf[file_name]):
+                    # if True:
                     source_doc = contact.files_out_docx[file_name]
                     n = random.randint(111111111, 9111111111)
                     temp_doc = f'./data/{n}.docx'
