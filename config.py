@@ -31,6 +31,7 @@ FILE_XLSX_SOURCE = '//192.168.20.100/Administrative server/РАБОТА АДМИ
 FILE_XLSX = './data/Нумерация с 2015 года.xlsx'
 TEMPLATES_DIR_SOURCE = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/ШАБЛОНЫ удостоверений'
 TEMPLATES_DIR = './data/templates'
+
 copy_files()
 
 PAGE_NAME = '2015'
