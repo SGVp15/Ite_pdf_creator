@@ -1,6 +1,16 @@
 import os
 import shutil
 
+
+def copy_files():
+    for f in os.listdir(TEMPLATES_DIR_SOURCE):
+        source = os.path.join(TEMPLATES_DIR_SOURCE, f)
+        dist = os.path.join(TEMPLATES_DIR, f)
+        if os.path.isfile(source):
+            shutil.copy(source, dist)
+    shutil.copy(FILE_XLSX_SOURCE, FILE_XLSX)
+
+
 IS_DELETE_DOCX_AFTER_CONVERT_PDF = True
 DATA_DIR = os.path.join('//192.168.20.100', 'Administrative server', 'РАБОТА АДМИНИСТРАТОРА', 'ОРГАНИЗАЦИЯ КУРСОВ')
 NAME_OUT_DIR = 'Удостоверения по курсам'
@@ -21,13 +31,7 @@ FILE_XLSX_SOURCE = '//192.168.20.100/Administrative server/РАБОТА АДМИ
 FILE_XLSX = './data/Нумерация с 2015 года.xlsx'
 TEMPLATES_DIR_SOURCE = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/ШАБЛОНЫ удостоверений'
 TEMPLATES_DIR = './data/templates'
-
-for f in os.listdir(TEMPLATES_DIR_SOURCE):
-    source = os.path.join(TEMPLATES_DIR_SOURCE, f)
-    dist = os.path.join(TEMPLATES_DIR, f)
-    if os.path.isfile(source):
-        shutil.copy(source, dist)
-shutil.copy(FILE_XLSX_SOURCE, FILE_XLSX)
+# copy_files()
 
 PAGE_NAME = '2015'
 

@@ -83,7 +83,7 @@ def auto():
 
     if new_users:
         create_docx_and_pdf(new_users)
-        save_users([*new_users, *old_users])
+        # save_users([*new_users, *old_users])
 
 
 if __name__ == '__main__':

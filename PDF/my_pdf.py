@@ -1,4 +1,5 @@
 import os
+import random
 import re
 import shutil
 import time
@@ -23,18 +24,25 @@ def create_pdf_contacts(contacts: [Contact]):
     for contact in contacts:
         for file_name in contact.docx_list_files_name_templates:
             try:
-                if not os.path.exists(contact.files_out_pdf[file_name]):
-                    source_doc = contact.files_out_docx[file_name]
-                    dist_doc = './data/temp.docx'
-                    source_pdf = './data/temp.pdf'
-                    dist_pdf = contact.files_out_pdf[file_name]
-                    if os.path.isfile(source_doc):
-                        shutil.copy(source_doc, dist_doc)
+                # if not os.path.exists(contact.files_out_pdf[file_name]):
+                if True:  # os.path.exists(contact.files_out_pdf[file_name]):
 
-                    docx2pdf.convert(dist_doc, source_pdf)
+                    source_doc = contact.files_out_docx[file_name]
+                    n = random.randint(111111111, 9111111111)
+                    temp_doc = f'./data/{n}.docx'
+                    temp_pdf = f'./data/{n}.pdf'
+                    dist_pdf = contact.files_out_pdf[file_name]
+
+                    os.makedirs(dist_pdf, exist_ok=True)
+
+                    if os.path.isfile(source_doc):
+                        shutil.copy(source_doc, temp_doc)
+
+                    docx2pdf.convert(temp_doc, temp_pdf)
                     time.sleep(1)
-                    if os.path.isfile(source_pdf):
-                        shutil.copy(source_pdf, dist_pdf)
+                    os.remove(temp_doc)
+                    if os.path.isfile(temp_pdf):
+                        shutil.move(temp_pdf, dist_pdf)
 
                     log.info(f'[CREATE_PDF] {contact.sert_number} {contact.files_out_pdf}')
             except Exception as e:
