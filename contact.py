@@ -105,18 +105,19 @@ class Contact:
             k_print = 'p_'
             temp_path_out_docx = os.path.join(temp_path_out_docx, OUT_DIR_PDF_FOR_PRINT)
 
+        name = re.sub(r' +', '_', self.name_rus)
         file_out_docx = os.path.join(temp_path_out_docx,
-                                     f"{k_print}{file_name[0]} {self.dir_name} {self.sert_number} {self.name_rus}"
+                                     f"{k_print}{file_name[0]}_{self.dir_name}_{self.sert_number}_{name}"
                                      )
         if self.email:
-            file_out_docx += f' {self.email}'
+            file_out_docx += f'_{self.email}'
         file_out_docx += '.docx'
 
         files_out_pdf = file_out_docx.replace(OUT_DOCX_PATH, OUT_PDF_PATH).replace('.docx', '.pdf')
         return file_out_docx, files_out_pdf
 
     def __str__(self):
-        return f'{self.sert_number} {self.abr_course} {self.course_date_rus} {self.name_rus}'
+        return f'{self.sert_number}_{self.abr_course}_{self.course_date_rus}_{self.name_rus}'
 
     def __eq__(self, other):
         if self.files_out_docx != other.files_out_docx or other.files_out_docx is {}:
