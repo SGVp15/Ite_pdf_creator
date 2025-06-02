@@ -27,10 +27,10 @@ os.makedirs(OUT_DOCX_PATH, exist_ok=True)
 os.makedirs(TEMPLATES_DIR, exist_ok=True)
 
 # ---------- EXCEL --------------
-FILE_XLSX_SOURCE = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/Нумерация с 2015 года.xlsx'
+FILE_XLSX_SOURCE = os.path.join(DATA_DIR, 'Нумерация с 2015 года.xlsx')
 # FILE_XLSX = './data/Нумерация с 2015 года.xlsx'
-FILE_XLSX = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/Нумерация с 2015 года.xlsx'
-TEMPLATES_DIR_SOURCE = '//192.168.20.100/Administrative server/РАБОТА АДМИНИСТРАТОРА/ОРГАНИЗАЦИЯ КУРСОВ/ШАБЛОНЫ удостоверений'
+FILE_XLSX = os.path.join(DATA_DIR, 'Нумерация с 2015 года.xlsx')
+TEMPLATES_DIR_SOURCE = os.path.join(DATA_DIR, '/ШАБЛОНЫ удостоверений')
 TEMPLATES_DIR = './data/templates'
 
 copy_files()
@@ -69,8 +69,8 @@ print_docx = (
     '3_Удост. лого Prince2 на печать.docx'
 )
 
-OUT_PDF_FOR_PRINT = 'на печать.pdf'
-OUT_DIR_PDF_FOR_PRINT = 'на печать'
+FILE_PDF_FOR_MERGE = 'на печать.pdf'
+DIR_PDF_FOR_MERGE = 'на печать'
 
 log_file = './log.txt'
 

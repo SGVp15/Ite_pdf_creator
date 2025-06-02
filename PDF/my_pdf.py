@@ -8,7 +8,7 @@ import docx2pdf
 from PyPDF2 import PdfMerger
 
 from UTILS.log import log
-from config import OUT_DIR_PDF_FOR_PRINT, OUT_PDF_FOR_PRINT, IS_DELETE_DOCX_AFTER_CONVERT_PDF
+from config import DIR_PDF_FOR_MERGE, FILE_PDF_FOR_MERGE, IS_DELETE_DOCX_AFTER_CONVERT_PDF
 from contact import Contact
 
 
@@ -17,6 +17,7 @@ def merge_pdfs(pdf_list, output_file_path):
     for pdf in pdf_list:
         merger.append(pdf)
     merger.write(output_file_path)
+    print(output_file_path)
     merger.close()
 
 
@@ -66,18 +67,19 @@ def merge_pdf_contact(contacts: [Contact]):
     for contact in contacts:
         for file_name in contact.docx_list_files_name_templates:
             _path = os.path.dirname(contact.files_out_pdf[file_name])
-            if re.findall(OUT_DIR_PDF_FOR_PRINT, _path):
+            if re.findall(DIR_PDF_FOR_MERGE, _path):
                 dirs_pdfs.append(_path)
+
     dirs_pdfs = list(set(dirs_pdfs))
 
     for dir_pdf in dirs_pdfs:
         pdf_list = [f for f in os.listdir(dir_pdf) if f.endswith(".pdf")]
         try:
-            pdf_list.remove(os.path.join(dir_pdf, OUT_PDF_FOR_PRINT))
+            pdf_list.remove(os.path.join(dir_pdf, FILE_PDF_FOR_MERGE))
         except ValueError:
             pass
         pdf_list = [os.path.join(dir_pdf, p) for p in pdf_list]
-        out_pdf = os.path.join(dir_pdf, OUT_PDF_FOR_PRINT)
+        out_pdf = os.path.join(dir_pdf, FILE_PDF_FOR_MERGE)
         try:
             os.remove(out_pdf)
         except FileNotFoundError:

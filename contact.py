@@ -5,7 +5,7 @@ from datetime import datetime
 
 from UTILS.get_date_start_stop_from_string import get_date_start_stop_from_strings
 from UTILS.utils import find_numbers_and_ranges
-from config import OUT_DOCX_PATH, print_docx, OUT_PDF_PATH, map_excel_user, OUT_DIR_PDF_FOR_PRINT
+from config import OUT_DOCX_PATH, print_docx, OUT_PDF_PATH, map_excel_user, DIR_PDF_FOR_MERGE
 from course import Course
 
 
@@ -103,7 +103,7 @@ class Contact:
         temp_path_out_docx = os.path.join(OUT_DOCX_PATH, self.year_start, self.month_start, self.dir_name)
         if file_name in print_docx:
             k_print = 'p_'
-            temp_path_out_docx = os.path.join(temp_path_out_docx, OUT_DIR_PDF_FOR_PRINT)
+            temp_path_out_docx = os.path.join(temp_path_out_docx, DIR_PDF_FOR_MERGE)
 
         name = re.sub(r' +', '_', self.name_rus)
         file_out_docx = os.path.join(temp_path_out_docx,

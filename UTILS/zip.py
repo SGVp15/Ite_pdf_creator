@@ -3,7 +3,7 @@ import re
 import zipfile
 from pathlib import Path
 
-from config import OUT_DIR_PDF_FOR_PRINT
+from config import DIR_PDF_FOR_MERGE
 from contact import Contact
 
 
@@ -12,7 +12,7 @@ def create_zip(contacts: [Contact]):
     for contact in contacts:
         for file_name in contact.docx_list_files_name_templates:
             _path = os.path.dirname(contact.files_out_pdf[file_name])
-            if len(re.findall(OUT_DIR_PDF_FOR_PRINT, _path)) == 0:
+            if len(re.findall(DIR_PDF_FOR_MERGE, _path)) == 0:
                 dirs_pdfs.append(_path)
     dirs_pdfs = list(set(dirs_pdfs))
 
