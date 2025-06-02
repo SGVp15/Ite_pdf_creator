@@ -30,7 +30,7 @@ os.makedirs(TEMPLATES_DIR, exist_ok=True)
 FILE_XLSX_SOURCE = os.path.join(DATA_DIR, 'Нумерация с 2015 года.xlsx')
 # FILE_XLSX = './data/Нумерация с 2015 года.xlsx'
 FILE_XLSX = os.path.join(DATA_DIR, 'Нумерация с 2015 года.xlsx')
-TEMPLATES_DIR_SOURCE = os.path.join(DATA_DIR, '/ШАБЛОНЫ удостоверений')
+TEMPLATES_DIR_SOURCE = os.path.join(DATA_DIR, 'ШАБЛОНЫ удостоверений')
 TEMPLATES_DIR = './data/templates'
 
 copy_files()
