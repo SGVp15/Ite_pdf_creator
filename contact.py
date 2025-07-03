@@ -104,8 +104,10 @@ class Contact:
         if file_name in print_docx:
             k_print = 'p_'
             temp_path_out_docx = os.path.join(temp_path_out_docx, DIR_PDF_FOR_MERGE)
-
-        name = re.sub(r' +', '_', self.name_rus)
+        try:
+            name = re.sub(r' +', '_', self.name_rus)
+        except TypeError:
+            pass
         file_out_docx = os.path.join(temp_path_out_docx,
                                      f"{k_print}{file_name[0]}_{self.dir_name}_{self.sert_number}_{name}"
                                      )

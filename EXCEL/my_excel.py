@@ -4,9 +4,8 @@ import re
 
 from openpyxl import load_workbook
 
-from UTILS.log import log
-from contact import Contact
 from config import PAGE_NAME, map_excel_user, OUT_PATH, FILE_XLSX
+from contact import Contact
 from course import Course
 
 
@@ -49,7 +48,9 @@ def get_contact_from_excel(rows_excel, templates_docx) -> [Contact]:
         for k, v in map_excel_user.items():
             from_excel[k] = read_excel(file_excel, column=v, row=i)
         try:
-            contacts_excel.append(Contact(data=from_excel))
+            c = Contact(data=from_excel)
+            if c.name_rus:
+                contacts_excel.append(Contact(data=from_excel))
         except TypeError:
             pass
     file_excel.close()

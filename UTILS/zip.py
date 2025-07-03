@@ -4,10 +4,12 @@ import zipfile
 from pathlib import Path
 
 from config import DIR_PDF_FOR_MERGE
-from contact import Contact
 
 
-def create_zip(contacts: [Contact]):
+# from contact import Contact
+
+
+def create_zip(contacts):
     dirs_pdfs = []
     for contact in contacts:
         for file_name in contact.docx_list_files_name_templates:
