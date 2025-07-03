@@ -51,6 +51,8 @@ def get_contact_from_excel(rows_excel, templates_docx) -> [Contact]:
             c = Contact(data=from_excel)
             if c.name_rus:
                 contacts_excel.append(Contact(data=from_excel))
+            else:
+                print(f'row = {i}, Not name')
         except TypeError:
             pass
     file_excel.close()
