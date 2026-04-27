@@ -1,6 +1,7 @@
 import os
+import shutil
 
-from config import FILE_XLSX
+from config import FILE_XLSX, TEMPLATES_DIR_SOURCE, TEMPLATES_DIR
 
 
 def transliterate(name: str):
@@ -171,3 +172,13 @@ def file_to_base64(file_path_str: str) -> str:
     except Exception as e:
         print(f"Произошла ошибка при обработке файла: {e}")
         return None
+
+
+@all_exception
+def copy_files():
+    for f in os.listdir(TEMPLATES_DIR_SOURCE):
+        source = os.path.join(TEMPLATES_DIR_SOURCE, f)
+        dist = os.path.join(TEMPLATES_DIR, f)
+        if os.path.isfile(source):
+            shutil.copy(source, dist)
+    # shutil.copy(FILE_XLSX_SOURCE, FILE_XLSX)

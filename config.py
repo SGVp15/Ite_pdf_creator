@@ -1,15 +1,4 @@
 import os
-import shutil
-
-
-def copy_files():
-    for f in os.listdir(TEMPLATES_DIR_SOURCE):
-        source = os.path.join(TEMPLATES_DIR_SOURCE, f)
-        dist = os.path.join(TEMPLATES_DIR, f)
-        if os.path.isfile(source):
-            shutil.copy(source, dist)
-    # shutil.copy(FILE_XLSX_SOURCE, FILE_XLSX)
-
 
 IS_DELETE_DOCX_AFTER_CONVERT_PDF = False
 DATA_DIR = os.path.join('//192.168.20.100', 'Administrative server', 'РАБОТА АДМИНИСТРАТОРА', 'ОРГАНИЗАЦИЯ КУРСОВ')
@@ -32,8 +21,6 @@ FILE_XLSX_SOURCE = os.path.join(DATA_DIR, 'Нумерация с 2015 года.x
 FILE_XLSX = os.path.join(DATA_DIR, 'Нумерация с 2015 года.xlsx')
 TEMPLATES_DIR_SOURCE = os.path.join(DATA_DIR, 'ШАБЛОНЫ удостоверений')
 TEMPLATES_DIR = './data/templates'
-
-copy_files()
 
 PAGE_NAME = '2015'
 
@@ -72,7 +59,7 @@ print_docx = (
 FILE_PDF_FOR_MERGE = 'на печать.pdf'
 DIR_PDF_FOR_MERGE = 'на печать'
 
-log_file = './log.txt'
+LOG_FILE = './log.txt'
 
 PICKLE_USERS = './data/users.pk'
 PICKLE_FILE_MODIFY = './data/update_file.pk'

@@ -7,7 +7,7 @@ from Utils.Serialization import load_users, save_users
 from Utils.WORD.my_word import create_docx
 from Utils.files import check_update_file_excel_decorator
 from Utils.log import log
-from Utils.utils import check_config_file, progress, all_exception
+from Utils.utils import check_config_file, progress, all_exception, copy_files
 from Utils.zip import create_zip
 from config import _SLEEP_TIME, _LAST_USERS
 from contact import Contact
@@ -88,6 +88,7 @@ def auto():
 
 
 if __name__ == '__main__':
+    copy_files()
     arg = sys.argv
     autorun = False
     if len(arg) > 1:
