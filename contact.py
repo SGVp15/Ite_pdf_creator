@@ -3,8 +3,8 @@ import os
 import re
 from datetime import datetime
 
-from UTILS.get_date_start_stop_from_string import get_date_start_stop_from_strings
-from UTILS.utils import find_numbers_and_ranges
+from Utils.get_date_start_stop_from_string import get_date_start_stop_from_strings
+from Utils.utils import find_numbers_and_ranges
 from config import OUT_DOCX_PATH, print_docx, OUT_PDF_PATH, map_excel_user, DIR_PDF_FOR_MERGE
 from course import Course
 
