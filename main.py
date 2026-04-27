@@ -13,6 +13,7 @@ from config import _SLEEP_TIME, _LAST_USERS
 from contact import Contact
 from menu import Menu
 
+
 @all_exception
 def main(is_autorun: bool = False):
     menu = Menu()
@@ -39,6 +40,7 @@ def main(is_autorun: bool = False):
         print('[ OK ]')
 
         create_docx_and_pdf(users)
+
 
 @all_exception
 def create_docx_and_pdf(contacts: [Contact]):
@@ -70,6 +72,7 @@ def create_docx_and_pdf(contacts: [Contact]):
     print('[ OK ]')
 
 
+@all_exception
 @check_update_file_excel_decorator
 def auto():
     print('Read Excel')
