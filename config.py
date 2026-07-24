@@ -2,42 +2,38 @@ import os
 import shutil
 
 
-def copy_files():
+def copy_templates():
     for f in os.listdir(TEMPLATES_DIR_SOURCE):
         source = os.path.join(TEMPLATES_DIR_SOURCE, f)
         dist = os.path.join(TEMPLATES_DIR, f)
         if os.path.isfile(source):
             shutil.copy(source, dist)
-    # shutil.copy(FILE_XLSX_SOURCE, FILE_XLSX)
 
 
 IS_DELETE_DOCX_AFTER_CONVERT_PDF = False
 DATA_DIR = os.path.join('//192.168.20.100', 'Administrative server', 'РАБОТА АДМИНИСТРАТОРА', 'ОРГАНИЗАЦИЯ КУРСОВ')
 NAME_OUT_DIR = 'Удостоверения'
-# DATA_DIR = './data'
 OUT_PATH = str(os.path.join(DATA_DIR, NAME_OUT_DIR))
 
 OUT_PDF_PATH = str(os.path.join(OUT_PATH, 'pdf'))
 OUT_DOCX_PATH = str(os.path.join(OUT_PATH, 'docx'))
 
-TEMPLATES_DIR = str(os.path.join(DATA_DIR, 'templates'))
+# ---------- EXCEL --------------
+FILE_XLSX_SOURCE = os.path.join(DATA_DIR, 'Нумерация с 2015 года.xlsx')
+FILE_XLSX = os.path.join(DATA_DIR, 'Нумерация с 2015 года.xlsx')
+TEMPLATES_DIR_SOURCE = os.path.join(DATA_DIR, 'ШАБЛОНЫ удостоверений')
+TEMPLATES_DIR = './data/templates'
 
 os.makedirs(OUT_PDF_PATH, exist_ok=True)
 os.makedirs(OUT_DOCX_PATH, exist_ok=True)
 os.makedirs(TEMPLATES_DIR, exist_ok=True)
 
-# ---------- EXCEL --------------
-FILE_XLSX_SOURCE = os.path.join(DATA_DIR, 'Нумерация с 2015 года.xlsx')
-# FILE_XLSX = './data/Нумерация с 2015 года.xlsx'
-FILE_XLSX = os.path.join(DATA_DIR, 'Нумерация с 2015 года.xlsx')
-TEMPLATES_DIR_SOURCE = os.path.join(DATA_DIR, 'ШАБЛОНЫ удостоверений')
-TEMPLATES_DIR = './data/templates'
-
-copy_files()
+copy_templates()
 
 PAGE_NAME = '2015'
 
 map_excel_user = {
+
     'Number': 0,
     'CourseDateRus': 1,
     'IssueDateRus': 2,
