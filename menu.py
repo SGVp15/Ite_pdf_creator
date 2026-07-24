@@ -1,7 +1,7 @@
 import os
 
 from config import TEMPLATES_DIR
-from Utils.utils import find_numbers_and_ranges
+from UTILS.utils import find_numbers_and_ranges
 
 
 class Menu:
