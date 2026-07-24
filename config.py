@@ -2,7 +2,7 @@ import os
 import shutil
 
 
-def copy_templates():
+def copy_templates_to_local():
     for f in os.listdir(TEMPLATES_DIR_SOURCE):
         source = os.path.join(TEMPLATES_DIR_SOURCE, f)
         dist = os.path.join(TEMPLATES_DIR, f)
@@ -28,7 +28,7 @@ os.makedirs(OUT_PDF_PATH, exist_ok=True)
 os.makedirs(OUT_DOCX_PATH, exist_ok=True)
 os.makedirs(TEMPLATES_DIR, exist_ok=True)
 
-copy_templates()
+copy_templates_to_local()
 
 PAGE_NAME = '2015'
 
