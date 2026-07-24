@@ -6,9 +6,6 @@ from pathlib import Path
 from config import DIR_PDF_FOR_MERGE
 
 
-# from contact import Contact
-
-
 def create_zip(contacts):
     dirs_pdfs = []
     for contact in contacts:

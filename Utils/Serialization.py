@@ -1,6 +1,6 @@
 import pickle
 
-from Utils.log import log
+from UTILS.log import log
 from config import PICKLE_USERS
 
 
