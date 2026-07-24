@@ -2,7 +2,7 @@ import os.path
 
 from docx import Document
 
-from Utils.log import log
+from UTILS.log import log
 from config import TEMPLATES_DIR
 from contact import Contact
 
@@ -47,10 +47,16 @@ def docx_replace_regex(doc_obj, old_text: str, new_text: str):
 def create_docx(contact: Contact):
     for docx_template in contact.docx_list_files_name_templates:
         document = Document(docx=str(os.path.join(TEMPLATES_DIR, docx_template)))
+
         # Gender Пол
         gender_text = 'прошел'
         if contact.gender.lower() in ('ж', 'f'):
             gender_text = 'прошла'
+
+        if 'сертификат' in str(docx_template).lower():
+            gender_text = 'принял'
+            if contact.gender.lower() in ('ж', 'f'):
+                gender_text = 'приняла'
 
         replaces_dict = {
             'Gender': gender_text,

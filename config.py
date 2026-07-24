@@ -68,7 +68,7 @@ print_docx = (
 FILE_PDF_FOR_MERGE = 'на печать.pdf'
 DIR_PDF_FOR_MERGE = 'на печать'
 
-log_file = './log.txt'
+LOG_FILE = './log.txt'
 
 PICKLE_USERS = './data/users.pk'
 PICKLE_FILE_MODIFY = './data/update_file.pk'
