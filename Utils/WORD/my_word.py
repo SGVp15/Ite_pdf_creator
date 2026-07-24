@@ -2,7 +2,7 @@ import os.path
 
 from docx import Document
 
-from UTILS.log import log
+from Utils.log import log
 from config import TEMPLATES_DIR
 from contact import Contact
 

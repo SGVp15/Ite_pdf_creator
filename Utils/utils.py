@@ -103,7 +103,7 @@ import re
 import sys
 from pathlib import Path
 
-from UTILS.log import log
+from Utils.log import log
 
 
 def all_exception(func):

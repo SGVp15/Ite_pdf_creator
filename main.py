@@ -3,12 +3,12 @@ import time
 
 from EXCEL.my_excel import read_users_from_excel
 from PDF.my_pdf import merge_pdf_contact, create_pdf_contacts
-from UTILS.Serialization import load_users, save_users
-from UTILS.WORD.my_word import create_docx
-from UTILS.files import check_update_file_excel_decorator
-from UTILS.log import log
-from UTILS.utils import check_config_file, progress, all_exception, copy_files
-from UTILS.zip import create_zip
+from Utils.Serialization import load_users, save_users
+from Utils.WORD.my_word import create_docx
+from Utils.files import check_update_file_excel_decorator
+from Utils.log import log
+from Utils.utils import check_config_file, progress, all_exception, copy_files
+from Utils.zip import create_zip
 from config import _SLEEP_TIME, _LAST_USERS
 from contact import Contact
 from menu import Menu

@@ -1,7 +1,7 @@
 import os
 import pickle
 
-from UTILS.log import log
+from Utils.log import log
 from config import PICKLE_FILE_MODIFY, FILE_XLSX
 
 

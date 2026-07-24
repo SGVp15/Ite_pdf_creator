@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from UTILS.get_date_start_stop_from_string import get_date_start_stop_from_strings
+from Utils.get_date_start_stop_from_string import get_date_start_stop_from_strings
 
 
 class Test(TestCase):
