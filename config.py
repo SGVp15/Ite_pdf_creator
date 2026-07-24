@@ -60,11 +60,10 @@ map_excel_user = {
 # --------- TEMPLATES ----------
 
 # Файлы для Печати
-print_docx = (
-    '0_Удост. на печать.docx',
-    '3_Удост. лого Prince2 на печать.docx',
-    '6_Сертификат на печать.docx'
-)
+print_docx = []
+for f in os.listdir(TEMPLATES_DIR_SOURCE):
+    if 'печать' in f:
+        print_docx.append(f)
 
 FILE_PDF_FOR_MERGE = 'на печать.pdf'
 DIR_PDF_FOR_MERGE = 'на печать'
