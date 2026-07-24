@@ -62,7 +62,8 @@ map_excel_user = {
 # Файлы для Печати
 print_docx = (
     '0_Удост. на печать.docx',
-    '3_Удост. лого Prince2 на печать.docx'
+    '3_Удост. лого Prince2 на печать.docx',
+    '6_Сертификат на печать.docx'
 )
 
 FILE_PDF_FOR_MERGE = 'на печать.pdf'
