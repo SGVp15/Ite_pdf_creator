@@ -1,7 +1,7 @@
 import datetime
 import re
 
-from UTILS.utils import replace_month_to_number
+from Utils.utils import replace_month_to_number
 
 
 def get_date_start_stop_from_strings(s: str) -> (datetime.date, datetime.date):

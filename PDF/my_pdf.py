@@ -7,7 +7,7 @@ import time
 import docx2pdf
 from PyPDF2 import PdfMerger
 
-from UTILS.log import log
+from Utils.log import log
 from config import DIR_PDF_FOR_MERGE, FILE_PDF_FOR_MERGE, IS_DELETE_DOCX_AFTER_CONVERT_PDF
 from contact import Contact
 
