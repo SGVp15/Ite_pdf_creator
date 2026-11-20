@@ -4,10 +4,9 @@ import re
 
 import pendulum
 
-from Utils.utils import find_numbers_and_ranges
+from Utils.utils import find_numbers_and_ranges, get_dates_certs
 from config import OUT_DOCX_PATH, print_docx, OUT_PDF_PATH, map_excel_user, DIR_PDF_FOR_MERGE
 from course import Course
-from test_date import get_dates_certs
 
 
 class Contact:
@@ -97,7 +96,7 @@ class Contact:
     def get_path_doc_pdf(self, file_name) -> (str, str):
         # Удост_MPT_15_октября_2021_Ганц_Павел_32970_aaaa@yan.ru.pdf
         k_print = ''
-        temp_path_out_docx = os.path.join(OUT_DOCX_PATH, str(self.date_start.year), str(self.date_start.month),
+        temp_path_out_docx = os.path.join(OUT_DOCX_PATH, self.date_start.format('YYYY'), self.date_start.format('MM'),
                                           self.dir_name)
         if file_name in print_docx:
             k_print = 'p_'
