@@ -62,7 +62,7 @@ def create_docx(contact: Contact):
             'Gender': gender_text,
             'NameRus': contact.name_rus,
             'NameEng': contact.name_eng,
-            'Number': contact.sert_number,
+            'Number': contact.certificate_number,
             'CourseRus': contact.course.name_rus,
             'CourseEng': contact.course.name_eng,
             'HoursRus': contact.course.hour_rus,

@@ -46,10 +46,10 @@ def create_pdf_contacts(contacts: [Contact]):
                         shutil.copy2(temp_pdf, dist_pdf)
                         os.remove(temp_pdf)
 
-                    log.info(f'[CREATE_PDF] {contact.sert_number} {contact.files_out_pdf}')
+                    log.info(f'[CREATE_PDF] {contact.certificate_number} {contact.files_out_pdf}')
                     ok_status.append(True)
             except Exception as e:
-                log.error(f'[CREATE_PDF] {contact.sert_number} {e}')
+                log.error(f'[CREATE_PDF] {contact.certificate_number} {e}')
                 ok_status.append(False)
         if all(ok_status):
             contact.status = True

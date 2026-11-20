@@ -1,5 +1,6 @@
 import os
 import shutil
+from pathlib import Path
 
 
 def copy_templates_to_local():
@@ -11,17 +12,17 @@ def copy_templates_to_local():
 
 
 IS_DELETE_DOCX_AFTER_CONVERT_PDF = False
-DATA_DIR = os.path.join('//192.168.20.100', 'Administrative server', 'РАБОТА АДМИНИСТРАТОРА', 'ОРГАНИЗАЦИЯ КУРСОВ')
+DATA_DIR = Path('//192.168.20.100', 'Administrative server', 'РАБОТА АДМИНИСТРАТОРА', 'ОРГАНИЗАЦИЯ КУРСОВ')
 NAME_OUT_DIR = 'Удостоверения'
-OUT_PATH = str(os.path.join(DATA_DIR, NAME_OUT_DIR))
+OUT_PATH = str(Path(DATA_DIR, NAME_OUT_DIR))
 
 OUT_PDF_PATH = str(os.path.join(OUT_PATH, 'pdf'))
 OUT_DOCX_PATH = str(os.path.join(OUT_PATH, 'docx'))
 
 # ---------- EXCEL --------------
-FILE_XLSX_SOURCE = os.path.join(DATA_DIR, 'Нумерация с 2015 года.xlsx')
-FILE_XLSX = os.path.join(DATA_DIR, 'Нумерация с 2015 года.xlsx')
-TEMPLATES_DIR_SOURCE = os.path.join(DATA_DIR, 'ШАБЛОНЫ удостоверений')
+FILE_XLSX_SOURCE = Path(DATA_DIR, 'Нумерация с 2015 года.xlsx')
+FILE_XLSX = Path(DATA_DIR, 'Нумерация с 2015 года.xlsx')
+TEMPLATES_DIR_SOURCE = Path(DATA_DIR, 'ШАБЛОНЫ удостоверений')
 TEMPLATES_DIR = './data/templates'
 
 os.makedirs(OUT_PDF_PATH, exist_ok=True)
@@ -31,36 +32,23 @@ os.makedirs(TEMPLATES_DIR, exist_ok=True)
 copy_templates_to_local()
 
 PAGE_NAME = '2015'
-_n = 1
-map_excel_user = {
-    'Number': 0 + _n,
-    'CourseDateRus': 1 + _n,
-    'IssueDateRus': 2 + _n,
-    'CourseDateEng': 3 + _n,
-    'AbrCourse': 4 + _n,
-    'Template': 6 + _n,
-    'NameRus': 7 + _n,
-    'NameEng': 8 + _n,
-    'Email': 9 + _n,
-    'Gender': 10 + _n,
-    # 'CourseRus': 9,
-    # 'CourseEng': 10,
-    # 'HoursRus': 11,
-    # 'HoursEng': 12,
-}
 
-'''№ сертификата
-Дата курса (для печати)
-Дата выдачи (для печати)
-Дата выдачи сертификата
-Курс
-Тренер
-Шаблоны
-ФИО слушателя
-ФИО слушателя на латинице
-Email
-Пол (М/Ж)
-'''
+list_cells = ['№ сертификата',
+              'Номер 1C'
+              'ДатаН',
+              'ДатаК',
+              'Курс',
+              'Тренер',
+              'Шаблоны',
+              'ФИО слушателя',
+              'ФИО слушателя на латинице',
+              'Email',
+              'Пол (М/Ж)', ]
+
+#  № сертификата 	Номер 1C	ДатаН	ДатаК	Курс	Тренер	Шаблоны	ФИО слушателя	ФИО слушателя на латинице	Email	Пол (М/Ж)
+map_excel_user = {}
+for i, name in enumerate(list_cells):
+    map_excel_user[name] = i
 
 # --------- TEMPLATES ----------
 

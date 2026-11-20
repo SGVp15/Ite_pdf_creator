@@ -1,12 +1,14 @@
 import copy
 import os
 import re
-from datetime import datetime
+
+import pendulum
 
 from Utils.get_date_start_stop_from_string import get_date_start_stop_from_strings
 from Utils.utils import find_numbers_and_ranges
 from config import OUT_DOCX_PATH, print_docx, OUT_PDF_PATH, map_excel_user, DIR_PDF_FOR_MERGE
 from course import Course
+from test_date import get_dates_certs
 
 
 class Contact:
@@ -16,27 +18,30 @@ class Contact:
         self.data = data
         self.files_out_pdf = None
         self.files_out_docx = None
-        self.date_start: datetime.date = None
-        self.date_stop: datetime.date = None
-        self.abr_course = self._mapping('AbrCourse')
-        self.sert_number = self._mapping('Number')
-        self.issue_date_rus = self._mapping('IssueDateRus')
-        self.course_date_rus = self._mapping('CourseDateRus')
-        self.course_date_eng = self._mapping('CourseDateEng')
-        self.name_rus = self._mapping('NameRus')
-        self.name_eng = self._mapping('NameEng')
-        self.email = self._mapping('Email')
+
+        self.certificate_number = data[0]
+        self.date_start = pendulum.instance(data[2])
+        self.date_stop = pendulum.instance(data[3])
+        self.abr_course = data[4]
+
+        self.issue_date_rus = get_dates_certs(self.date_stop)
+        self.course_date_rus = get_dates_certs(self.date_start, self.date_stop)
+        self.course_date_eng = get_dates_certs(self.date_start, self.date_stop)
+
+        self.name_rus = data[7]
+        self.name_eng = data[8]
+        self.email = data[9]
         if type(self.email) == str:
             self.email = self.email.lower()
-        self.gender = self._mapping('Gender')
+        self.gender = self._mapping('Пол (М/Ж)')
 
         del self.data
         if self.abr_course is None:
-            raise ValueError(f'{self.sert_number} abr_course')
-        if self.sert_number is None:
+            raise ValueError(f'{self.certificate_number} abr_course')
+        if self.certificate_number is None:
             raise ValueError('sert_number')
         if self.gender is None:
-            raise ValueError(f'{self.sert_number} gender')
+            raise ValueError(f'{self.certificate_number} gender')
 
         self.course = None
         for course in courses_list:
@@ -100,7 +105,8 @@ class Contact:
     def get_path_doc_pdf(self, file_name) -> (str, str):
         # Удост_MPT_15_октября_2021_Ганц_Павел_32970_aaaa@yan.ru.pdf
         k_print = ''
-        temp_path_out_docx = os.path.join(OUT_DOCX_PATH, self.year_start, self.month_start, self.dir_name)
+        temp_path_out_docx = os.path.join(OUT_DOCX_PATH, str(self.date_start.year), str(self.date_start.month),
+                                          self.dir_name)
         if file_name in print_docx:
             k_print = 'p_'
             temp_path_out_docx = os.path.join(temp_path_out_docx, DIR_PDF_FOR_MERGE)
@@ -109,7 +115,7 @@ class Contact:
         except TypeError:
             pass
         file_out_docx = os.path.join(temp_path_out_docx,
-                                     f"{k_print}{file_name[0]}_{self.dir_name}_{self.sert_number}_{name}"
+                                     f"{k_print}{file_name[0]}_{self.dir_name}_{self.certificate_number}_{name}"
                                      )
         if self.email:
             file_out_docx += f'_{self.email}'
@@ -119,22 +125,18 @@ class Contact:
         return file_out_docx, files_out_pdf
 
     def __str__(self):
-        return f'{self.sert_number}_{self.abr_course}_{self.course_date_rus}_{self.name_rus}'
+        return f'{self.certificate_number}_{self.abr_course}_{self.course_date_rus}_{self.name_rus}'
 
     def __eq__(self, other):
         if self.files_out_docx != other.files_out_docx or other.files_out_docx is {}:
             return False
-        if (self.sert_number == other.sert_number and
-                self.course_date_rus == other.course_date_rus and
-                self.issue_date_rus == other.issue_date_rus and
-                self.course_date_eng == other.course_date_eng and
+        if (self.certificate_number == other.certificate_number and
                 self.name_rus == other.name_rus and
                 self.name_eng == other.name_eng and
                 self.email == other.email and
                 self.gender == other.gender and
                 self.date_start == other.date_start and
                 self.date_stop == other.date_stop and
-                self.course_date_rus == other.course_date_rus and
                 self.docx_list_files_name_templates == other.docx_list_files_name_templates and
                 self.course.name_rus == other.course.name_rus and
                 self.course.templates == other.course.templates):

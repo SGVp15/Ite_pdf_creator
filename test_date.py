@@ -1,26 +1,27 @@
-from datetime import date
-from babel.dates import format_date
+import pendulum
 
-# print(format_date(today, format='d MMMM YYYY г.', locale='ru'))
-# Вывод: 19 ноября 2026 г.
 
-day_1 = date(2021, 11, 3)
-day_2 = date(2026, 11, 23)
-locale = 'ru'
-format = 'd MMMM YYYYг.'
-if day_1 == day_2:
-    dates_certs = str(format_date(day_1, format=format, locale=locale))
-else:
+def get_dates_certs(day_1, day_2=None) -> str:
+    day_1 = pendulum.instance(day_1)
+
+    if not day_2:
+        day_2 = day_1
+    else:
+        day_2 = pendulum.instance(day_2)
+
+    locale = 'ru'
+    format_2 = 'DD MMMM YYYYг.'
+
     if day_1.year != day_2.year:
-        format_1 = 'dd MMMM YYYYг. - '
-        dates_certs = str(format_date(day_1, format=format_1, locale=locale) +
-                          format_date(day_2, format=format, locale=locale))
+        format_1 = 'DD MMMM YYYYг. - '
+        dates_certs = str(day_1.format(format_1, locale=locale)) + str(day_2.format(format_2, locale=locale))
     elif day_1.month != day_2.month:
-        format_1 = 'dd MMMM - '
-        dates_certs = str(format_date(day_1, format=format_1, locale=locale) +
-                          format_date(day_2, format=format, locale=locale))
-    elif day_1.month == day_2.month:
-        format_1 = 'dd - '
-        dates_certs = str(
-            format_date(day_1, format=format_1, locale=locale) + format_date(day_2, format=format, locale=locale))
-print(dates_certs)
+        format_1 = 'DD MMMM - '
+        dates_certs = str(day_1.format(format_1, locale=locale)) + str(day_2.format(format_2, locale=locale))
+    elif day_1 != day_2:
+        format_1 = 'DD - '
+        dates_certs = str(day_1.format(format_1, locale=locale)) + str(day_2.format(format_2, locale=locale))
+    elif day_1 == day_2:
+        dates_certs = str(day_1.format(format_2, locale=locale))
+
+    return dates_certs

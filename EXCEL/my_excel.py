@@ -102,7 +102,7 @@ def read_users_from_excel(file_excel=FILE_XLSX, header=False, rows_users=(),
     for data in users_data:
         try:
             users.append(Contact(data, courses, templates))
-        except ValueError:
+        except Exception as e:
             pass
             # log.error(f'[DataError] {data}')
     users = [u for u in users if u.abr_course is not None and u.course is not None]
