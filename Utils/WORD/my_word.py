@@ -70,7 +70,7 @@ def create_docx(contact: Contact):
             'CourseDateRus': contact.course_date_rus,
             'CourseDateEng': contact.course_date_eng,
             'IssueDateRus': contact.issue_date_rus,
-            'Year': contact.year_start}
+            'Year': str(contact.date_stop.year)}
 
         # Замена всех полей
         for k, v in replaces_dict.items():

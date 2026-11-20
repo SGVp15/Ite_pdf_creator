@@ -79,7 +79,7 @@ def read_users_from_excel(file_excel=FILE_XLSX, header=False, rows_users=(),
     elif header is False:
         users_data = users_data[1:]
 
-    users_data = [u for u in users_data if u[1] is not None]
+    users_data = [u for u in users_data if u[0] is not None]
 
     courses_data: list = []
     courses_data.extend(data_excel.get('Курсы')[1:])

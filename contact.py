@@ -22,6 +22,9 @@ class Contact:
         self.certificate_number = data[0]
         self.date_start = pendulum.instance(data[2])
         self.date_stop = pendulum.instance(data[3])
+
+        if self.date_start is None or self.date_stop is None:
+            raise ValueError('date_start')
         self.abr_course = data[4]
 
         self.issue_date_rus = get_dates_certs(self.date_stop)
@@ -61,22 +64,12 @@ class Contact:
         if self.course_date_rus is None:
             raise ValueError('course_date_rus')
 
-        self.date_start, self.date_stop = get_date_start_stop_from_strings(self.course_date_rus)
-        if self.date_start is None or self.date_stop is None:
-            raise ValueError('date_start')
-
-        self.year_start: str = f'{self.date_start.year:04d}'
-        self.year_stop: str = f'{self.date_stop.year:04d}'
-
-        self.month_start: str = f'{self.date_start.month:02d}'
-        self.month_stop: str = f'{self.date_stop.month:02d}'
-        self.day_start: str = f'{self.date_start.day:02d}'
-        self.day_stop: str = f'{self.date_stop.day:02d}'
-
         self._generate_dir_name()
+        self.sort_date = f'{self.date_start.format('DD.MM.YYYY')}-{self.date_stop.format('DD.MM.YYYY')}'
 
         self.docx_list_files_name_templates = []
-        template_num = find_numbers_and_ranges(data[map_excel_user.get('Template')])
+        _a = data[map_excel_user.get('Шаблоны')]
+        template_num = find_numbers_and_ranges(_a)
         if len(template_num) == 0:
             self.docx_list_files_name_templates = self.course.templates
         else:
@@ -125,7 +118,7 @@ class Contact:
         return file_out_docx, files_out_pdf
 
     def __str__(self):
-        return f'{self.certificate_number}_{self.abr_course}_{self.course_date_rus}_{self.name_rus}'
+        return f'{self.certificate_number}_{self.abr_course}_{self.sort_date}_{self.name_rus}'
 
     def __eq__(self, other):
         if self.files_out_docx != other.files_out_docx or other.files_out_docx is {}:
@@ -145,9 +138,4 @@ class Contact:
         return False
 
     def _generate_dir_name(self):
-        if self.month_start == self.month_stop:
-            date = f'{self.day_start}-{self.day_stop}.{self.month_stop}.{self.year_stop}'
-        else:
-            date = f'{self.day_start}.{self.month_start}-{self.day_stop}.{self.month_stop}.{self.year_stop}'
-
-        self.dir_name: str = str(os.path.join(f'{self.abr_course}_{date}'))
+        self.dir_name: str = str(os.path.join(f'{self.abr_course}_{self.sort_date}'))
