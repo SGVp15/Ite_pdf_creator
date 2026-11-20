@@ -93,26 +93,37 @@ class Contact:
         for file_name in self.docx_list_files_name_templates:
             self.files_out_docx[file_name], self.files_out_pdf[file_name] = self.get_path_doc_pdf(file_name)
 
-    def get_path_doc_pdf(self, file_name) -> (str, str):
-        # Удост_MPT_15_октября_2021_Ганц_Павел_32970_aaaa@yan.ru.pdf
-        k_print = ''
-        temp_path_out_docx = os.path.join(OUT_DOCX_PATH, self.date_start.format('YYYY'), self.date_start.format('MM'),
-                                          self.dir_name)
-        if file_name in print_docx:
-            k_print = 'p_'
-            temp_path_out_docx = os.path.join(temp_path_out_docx, DIR_PDF_FOR_MERGE)
-        try:
-            name = re.sub(r' +', '_', self.name_rus)
-        except TypeError:
-            pass
-        file_out_docx = os.path.join(temp_path_out_docx,
-                                     f"{k_print}{file_name[0]}_{self.dir_name}_{self.certificate_number}_{name}"
-                                     )
-        if self.email:
-            file_out_docx += f'_{self.email}'
-        file_out_docx += '.docx'
+    def get_path_doc_pdf(self, file_name: str) -> tuple[str, str]:
+        name = re.sub(r'\s+', '_', self.name_rus or '')
 
-        files_out_pdf = file_out_docx.replace(OUT_DOCX_PATH, OUT_PDF_PATH).replace('.docx', '.pdf')
+        # Базовая директория
+        path = os.path.join(
+            OUT_DOCX_PATH,
+            self.date_start.format('YYYY'),
+            self.date_start.format('MM'),
+            self.dir_name
+        )
+
+        # Префикс и дополнительная директория для печатных документов
+        prefix = 'p_' if file_name in print_docx else ''
+
+        if prefix:
+            path = os.path.join(path, DIR_PDF_FOR_MERGE)
+
+        # Формируем имя файла
+        filename = f'{prefix}{file_name[0]}_{self.dir_name}_{self.certificate_number}_{name}'
+
+        if self.email:
+            filename += f'_{self.email}'
+
+        # Полные пути
+        file_out_docx = os.path.join(path, f'{filename}.docx')
+
+        files_out_pdf = os.path.join(
+            OUT_PDF_PATH,
+            os.path.relpath(file_out_docx, OUT_DOCX_PATH)
+        ).replace('.docx', '.pdf')
+
         return file_out_docx, files_out_pdf
 
     def __str__(self):
