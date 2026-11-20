@@ -30,13 +30,14 @@ class Contact:
         self.issue_date_rus = get_dates_certs(self.date_stop)
         self.course_date_rus = get_dates_certs(self.date_start, self.date_stop)
         self.course_date_eng = get_dates_certs(self.date_start, self.date_stop)
+        self.small_date = f'{self.date_start.format('DD.MM.YYYY')}-{self.date_stop.format('DD.MM.YYYY')}'
 
         self.name_rus = data[7]
         self.name_eng = data[8]
         self.email = data[9]
         if type(self.email) == str:
             self.email = self.email.lower()
-        self.gender = self._mapping('Пол (М/Ж)')
+        self.gender = data[10]
 
         del self.data
         if self.abr_course is None:
@@ -65,7 +66,6 @@ class Contact:
             raise ValueError('course_date_rus')
 
         self._generate_dir_name()
-        self.sort_date = f'{self.date_start.format('DD.MM.YYYY')}-{self.date_stop.format('DD.MM.YYYY')}'
 
         self.docx_list_files_name_templates = []
         _a = data[map_excel_user.get('Шаблоны')]
@@ -118,7 +118,7 @@ class Contact:
         return file_out_docx, files_out_pdf
 
     def __str__(self):
-        return f'{self.certificate_number}_{self.abr_course}_{self.sort_date}_{self.name_rus}'
+        return f'{self.certificate_number}_{self.abr_course}_{self.small_date}_{self.name_rus}'
 
     def __eq__(self, other):
         if self.files_out_docx != other.files_out_docx or other.files_out_docx is {}:
@@ -138,4 +138,4 @@ class Contact:
         return False
 
     def _generate_dir_name(self):
-        self.dir_name: str = str(os.path.join(f'{self.abr_course}_{self.sort_date}'))
+        self.dir_name: str = str(os.path.join(f'{self.abr_course}_{self.small_date}'))
