@@ -77,9 +77,7 @@ class Contact:
         self.dir_name = f'{self.abr_course}_{self.small_date}'
 
         # Выбор шаблонов
-        template_num = find_numbers_and_ranges(
-            data[map_excel_user.get('Шаблоны')]
-        )
+        template_num = find_numbers_and_ranges(data[6])
 
         self.docx_list_files_name_templates = (
             [templates_list[i] for i in template_num]
@@ -146,11 +144,6 @@ class Contact:
         if isinstance(value, str):
             return re.sub(r'\s+', ' ', value).strip()
         return value
-
-    def _mapping(self, excel):
-        return self._clean_str(
-            self.data[map_excel_user.get(excel)]
-        )
 
     def set_templates(self, templates_files: list):
         """Формирование путей для выбранных шаблонов."""
