@@ -71,7 +71,7 @@ def get_contact_from_excel(rows_excel, templates_docx) -> [Contact]:
 
 
 def read_users_from_excel(file_excel=FILE_XLSX, header=False, rows_users=(),
-                          sheet_names=('2015', 'Курсы', 'Архив Курсов', 'Шаблоны')) -> [Contact]:
+                          sheet_names=('2015', 'Курсы', 'Шаблоны')) -> [Contact]:
     data_excel = read_excel_file(file_excel, sheet_names=sheet_names)
     users_data = data_excel.get('2015')
     if rows_users:
@@ -83,7 +83,6 @@ def read_users_from_excel(file_excel=FILE_XLSX, header=False, rows_users=(),
 
     courses_data: list = []
     courses_data.extend(data_excel.get('Курсы')[1:])
-    courses_data.extend(data_excel.get('Архив Курсов')[1:])
 
     templates_data = data_excel.get('Шаблоны')[1:]
 
