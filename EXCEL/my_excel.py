@@ -1,10 +1,8 @@
-import copy
-import os
 import re
 
 from openpyxl import load_workbook
 
-from config import PAGE_NAME, map_excel_user, OUT_PATH, FILE_XLSX
+from config import PAGE_NAME, FILE_XLSX
 from contact import Contact
 from course import Course
 
@@ -21,53 +19,6 @@ def read_excel_file(filename=FILE_XLSX, sheet_names=('2015',)) -> dict:
         all_data[sheet_name] = data
     workbook.close()
     return all_data
-
-
-def read_excel(excel, column, row) -> str:
-    sheet_ranges = excel[PAGE_NAME]
-    return clean_str(str(sheet_ranges[f'{column}{row}'].value))
-
-
-def clean_str(s):
-    if type(s) is str:
-        s = s.strip()
-        s = s.replace(',', ', ')
-        s = re.sub(r'\s{2,}', ' ', s)
-        if s in ('None', '#N/A'):
-            s = ''
-    return s
-
-
-def get_contact_from_excel(rows_excel, templates_docx) -> [Contact]:
-    filename = FILE_XLSX
-    file_excel = load_workbook(filename=filename, read_only=True, data_only=True)
-
-    contacts_excel = []
-    for i in rows_excel:
-        from_excel = {}
-        for k, v in map_excel_user.items():
-            from_excel[k] = read_excel(file_excel, column=v, row=i)
-        try:
-            c = Contact(data=from_excel)
-            if c.name_rus:
-                contacts_excel.append(Contact(data=from_excel))
-            else:
-                print(f'row = {i}, Not name')
-        except TypeError:
-            pass
-    file_excel.close()
-
-    contacts = []
-    for contact_excel in contacts_excel:
-        for template in templates_docx:
-            contact: Contact = copy.deepcopy(contact_excel)
-            contact.docx_list_files_name_templates = template
-            for _path in ('pdf', 'docx'):
-                path_folder = os.path.join(OUT_PATH, _path, contact.dir_name)
-                os.makedirs(path_folder, exist_ok=True)
-
-            contacts.append(contact)
-    return contacts
 
 
 def read_users_from_excel(file_excel=FILE_XLSX, header=False, rows_users=(),
@@ -103,6 +54,6 @@ def read_users_from_excel(file_excel=FILE_XLSX, header=False, rows_users=(),
             users.append(Contact(data, courses, templates))
         except Exception as e:
             pass
-            # log.error(f'[DataError] {data}')
+
     users = [u for u in users if u.abr_course is not None and u.course is not None]
     return users

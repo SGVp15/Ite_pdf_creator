@@ -9,7 +9,6 @@ from config import (
     OUT_DOCX_PATH,
     OUT_PDF_PATH,
     DIR_PDF_FOR_MERGE,
-    map_excel_user,
     print_docx,
 )
 from course import Course
@@ -235,8 +234,7 @@ class Contact:
                 and self.gender == other.gender
                 and self.date_start == other.date_start
                 and self.date_stop == other.date_stop
-                and self.docx_list_files_name_templates
-                == other.docx_list_files_name_templates
+                and self.docx_list_files_name_templates == other.docx_list_files_name_templates
                 and self.course.name_rus == other.course.name_rus
                 and self.course.templates == other.course.templates
         )
