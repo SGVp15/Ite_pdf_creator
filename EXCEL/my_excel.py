@@ -1,8 +1,6 @@
-import re
-
 from openpyxl import load_workbook
 
-from config import PAGE_NAME, FILE_XLSX
+from config import FILE_XLSX
 from contact import Contact
 from course import Course
 
