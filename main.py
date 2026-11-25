@@ -1,3 +1,4 @@
+import os
 import re
 import sys
 import time
@@ -10,7 +11,7 @@ from Utils.files import check_update_file_excel_decorator
 from Utils.log import log
 from Utils.utils import check_config_file, progress, all_exception, copy_files
 from Utils.zip import create_zip
-from config import _SLEEP_TIME, _LAST_USERS
+from config import _SLEEP_TIME, _LAST_USERS, DIR_PDF_FOR_MERGE
 from contact import Contact
 from menu import Menu
 
