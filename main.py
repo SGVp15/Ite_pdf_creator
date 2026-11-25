@@ -2,6 +2,7 @@ import os
 import re
 import sys
 import time
+from pathlib import Path
 
 from EXCEL.my_excel import read_users_from_excel
 from PDF.my_pdf import merge_all_pdf_in_dir, create_pdf_contacts
@@ -55,22 +56,30 @@ def create_docx_and_pdf(contacts: [Contact]):
     print('CREATE .PDF ... ', end='')
     try:
         create_pdf_contacts(contacts)
+        pass
     except Exception as e:
         log.error(e)
     print('[ OK ]')
 
     print('MERGE PDF ... ', end='')
+
+    dirs_pdfs = set()
+
     try:
-        dirs_pdfs = []
         for contact in contacts:
             for file_name in contact.docx_list_files_name_templates:
-                _path = os.path.dirname(contact.files_out_pdf[file_name])
-                if re.findall(pattern=DIR_PDF_FOR_MERGE, string=_path):
-                    dirs_pdfs.append(_path)
-        merge_all_pdf_in_dir(dirs_pdfs)
+                path = Path(contact.files_out_pdf[file_name]).parent
+                if DIR_PDF_FOR_MERGE in str(path):
+                    dirs_pdfs.add(path)
+
     except Exception as e:
-        log.error(e)
-    print('[ OK ]')
+        log.exception(e)
+
+    for dir_pdf in dirs_pdfs:
+        try:
+            merge_all_pdf_in_dir(dir_pdf)
+        except Exception as e:
+            log.exception(e)
 
     print('CREATE ZIP ... ', end='')
     try:

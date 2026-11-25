@@ -3,6 +3,7 @@ import random
 import re
 import shutil
 import time
+from pathlib import Path
 
 import docx2pdf
 from PyPDF2 import PdfMerger
@@ -62,18 +63,19 @@ def create_pdf_contacts(contacts: [Contact]):
             pass
 
 
-def merge_all_pdf_in_dir(dirs_pdfs):
-    dirs_pdfs = list(set(dirs_pdfs))
-    for dir_pdf in dirs_pdfs:
-        pdf_list = [f for f in os.listdir(dir_pdf) if f.endswith(".pdf")]
-        try:
-            pdf_list.remove(os.path.join(dir_pdf, FILE_PDF_FOR_MERGE))
-        except ValueError:
-            pass
-        pdf_list = [os.path.join(dir_pdf, p) for p in pdf_list]
-        out_pdf = os.path.join(dir_pdf, FILE_PDF_FOR_MERGE)
-        try:
-            os.remove(out_pdf)
-        except FileNotFoundError:
-            pass
-        merge_pdfs(pdf_list, out_pdf)
+from pathlib import Path
+
+
+def merge_all_pdf_in_dir(dir_pdf: Path):
+    dir_pdf = Path(dir_pdf)
+
+    out_pdf = dir_pdf / FILE_PDF_FOR_MERGE
+
+    pdf_list = [
+        f for f in dir_pdf.glob("*.pdf")
+        if f != out_pdf
+    ]
+
+    out_pdf.unlink(missing_ok=True)
+
+    merge_pdfs(pdf_list, out_pdf)
