@@ -1,8 +1,9 @@
+import re
 import sys
 import time
 
 from EXCEL.my_excel import read_users_from_excel
-from PDF.my_pdf import merge_pdf_contact, create_pdf_contacts
+from PDF.my_pdf import merge_all_pdf_in_dir, create_pdf_contacts
 from Utils.Serialization import load_users, save_users
 from Utils.WORD.my_word import create_docx
 from Utils.files import check_update_file_excel_decorator
@@ -59,7 +60,13 @@ def create_docx_and_pdf(contacts: [Contact]):
 
     print('MERGE PDF ... ', end='')
     try:
-        merge_pdf_contact(contacts)
+        dirs_pdfs = []
+        for contact in contacts:
+            for file_name in contact.docx_list_files_name_templates:
+                _path = os.path.dirname(contact.files_out_pdf[file_name])
+                if re.findall(pattern=DIR_PDF_FOR_MERGE, string=_path):
+                    dirs_pdfs.append(_path)
+        merge_all_pdf_in_dir(dirs_pdfs)
     except Exception as e:
         log.error(e)
     print('[ OK ]')

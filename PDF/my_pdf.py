@@ -62,16 +62,8 @@ def create_pdf_contacts(contacts: [Contact]):
             pass
 
 
-def merge_pdf_contact(contacts: [Contact]):
-    dirs_pdfs = []
-    for contact in contacts:
-        for file_name in contact.docx_list_files_name_templates:
-            _path = os.path.dirname(contact.files_out_pdf[file_name])
-            if re.findall(pattern=DIR_PDF_FOR_MERGE, string=_path):
-                dirs_pdfs.append(_path)
-
+def merge_all_pdf_in_dir(dirs_pdfs):
     dirs_pdfs = list(set(dirs_pdfs))
-
     for dir_pdf in dirs_pdfs:
         pdf_list = [f for f in os.listdir(dir_pdf) if f.endswith(".pdf")]
         try:
