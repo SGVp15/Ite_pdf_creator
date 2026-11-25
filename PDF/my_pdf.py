@@ -77,5 +77,5 @@ def merge_all_pdf_in_dir(dir_pdf: Path):
     ]
 
     out_pdf.unlink(missing_ok=True)
-
+    time.sleep(0.5)
     merge_pdfs(pdf_list, out_pdf)
