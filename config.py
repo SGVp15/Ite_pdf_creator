@@ -9,7 +9,7 @@ def copy_templates_to_local():
 
 
 IS_DELETE_DOCX_AFTER_CONVERT_PDF = False
-DATA_DIR = Path(
+OUT_DIR = Path(
     '//192.168.20.100',
     'Administrative server',
     # 'РАБОТА АДМИНИСТРАТОРА',
@@ -17,7 +17,7 @@ DATA_DIR = Path(
 )
 
 NAME_OUT_DIR = 'Удостоверения'
-OUT_PATH = Path(DATA_DIR, NAME_OUT_DIR)
+OUT_PATH = Path(OUT_DIR, NAME_OUT_DIR)
 
 OUT_PDF_PATH = Path(OUT_PATH, 'pdf')
 OUT_DOCX_PATH = Path(OUT_PATH, 'docx')
