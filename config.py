@@ -12,8 +12,8 @@ IS_DELETE_DOCX_AFTER_CONVERT_PDF = False
 DATA_DIR = Path(
     '//192.168.20.100',
     'Administrative server',
-    'РАБОТА АДМИНИСТРАТОРА',
-    'ОРГАНИЗАЦИЯ КУРСОВ'
+    # 'РАБОТА АДМИНИСТРАТОРА',
+    # 'ОРГАНИЗАЦИЯ КУРСОВ'
 )
 
 NAME_OUT_DIR = 'Удостоверения'
@@ -23,6 +23,12 @@ OUT_PDF_PATH = Path(OUT_PATH, 'pdf')
 OUT_DOCX_PATH = Path(OUT_PATH, 'docx')
 
 # ---------- EXCEL --------------
+DATA_DIR = Path(
+    '//192.168.20.100',
+    'Administrative server',
+    'РАБОТА АДМИНИСТРАТОРА',
+    'ОРГАНИЗАЦИЯ КУРСОВ'
+)
 FILE_XLSX_SOURCE = Path(DATA_DIR, 'Нумерация с 2015 года.xlsx')
 FILE_XLSX = Path(DATA_DIR, 'Нумерация с 2015 года.xlsx')
 TEMPLATES_DIR_SOURCE = Path(DATA_DIR, 'ШАБЛОНЫ удостоверений')
